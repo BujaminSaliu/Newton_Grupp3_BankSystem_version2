@@ -5,7 +5,10 @@
  */
 package gui_design_1;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -14,9 +17,12 @@ import java.util.List;
  */
 public class BankLogic
 {
-    List<Customer> allCustomersArrayList = new ArrayList<>();
+    static List<Customer> allCustomersArrayList;
     private static BankLogic instance; //Step 2 declare the instance variabel
     static List<String> removedCustomerList = new ArrayList<>();
+    static List<Transaktions> transaktionsArrayList;
+    static List<String> transaktionsStringArrayList;
+    Calendar dateTime = Calendar.getInstance();
     
    
  
@@ -191,7 +197,7 @@ public class BankLogic
         {
             if (allCustomersArrayList.get(i).getPersonalNumber() == pNr)   
             {   
-               allCustomersArrayList.get(i).getCustumerAccountsList().add(new SavingsAccount("Savings", 2));
+               allCustomersArrayList.get(i).getCustumerAccountsList().add(new SavingsAccount("Savings", 2)); 
                 return allCustomersArrayList.get(i).custumerAccountsList.get(allCustomersArrayList
                         .get(i).custumerAccountsList.size()-1).getAccountID();
              
@@ -233,21 +239,27 @@ public String getAccount(long pNr, int accountId)
    public boolean deposit(long pNr, int accountId, double amount)
     {
         boolean depositMade = false;
-        
+        dateTime.add(Calendar.DATE, 0);
+        Date today = dateTime.getTime();  //today        
+        SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");    //The date format    
+        String formatted = format1.format(dateTime.getTime());
         for (int i = 0; i < allCustomersArrayList.size(); i++)
         {
-            if (allCustomersArrayList.get(i).getPersonalNumber() == pNr)
+            if (allCustomersArrayList.get(i).getPersonalNumber() == pNr )
             {
                 for (int j = 0; j < allCustomersArrayList.get(i).custumerAccountsList.size(); j++)
                 {
-                    if (allCustomersArrayList.get(i).custumerAccountsList.get(j).getAccountID() == accountId)
+                    //if condition edited, checked the account type- for Savings
+                    if (allCustomersArrayList.get(i).custumerAccountsList.get(j).getAccountID()== accountId)
                     {
                         allCustomersArrayList.get(i).custumerAccountsList.get(j).deposit(amount);
-                        System.out.println("Balance becomes in side BankLigic class in deposit method " + allCustomersArrayList.get(i).custumerAccountsList.get(j).getBalance()
+                        System.out.println("Balance becomes in side BankLigic class in deposit method " +i + " "+ allCustomersArrayList.get(i).custumerAccountsList.get(j).getBalance()
                                 );
+                        //transaktionsArrayList.add(new Transaktions(accountId, allCustomersArrayList.get(i).custumerAccountsList.get(i).getAccountType(), amount, allCustomersArrayList.get(i).custumerAccountsList.get(i).getBalance()));
                         depositMade = true;
                     }
-                }
+                    
+                   }
             }
 
         }
@@ -296,5 +308,44 @@ public String getAccount(long pNr, int accountId)
             }
                 
             }return closedAccount;
+    }
+    
+    /**
+     * create an account for a allCustomersArrayList with personal number, that returns 
+      or return -1 if not created
+     * @param pNr
+     * @return
+     */
+    public int addCreditAccount(long pNr) 
+    {
+        for (int i = 0; i < allCustomersArrayList.size(); i++)
+        {
+            if (allCustomersArrayList.get(i).getPersonalNumber() == pNr)   
+            {   
+               allCustomersArrayList.get(i).getCustumerAccountsList().add(new CreditAccount("Credit Account", 0.5,7)); 
+                return allCustomersArrayList.get(i).custumerAccountsList.get(allCustomersArrayList
+                        .get(i).custumerAccountsList.size()-1).getAccountID();
+            }
+            
+        }
+
+       
+        return -1;
+    }
+    
+    public List<String> getTransaktions(long pNr, int accountId)
+    {
+        for(int i =0; i <transaktionsArrayList.size(); i++)
+        {
+            if(allCustomersArrayList.get(i).getPersonalNumber()== pNr 
+                    && transaktionsArrayList.get(i).getAccountId()==accountId)
+            {
+                System.out.println("Test Transaction class" + transaktionsArrayList.get(i).getAmount());
+                transaktionsStringArrayList.add(transaktionsArrayList.get(i).toString());
+                return transaktionsStringArrayList;
+            }
+        }
+        
+        return null;
     }
 }

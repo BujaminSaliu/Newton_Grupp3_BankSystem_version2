@@ -5,12 +5,10 @@
  */
 package gui_design_1;
 
+
+
 import java.util.ArrayList;
 
-/**
- *
- * @author Befkadu Degefa
- */
 public class Customer
 {
 
@@ -68,6 +66,11 @@ public class Customer
     {
         return custumerAccountsList;
     }
+    
+    public String toStringForcustumersListView()
+    {
+        return customerName + " " + personalNumber;
+    }
 
     public void setCustumerAccountsList(ArrayList<Account> custumerAccountsList)
     {
@@ -77,13 +80,7 @@ public class Customer
    @Override
     public String toString()
     {
-        return "customerName=" + customerName + ", personalNumber=" + personalNumber + custumerAccountsList.toString() +"\n";
-    }
-    
-    
-    public String toStringForcustumersListView()
-    {
-        return customerName + " " + personalNumber;
+        return "customerName=" + customerName + ", personalNumber=" + personalNumber + custumerAccountsList +"\n";
     }
     
     public String toString1()

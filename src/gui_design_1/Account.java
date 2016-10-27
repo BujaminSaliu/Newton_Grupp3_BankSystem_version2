@@ -5,10 +5,97 @@
  */
 package gui_design_1;
 
-/**
- *
- * @author Befkadu Degefa
- */
+
+//public class Account
+//{
+//    // Magnus testar 2
+//    private double balance;
+//    private String accountType;
+//    private double interestRate = 2;    
+//    private static int accountID = 1000;
+//    private double depositIntrest = 1;
+//    private int counter=0;
+//   
+//    /**
+//     * Default constructor
+//     */
+//    public Account()  { }
+// 
+//    public Account(String accountType, double interestRate)
+//    {
+//        
+//        //this.balance = balance;
+//        this.accountType = accountType;
+//        this.interestRate=interestRate;
+//        accountID++;
+//        setAccountID(accountID);
+//       
+//    }
+// 
+//    public double getBalance()
+//    {
+//        return balance;
+//    }
+// 
+//    public void setBalance(double balance)
+//    {
+//        this.balance = balance;
+//    }
+// 
+//   
+//    public String getAccountType()
+//    {
+//        return accountType;
+//    }
+// 
+//    public int getAccountID()
+//    {
+//        return accountID;
+//    }
+// 
+//    public void setAccountID(int accountID)
+//    {
+//        this.accountID = accountID;
+//    }
+//   
+//   
+//    public void deposit(double depositAmount)
+//    {
+//        balance = depositAmount + balance +(depositIntrest * depositAmount/100) ;
+//    }  
+//   
+//    public void withdraw(double withdrawAmount)
+//    {
+//        //balance = balance -withdrawAmount;
+//        if(counter == 0)
+//            {
+//            balance = balance - withdrawAmount;
+//            counter++;
+//            }
+//            
+//        else if(counter>0)
+//            {
+//                balance = balance - withdrawAmount-(withdrawAmount*interestRate)/100;
+//            }
+//    }
+//    public double getInterestRate()
+//    {
+//        return interestRate;
+//    }
+// 
+//    public void setInterestRate(double interestRate)
+//    {
+//        this.interestRate = interestRate;
+//    }
+// 
+//    @Override
+//    public String toString()
+//    {
+//        return "InterestRate=" + interestRate +  ", Balance: " + getBalance()+ ", Account number " +
+//                getAccountID()+ ", Account type: " + accountType;
+//    }
+//}
+
 public class Account
 {
     public static int accountIDCounter = 1000;
@@ -17,6 +104,8 @@ public class Account
     private double interestRate; 
     private String accountType;
     int accountID;
+    int counter = 0;
+    private double depositIntrest = 1;
     
    
     public Account() 
@@ -24,12 +113,23 @@ public class Account
             
     }
 
+    //New implementation for the credit account
+    public Account(double interestRate, String accountType, int accountID)
+    {
+        this.balance = balance;
+        this.interestRate = interestRate;
+        this.accountType = accountType;
+        this.accountID = accountIDCounter;
+        accountIDCounter ++;
+    }
+    
     public Account(double balance, double interestRate, String accountType, int accountID)
     {
         this.balance = balance;
         this.interestRate = interestRate;
         this.accountType = accountType;
-        this.accountID = accountID;
+        this.accountID = accountIDCounter;
+        accountIDCounter ++;
     }
        
 
@@ -43,6 +143,18 @@ public class Account
     }
 
     public Account(String accountType, double interestRate)
+    {
+        
+        this.balance = balance;
+        this.interestRate = interestRate;
+        this.accountType = accountType;
+        this.accountID = accountIDCounter;
+        accountIDCounter ++;
+       
+    }
+    
+    //This method will be inherited by the credit account, edited
+    public Account(String accountType)
     {
         
         this.balance = balance;
@@ -79,17 +191,49 @@ public class Account
     {
         this.accountID = accountID;
     }
-    
-    
-    
-    public void deposit(double depositAmount)
+
+        public void deposit(double depositAmount)
     {
-        balance = balance + depositAmount;
+        if(getAccountType().equals("Saving"))
+        {
+            balance = depositAmount + balance +(depositIntrest * depositAmount/100) ;
+        }
+        else if(getAccountType().equals("Credit Account"))
+        {
+            
+            CreditAccount creditAccount = new CreditAccount();
+            balance = balance + (depositAmount*creditAccount.getCreditAccountDepositInterest()/100);
+        }
     }  
-    
+   
     public void withdraw(double withdrawAmount)
     {
-        balance = balance -withdrawAmount;
+        if(getAccountType().equals("Saving"))
+        {
+        if(counter == 0)
+            {
+            balance = balance - withdrawAmount;
+            counter++;
+            }
+            
+        else if(counter>0)
+            {
+                balance = balance - withdrawAmount-(withdrawAmount*interestRate/100);
+            }
+        }
+        else if(getAccountType().equals("Credit Account"))
+        {
+            if((balance< 0 && balance> -5000)|| (withdrawAmount>-5000 && withdrawAmount<0))
+        {
+            balance = balance + withdrawAmount+  withdrawAmount*7/100;
+        }
+        else if(balance < -5000|| (withdrawAmount<-5000))
+        {
+            System.out.println("Credit limit is -5000");
+            this.balance= balance; 
+        }
+            
+        }
     }
     public double getInterestRate()
     {
@@ -105,9 +249,7 @@ public class Account
     @Override
     public String toString()
     {
-        return "Account{" + "balance=" + balance + ", interestRate=" + interestRate + ", accountType=" + accountType + ", accountID=" + accountID + '}';
+        return "Account{" + "balance=" + balance + ", interestRate=" + interestRate + ", accountType = " + getAccountType() + ", accountID=" + accountID + '}';
     }
 
-    
-    
 }

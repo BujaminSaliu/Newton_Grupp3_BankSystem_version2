@@ -5,29 +5,31 @@
  */
 package gui_design_1;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
 /**
  *
- * @author Allan
+ * @author Befkadu Degefa
  */
 public class Transaktions
 {
-    private Account accountId;
-    private Date dateTime;
+    private long accountId;
+    //private Date dateTime;
     private String transactionType;
     private double amount;
     private double balanceAfterTransaction;
-
     
+    Calendar dateTime = Calendar.getInstance();
+      
     
     public Transaktions()
     {
         
     }
         
-    public Transaktions(Account accountId, Date dateTime, String transactionType, double amount, double balanceAfterTransaction)
+    public Transaktions(long accountId, String transactionType, double amount, double balanceAfterTransaction)
     {
         this.accountId = accountId;
         this.dateTime = dateTime;
@@ -36,22 +38,22 @@ public class Transaktions
         this.balanceAfterTransaction = balanceAfterTransaction;
     }
 
-    public Account getAccountId()
+    public long getAccountId()
     {
         return accountId;
     }
 
-    public void setAccountId(Account accountId)
+    public void setAccountId(long accountId)
     {
         this.accountId = accountId;
     }
 
-    public Date getDateTime()
+    public Calendar getDateTime()
     {
         return dateTime;
     }
 
-    public void setDateTime(Date dateTime)
+    public void setDateTime(Calendar dateTime)
     {
         this.dateTime = dateTime;
     }
@@ -89,6 +91,6 @@ public class Transaktions
     @Override
     public String toString()
     {
-        return "accountId=" + accountId + ", dateTime=" + dateTime + ", transactionType=" + transactionType + ", amount=" + amount + ", balanceAfterTransaction=" + balanceAfterTransaction + '}';
+        return "accountId=" + accountId +  ", transactionType=" + transactionType + ", amount=" + amount + ", balanceAfterTransaction=" + balanceAfterTransaction + '}';
     } 
 }
