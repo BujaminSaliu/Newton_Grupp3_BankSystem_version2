@@ -9,13 +9,13 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui_design_1.BorderPaneTestController">
+<AnchorPane prefHeight="637.0" prefWidth="950.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui_design_1.BorderPaneTestController">
    <children>
-      <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0">
+      <BorderPane layoutX="283.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="637.0" prefWidth="851.0">
          <right>
             <VBox prefHeight="377.0" prefWidth="275.0" BorderPane.alignment="CENTER">
                <children>
-                  <VBox prefHeight="332.0" prefWidth="250.0">
+                  <VBox prefHeight="297.0" prefWidth="275.0">
                      <children>
                         <ListView fx:id="custumersListView" prefHeight="322.0" prefWidth="256.0">
                            <VBox.margin>
@@ -23,6 +23,9 @@
                            </VBox.margin>
                         </ListView>
                      </children>
+                     <VBox.margin>
+                        <Insets right="10.0" />
+                     </VBox.margin>
                   </VBox>
                   <HBox prefHeight="17.0" prefWidth="275.0">
                      <children>
@@ -46,13 +49,31 @@
                         <Insets top="10.0" />
                      </VBox.margin>
                   </HBox>
+                  <HBox prefHeight="10.0" prefWidth="275.0">
+                     <children>
+                        <HBox prefHeight="40.0" prefWidth="131.0" />
+                        <HBox prefHeight="40.0" prefWidth="131.0" />
+                        <HBox prefHeight="40.0" prefWidth="131.0" />
+                     </children>
+                  </HBox>
+                  <HBox prefHeight="17.0" prefWidth="275.0">
+                     <children>
+                        <HBox prefHeight="40.0" prefWidth="131.0" />
+                        <HBox prefHeight="40.0" prefWidth="131.0" />
+                        <HBox prefHeight="40.0" prefWidth="131.0">
+                           <children>
+                              <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="82.0" text="Skriv till fil" />
+                           </children>
+                        </HBox>
+                     </children>
+                  </HBox>
                </children>
             </VBox>
          </right>
          <bottom>
-            <HBox prefHeight="223.0" prefWidth="900.0" BorderPane.alignment="CENTER">
+            <HBox prefHeight="213.0" prefWidth="842.0" BorderPane.alignment="CENTER">
                <children>
-                  <VBox prefHeight="223.0" prefWidth="626.0">
+                  <VBox prefHeight="223.0" prefWidth="569.0">
                      <children>
                         <ListView fx:id="accountsListView" prefHeight="105.0" prefWidth="606.0">
                            <VBox.margin>
@@ -68,7 +89,114 @@
                         <Insets left="10.0" right="10.0" />
                      </padding>
                   </VBox>
+                  <VBox prefHeight="223.0" prefWidth="274.0">
+                     <children>
+                        <HBox prefHeight="0.0" prefWidth="274.0">
+                           <children>
+                              <HBox prefHeight="110.0" prefWidth="135.0">
+                                 <children>
+                                    <VBox prefHeight="58.0" prefWidth="135.0">
+                                       <children>
+                                          <VBox prefHeight="57.0" prefWidth="135.0" />
+                                          <VBox prefHeight="57.0" prefWidth="135.0" />
+                                       </children>
+                                    </VBox>
+                                 </children>
+                              </HBox>
+                           </children>
+                        </HBox>
+                        <HBox prefHeight="110.0" prefWidth="274.0">
+                           <children>
+                              <HBox prefHeight="110.0" prefWidth="107.0">
+                                 <children>
+                                    <VBox prefHeight="110.0" prefWidth="128.0">
+                                       <children>
+                                          <VBox prefHeight="27.0" prefWidth="91.0" />
+                                          <VBox prefHeight="57.0" prefWidth="106.0">
+                                             <children>
+                                                <Button mnemonicParsing="false" text="Nytt Sparkonto" />
+                                             </children>
+                                          </VBox>
+                                          <VBox prefHeight="9.0" prefWidth="91.0">
+                                             <children>
+                                                <Button mnemonicParsing="false" text="Ta bort konto" />
+                                             </children>
+                                          </VBox>
+                                          <VBox prefHeight="27.0" prefWidth="91.0" />
+                                       </children>
+                                    </VBox>
+                                 </children>
+                              </HBox>
+                              <HBox prefHeight="110.0" prefWidth="114.0">
+                                 <children>
+                                    <VBox prefHeight="110.0" prefWidth="124.0">
+                                       <children>
+                                          <VBox prefHeight="27.0" prefWidth="91.0" />
+                                          <VBox prefHeight="48.0" prefWidth="91.0">
+                                             <children>
+                                                <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="128.0" text="Nytt Kreditkonto" />
+                                             </children>
+                                          </VBox>
+                                          <VBox prefHeight="27.0" prefWidth="91.0" />
+                                          <VBox prefHeight="45.0" prefWidth="91.0" />
+                                       </children>
+                                    </VBox>
+                                 </children>
+                              </HBox>
+                           </children>
+                        </HBox>
+                        <HBox prefHeight="110.0" prefWidth="274.0">
+                           <children>
+                              <HBox prefHeight="110.0" prefWidth="93.0">
+                                 <children>
+                                    <VBox prefHeight="110.0" prefWidth="90.0">
+                                       <children>
+                                          <VBox prefHeight="27.0" prefWidth="91.0" />
+                                          <VBox prefHeight="57.0" prefWidth="106.0">
+                                             <children>
+                                                <TextField prefHeight="25.0" prefWidth="126.0" />
+                                             </children>
+                                          </VBox>
+                                          <VBox prefHeight="9.0" prefWidth="91.0">
+                                             <children>
+                                                <Button mnemonicParsing="false" text="Insättning" />
+                                             </children>
+                                          </VBox>
+                                          <VBox prefHeight="27.0" prefWidth="91.0" />
+                                       </children>
+                                    </VBox>
+                                 </children>
+                              </HBox>
+                              <HBox prefHeight="110.0" prefWidth="92.0">
+                                 <children>
+                                    <VBox prefHeight="110.0" prefWidth="64.0">
+                                       <children>
+                                          <VBox prefHeight="76.0" prefWidth="91.0" />
+                                          <VBox prefHeight="9.0" prefWidth="91.0" />
+                                          <VBox prefHeight="55.0" prefWidth="91.0">
+                                             <children>
+                                                <Button mnemonicParsing="false" text="Uttag" />
+                                             </children>
+                                          </VBox>
+                                          <VBox prefHeight="0.0" prefWidth="91.0" />
+                                       </children>
+                                    </VBox>
+                                 </children>
+                              </HBox>
+                              <VBox prefHeight="110.0" prefWidth="73.0" />
+                              <VBox prefHeight="110.0" prefWidth="81.0">
+                                 <children>
+                                    <VBox prefHeight="66.0" prefWidth="62.0" />
+                                 </children>
+                              </VBox>
+                           </children>
+                        </HBox>
+                     </children>
+                  </VBox>
                </children>
+               <BorderPane.margin>
+                  <Insets bottom="10.0" />
+               </BorderPane.margin>
             </HBox>
          </bottom>
          <center>
@@ -104,8 +232,11 @@
                                  <children>
                                     <VBox prefHeight="288.0" prefWidth="360.0">
                                        <children>
-                                          <VBox prefHeight="152.0" prefWidth="360.0" />
-                                          <VBox prefHeight="116.0" prefWidth="314.0">
+                                          <VBox prefHeight="152.0" prefWidth="360.0">
+                                             <children>
+                                                <Label fx:id="returnMessageToOperator" prefHeight="161.0" prefWidth="372.0" text="Label" />
+                                             </children></VBox>
+                                          <VBox prefHeight="116.0" prefWidth="282.0">
                                              <children>
                                                 <Label prefHeight="96.0" prefWidth="157.0" text="Group">
                                                    <font>
@@ -130,7 +261,7 @@
                                     <HBox prefHeight="25.0" prefWidth="292.0">
                                        <children>
                                           <VBox prefHeight="25.0" prefWidth="146.0" />
-                                          <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="108.0" text="Sök kund" />
+                                          <Button mnemonicParsing="false" onAction="#findCustumerButton" prefHeight="25.0" prefWidth="108.0" text="Sök kund" />
                                           <VBox prefHeight="25.0" prefWidth="10.0" />
                                           <Button mnemonicParsing="false" onAction="#addCustomerButton" prefHeight="25.0" prefWidth="95.0" text="Lägg till kund" />
                                        </children>
@@ -141,7 +272,7 @@
                                  </children>
                               </VBox>
                               <TextField fx:id="nameTextField" text="Namn" />
-                              <TextField text="Personnummer">
+                              <TextField fx:id="pNrTextField" text="Personnummer">
                                  <VBox.margin>
                                     <Insets bottom="10.0" top="10.0" />
                                  </VBox.margin>

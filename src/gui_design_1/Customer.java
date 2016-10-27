@@ -80,6 +80,12 @@ public class Customer
         return "customerName=" + customerName + ", personalNumber=" + personalNumber + custumerAccountsList.toString() +"\n";
     }
     
+    
+    public String toStringForcustumersListView()
+    {
+        return customerName + " " + personalNumber;
+    }
+    
     public String toString1()
     {
         System.out.print("customer Name=" + customerName + ", personal Number=" + personalNumber );

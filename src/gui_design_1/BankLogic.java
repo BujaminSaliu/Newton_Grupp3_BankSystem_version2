@@ -14,7 +14,7 @@ import java.util.List;
  */
 public class BankLogic
 {
-    static List<Customer> allCustomersArrayList;
+    List<Customer> allCustomersArrayList = new ArrayList<>();
     private static BankLogic instance; //Step 2 declare the instance variabel
     static List<String> removedCustomerList = new ArrayList<>();
     
