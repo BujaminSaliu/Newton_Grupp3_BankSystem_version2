@@ -107,4 +107,10 @@ public class Account
     {
         return "Account{" + "balance=" + balance + ", interestRate=" + interestRate + ", accountType=" + accountType + ", accountID=" + accountID + '}';
     }
+    public void hej()
+    {
+        System.out.println("hej");
+    }
+    
+    
 }
