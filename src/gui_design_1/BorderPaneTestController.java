@@ -38,6 +38,8 @@ public class BorderPaneTestController implements Initializable
     private TextField nameTextField; // name-input från användare
     @FXML
     private TextField pNrTextField; // pnr-input från användare
+    @FXML
+    private TextField depositWithDrawAmountField; // name-input från användare
     
     private BankLogic bankLogic = BankLogic.getInstance(); // singleton 
     
@@ -53,6 +55,17 @@ public class BorderPaneTestController implements Initializable
             returnMessageToOperator.setText("Du måste fyll i båda fälten!");
             throw new Exception("Du måste fyll i båda fälten!");
         }
+        
+//        try 
+//        {
+//            Double userInput = Double.parseDouble(pNrTextField.getText());
+//            
+//        } 
+//        catch (NumberFormatException ignore) 
+//        {
+//            System.out.println("Invalid input");
+//        }
+//} 
         else
         {
             boolean add = bankLogic.addCustomer(nameTextField.getText(), Long.parseLong(pNrTextField.getText()));
@@ -86,6 +99,31 @@ public class BorderPaneTestController implements Initializable
                 custumersListView.setItems(obListFoundCustumers);
             }
         }
+    }
+    
+    @FXML
+    private void withDrawButton(ActionEvent event) throws Exception
+    {
+        String selectedCustomerString = (String) custumersListView.getSelectionModel().getSelectedItem();
+        String selectedAccountString =  (String) accountsListView.getSelectionModel().getSelectedItem();
+        for (int i = 0; i < bankLogic.allCustomersArrayList.size(); i++)
+        {
+            if (selectedCustomerString.equals(bankLogic.allCustomersArrayList
+                    .get(i).toStringForcustumersListView()))
+                for (int j = 0; j < bankLogic.allCustomersArrayList.get(i)
+                        .custumerAccountsList.size(); j++)
+                {
+                    if (selectedAccountString.equals( bankLogic.allCustomersArrayList
+                            .get(i).getCustumerAccountsList().get(j).toString()))
+                    {
+                        bankLogic.allCustomersArrayList
+                            .get(i).getCustumerAccountsList()
+                                .get(j).withdraw((Double) custumersListView
+                                        .getSelectionModel().getSelectedItem());
+                    }
+                }
+        }
+        
     }
     
     
@@ -127,10 +165,11 @@ public class BorderPaneTestController implements Initializable
     private void upDateobListAllCustumers()
     {
         obListAllCustumers.clear();
-        for (int i = 0; i < bankLogic.allCustomersArrayList.size(); i++)
-        {
-            obListAllCustumers.add(bankLogic.allCustomersArrayList.get(i).toStringForcustumersListView());
-        }
+        obListAllCustumers.setAll(bankLogic.getCustomers());
+//        for (int i = 0; i < bankLogic.allCustomersArrayList.size(); i++)
+//        {
+//            obListAllCustumers.add(bankLogic.allCustomersArrayList.get(i).toStringForcustumersListView());
+//        }
     }
     
 }

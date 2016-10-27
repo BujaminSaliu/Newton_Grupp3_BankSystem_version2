@@ -5,6 +5,8 @@
  */
 package gui_design_1;
 
+import java.util.ArrayList;
+
 
 //public class Account
 //{
@@ -106,6 +108,7 @@ public class Account
     int accountID;
     int counter = 0;
     private double depositIntrest = 1;
+    public ArrayList<Transaktions> custumerAccountsTransaktionsList;
     
    
     public Account() 
@@ -121,6 +124,7 @@ public class Account
         this.accountType = accountType;
         this.accountID = accountIDCounter;
         accountIDCounter ++;
+        custumerAccountsTransaktionsList = new ArrayList<>();
     }
     
     public Account(double balance, double interestRate, String accountType, int accountID)
@@ -130,6 +134,7 @@ public class Account
         this.accountType = accountType;
         this.accountID = accountIDCounter;
         accountIDCounter ++;
+        custumerAccountsTransaktionsList = new ArrayList<>();
     }
        
 
@@ -140,6 +145,7 @@ public class Account
         this.accountType = accountType;
         this.accountID = accountIDCounter;
         accountIDCounter ++;
+        custumerAccountsTransaktionsList = new ArrayList<>();
     }
 
     public Account(String accountType, double interestRate)
@@ -150,6 +156,7 @@ public class Account
         this.accountType = accountType;
         this.accountID = accountIDCounter;
         accountIDCounter ++;
+        custumerAccountsTransaktionsList = new ArrayList<>();
        
     }
     
@@ -162,6 +169,7 @@ public class Account
         this.accountType = accountType;
         this.accountID = accountIDCounter;
         accountIDCounter ++;
+        custumerAccountsTransaktionsList = new ArrayList<>();
        
     }
     

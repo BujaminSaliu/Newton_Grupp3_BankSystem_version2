@@ -28,7 +28,7 @@ public class BankLogic
  
     private BankLogic() //Step 1 change this constructor to private
     {
-
+        allCustomersArrayList = new ArrayList<>();
     }
    
     public static BankLogic getInstance() //Step 3 write getInstance method
@@ -73,14 +73,15 @@ public class BankLogic
     public boolean addCustomer(String name, long pNr)
     {
         boolean check = true;
-        for (Customer list : allCustomersArrayList)
+        for (int i = 0; i < allCustomersArrayList.size(); i++)
         {
-            if (list.getPersonalNumber() == pNr)
+            if (allCustomersArrayList.get(i).getPersonalNumber() == pNr)
             {
                 check = false;
                 break;
             }
         }
+        
  
         //if the allCustomersArrayList doesn't exist in the database, he/she will be added here
         if (check == true)
@@ -279,9 +280,12 @@ public String getAccount(long pNr, int accountId)
                     if (allCustomersArrayList.get(i).custumerAccountsList.get(j).getAccountID() == accountId)
                     {
                         allCustomersArrayList.get(i).custumerAccountsList.get(j).withdraw(amount);
-                         System.out.println("Balance becomes in side BankLigic class in withdraw method " + allCustomersArrayList.get(i).custumerAccountsList.get(j).getBalance());
-
-                        withdrawMade = true;
+                         System.out.println("Balance becomes in side BankLigic class in withdraw method " 
+                                 + allCustomersArrayList.get(i).custumerAccountsList.get(j).getBalance());
+                         allCustomersArrayList.get(i).custumerAccountsList.get(j)
+                                 .custumerAccountsTransaktionsList.add(new Transaktions(accountId, "Ut", amount
+                                         , allCustomersArrayList.get(i).custumerAccountsList.get(j).getBalance()));
+                         withdrawMade = true;
                     }
                 }
             }            
