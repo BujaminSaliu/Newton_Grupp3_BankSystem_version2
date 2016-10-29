@@ -14,7 +14,6 @@ public class Customer
 
     private String customerName;
     private long personalNumber;
-    Account account = new Account();
     public ArrayList<Account> custumerAccountsList;
 
     /**
@@ -22,11 +21,7 @@ public class Customer
      */
     public Customer() {  }
     
-    public Customer(long personalNumber)
-    {
-        this.personalNumber = personalNumber;
-        this.custumerAccountsList = new ArrayList<>();
-    }
+  
     public Customer(String customerName, long personalNumber)
     {
         this.customerName = customerName;
@@ -35,12 +30,6 @@ public class Customer
     }
 
 
-    public Customer(String customerName, long personalNumber, ArrayList<Account> custumerAccountsList)
-    {
-        this.customerName = customerName;
-        this.personalNumber = personalNumber;
-        this.custumerAccountsList = custumerAccountsList;
-    }
 
     public String getCustomerName()
     {
@@ -80,7 +69,7 @@ public class Customer
    @Override
     public String toString()
     {
-        return "customerName=" + customerName + ", personalNumber=" + personalNumber + custumerAccountsList +"\n";
+        return "customer Name " + customerName + ", personal Number=" + personalNumber + custumerAccountsList +"\n";
     }
     
     public String toString1()
@@ -100,7 +89,7 @@ public class Customer
     
     public String toString2()
     {
-        return "CustomerName " + customerName + " Personal Number " + personalNumber + "\n";
+        return "Customer Name " + customerName + " Personal Number " + personalNumber + "\n";
     }
  
        

@@ -22,7 +22,7 @@ public class CreditAccount extends Account
     public CreditAccount(){
     }
 
-    public CreditAccount( String accountType, double interestRate,double creditAccountLoanRate)
+    public CreditAccount( String accountType, double creditAccountLoanRate,double interestRate)
     {
         super(accountType, interestRate);  //edited
         this.creditLimit = creditLimit;
@@ -31,27 +31,8 @@ public class CreditAccount extends Account
         this.creditBalance= creditBalance;
        // this.accountID = super.getAccountID();
     }
-    
-    
-    
-    public CreditAccount( String accountType, double interestRate, double creditLimit, double debtRate, double balance){
-     super(balance, interestRate, accountType);
-    this.creditLimit = creditLimit;
-        this.creditAccountLoanRate = debtRate;
-        this.creditBalance= creditBalance;
-        super.balance=creditBalance;
-        this.accountID = super.getAccountID();
-        this.creditAccountDepositInterest = interestRate;
-    }
-    
-     public CreditAccount( String accountType){
-    super(accountType);
-    this.creditLimit = creditLimit;
-        this.creditAccountLoanRate = creditAccountLoanRate;
-        this.creditBalance= creditBalance;
-        this.accountID = super.getAccountID();
-        super.setBalance(balance);
-    }
+
+
 
 
     public double getCreditAccountDepositInterest()
@@ -92,9 +73,15 @@ public class CreditAccount extends Account
 
         double sum = super.getBalance()- withdrawAmount;
         //double division = sum/1.07 = 4672;
-        if(sum > -4672)
+        if(sum > -4672 && sum < 0)
         {
-            super.withdraw(withdrawAmount + (creditAccountLoanRate*withdrawAmount/100));  //7% loan rate
+            super.setBalance(0);
+            super.withdraw(-sum - (super.getInterestRate()*sum/100));  //7% loan rate
+        }
+        
+        else if (sum >=0 )
+        {
+            super.withdraw(withdrawAmount);
         }
         
       else
@@ -102,9 +89,6 @@ public class CreditAccount extends Account
            
              System.out.println("Credit limit is -5000");
                     }
-            
-       
-            
 
     }
     

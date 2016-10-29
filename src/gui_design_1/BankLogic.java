@@ -8,11 +8,7 @@ package gui_design_1;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -27,9 +23,7 @@ public class BankLogic
     static List<Customer> allCustomersArrayList;
     private static BankLogic instance; //Step 2 declare the instance variabel
     static List<String> removedCustomerList = new ArrayList<>();
-    static List<Transaktions> transaktionsArrayList;
     static List<String> transaktionsStringArrayList;
-    Calendar dateTime = Calendar.getInstance();
 
     private BankLogic() //Step 1 change this constructor to private
     {
@@ -50,12 +44,6 @@ public class BankLogic
      *
      * @return
      */
-//    public List<Customer> getCustomers()    
-//    {
-//        System.out.println("ID" +Account.accountIDCounter);
-// 
-//        return allCustomersArrayList;
-//    }
     public List<String> getCustomers()
     {
         List<String> stringListCustomer = new ArrayList<>();
@@ -158,13 +146,7 @@ public class BankLogic
 
         }
 
-        //If there is the same personal number, change the name
-//        if(changeCustomerName)
-//        {
-//        //System.out.println(allCustomersArrayList.size());//test
-//        allCustomersArrayList.add(new Customer(name, pNr));
-//        }
-//       
+    
         return changeCustomerName;
     }
 
@@ -187,12 +169,6 @@ public class BankLogic
 
                 removedCustomerList.add(allCustomersArrayList.get(i).toString1());
 
-                //To remove the allCustomersArrayList, but couldn't removed 1 account if the person has
-                //3 accounts
-//                for(int j = 0; j< allCustomersArrayList.get(i).getCustumerAccountsList().size(); j++)
-//                {
-//                    allCustomersArrayList.get(i).getCustumerAccountsList().remove(allCustomersArrayList.get(i).getCustumerAccountsList().get(j));
-//                }
                 //After removing allCustomersArrayList, the allCustomersArrayList will be removed
                 allCustomersArrayList.remove(allCustomersArrayList.get(i));
 
@@ -217,17 +193,10 @@ public class BankLogic
         {
             if (allCustomersArrayList.get(i).getPersonalNumber() == pNr)
             {
-                allCustomersArrayList.get(i).getCustumerAccountsList().add(new SavingsAccount("Saving", 2));
+                allCustomersArrayList.get(i).getCustumerAccountsList().add(new SavingsAccount("Saving Account", 2));
                 return allCustomersArrayList.get(i).custumerAccountsList.get(allCustomersArrayList
                         .get(i).custumerAccountsList.size() - 1).getAccountID();
 
-                //I have no idea but it worked
-//               for (int j = allCustomersArrayList.get(i).getCustumerAccountsList().size(); j > 0; j--)
-//                {
-//                    //System.out.println("j " + j);//test
-//                    allCustomersArrayList.get(i).getCustumerAccountsList().add(new SavingsAccount("Savings", 2));
-//                    return (allCustomersArrayList.get(i).custumerAccountsList.get(j).getAccountID());
-//                }
             }
 
         }
@@ -258,10 +227,6 @@ public class BankLogic
     public boolean deposit(long pNr, int accountId, double amount)
     {
         boolean depositMade = false;
-//        dateTime.add(Calendar.DATE, 0);
-//        Date today = dateTime.getTime();  //today        
-//        SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");    //The date format    
-//        String formatted = format1.format(dateTime.getTime());
         for (int i = 0; i < allCustomersArrayList.size(); i++)
         {
             if (allCustomersArrayList.get(i).getPersonalNumber() == pNr)
@@ -297,18 +262,20 @@ public class BankLogic
                 {
                     if (allCustomersArrayList.get(i).custumerAccountsList.get(j).getAccountID() == accountId)
                     {
-
-                        if (allCustomersArrayList.get(i).custumerAccountsList.get(j).getBalance() <= -5000)
+                        //withdrawRate (7%) of withdraw amount plus withdraw amount should be less than -5000
+                        //-4672 * 7% - 4672 = -5000
+                        if (allCustomersArrayList.get(i).custumerAccountsList.get(j).getBalance() <= -4672 &&
+                                allCustomersArrayList.get(i).custumerAccountsList.get(j).getAccountType().equals("Credit Account"))
                         {
                             withdrawMade = false;
-                        } else
+                        } 
+                        else
                         {
                             allCustomersArrayList.get(i).custumerAccountsList.get(j).withdraw(amount);
                             System.out.println("Balance becomes in side BankLigic class in withdraw method "
                                     + allCustomersArrayList.get(i).custumerAccountsList.get(j).getBalance());
                             withdrawMade = true;
                         }
-
                     }
                 }
             }
@@ -364,13 +331,6 @@ public class BankLogic
         {
             if (allCustomersArrayList.get(i).getPersonalNumber() == pNr)
             {
-                //I have no idea but it worked
-//                for (int j = allCustomersArrayList.get(i).getCustumerAccountsList().size(); j > 0; j--)
-//                {
-//                    //System.out.println("j " + j);//test
-//                    allCustomersArrayList.get(i).getCustumerAccountsList().add(new CreditAccount("Credit Account", 0.5,7));
-//                    return (allCustomersArrayList.get(i).custumerAccountsList.get(j).getAccountID());
-//                }
                 allCustomersArrayList.get(i).getCustumerAccountsList().add(new CreditAccount("Credit Account", 0.5, 7));
                 return allCustomersArrayList.get(i).custumerAccountsList.get(allCustomersArrayList
                         .get(i).custumerAccountsList.size() - 1).getAccountID();
@@ -383,14 +343,28 @@ public class BankLogic
 
     public List<String> getTransaktions(long pNr, int accountId)
     {
-        for (int i = 0; i < transaktionsArrayList.size(); i++)
+        List<String> transactionList = null;
+        for (int i = 0; i < allCustomersArrayList.size(); i++)
         {
-            if (allCustomersArrayList.get(i).getPersonalNumber() == pNr
-                    && transaktionsArrayList.get(i).getAccountId() == accountId)
+
+            if (allCustomersArrayList.get(i).getPersonalNumber() == pNr)
+
             {
-                System.out.println("Test Transaction class" + transaktionsArrayList.get(i).getAmount());
-                transaktionsStringArrayList.add(transaktionsArrayList.get(i).toString());
-                return transaktionsStringArrayList;
+                for (int j = 0; j < allCustomersArrayList.get(i).getCustumerAccountsList().size(); j++)
+                {
+                    if (allCustomersArrayList.get(i).getCustumerAccountsList().get(j).getAccountID() == accountId)
+                    {
+                        for (int t = 0; t < allCustomersArrayList.get(i).getCustumerAccountsList().get(j).
+                                custumerAccountsTransaktionsList.size(); t++)
+
+                        {
+
+                            System.out.println(allCustomersArrayList.get(i).getCustumerAccountsList().get(j).custumerAccountsTransaktionsList.toString()); //Test
+                            transactionList.add(allCustomersArrayList.get(i).getCustumerAccountsList().get(j).custumerAccountsTransaktionsList.get(t).toString());
+                            return transactionList;
+                        }
+                    }
+                }
             }
         }
 

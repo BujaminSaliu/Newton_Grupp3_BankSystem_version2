@@ -5,10 +5,6 @@
  */
 package gui_design_1;
 
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-
 /**
  *
  * @author Befkadu Degefa
@@ -20,22 +16,29 @@ public class Transaktions
     private String transactionType;
     private double amount;
     private double balanceAfterTransaction;
+    private String inOut;
+    private String date;
     
-    Calendar dateTime = Calendar.getInstance();
       
     
     public Transaktions()
     {
-        
+                            
     }
         
-    public Transaktions(long accountId, String transactionType, double amount, double balanceAfterTransaction)
+    public Transaktions(String date,long accountId,double amount, double balanceAfterTransaction, String inOut)
     {
         this.accountId = accountId;
-        this.dateTime = dateTime;
         this.transactionType = transactionType;
         this.amount = amount;
         this.balanceAfterTransaction = balanceAfterTransaction;
+        this.inOut = inOut;
+        this.date = date;
+    }
+
+    public String getDate()
+    {
+        return date;
     }
 
     public long getAccountId()
@@ -46,16 +49,6 @@ public class Transaktions
     public void setAccountId(long accountId)
     {
         this.accountId = accountId;
-    }
-
-    public Calendar getDateTime()
-    {
-        return dateTime;
-    }
-
-    public void setDateTime(Calendar dateTime)
-    {
-        this.dateTime = dateTime;
     }
 
     public String getTransactionType()
@@ -88,9 +81,17 @@ public class Transaktions
         this.balanceAfterTransaction = balanceAfterTransaction;
     }
 
+    public String getInOut()
+    {
+        return inOut;
+    }
+
+    
     @Override
     public String toString()
     {
-        return "accountId=" + accountId +  ", transactionType=" + transactionType + ", amount=" + amount + ", balanceAfterTransaction=" + balanceAfterTransaction + '}';
+        
+        
+        return  getDate()+ "          " + getInOut() + "          " + amount + "kr          Saldo: " + balanceAfterTransaction + "kr\n";
     } 
 }

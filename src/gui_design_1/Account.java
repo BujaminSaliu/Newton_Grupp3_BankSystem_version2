@@ -5,8 +5,11 @@
  */
 package gui_design_1;
 
+import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-
+import java.util.Calendar;
+import java.util.Date;
 
 //public class Account
 //{
@@ -148,23 +151,25 @@ import java.util.ArrayList;
 //                getAccountID()+ ", Account type: " + accountType;
 //    }
 //}
-
-public class Account
+public abstract class Account
 {
+
     public static int accountIDCounter = 1000;
-    
+
     double balance;
-    private double interestRate; 
+    private double interestRate;
     private String accountType;
     int accountID;
     int counter = 0;
     private double depositIntrest = 1;
     public ArrayList<Transaktions> custumerAccountsTransaktionsList;
-    
-   
-    public Account() 
+    Calendar cal = Calendar.getInstance();
+    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd   HH:mm:ss");
+    Date date = new Date();
+
+    public Account()
     {
-            
+
     }
 
     //New implementation for the credit account
@@ -174,56 +179,54 @@ public class Account
         this.interestRate = interestRate;
         this.accountType = accountType;
         this.accountID = accountIDCounter;
-        accountIDCounter ++;
+        accountIDCounter++;
         custumerAccountsTransaktionsList = new ArrayList<>();
     }
-    
+
     public Account(double balance, double interestRate, String accountType, int accountID)
     {
         this.balance = balance;
         this.interestRate = interestRate;
         this.accountType = accountType;
         this.accountID = accountIDCounter;
-        accountIDCounter ++;
+        accountIDCounter++;
         custumerAccountsTransaktionsList = new ArrayList<>();
     }
-       
 
-    public Account(double balance, double interestRate,  String accountType)
+    public Account(double balance, double interestRate, String accountType)
     {
         this.balance = balance;
         this.interestRate = interestRate;
         this.accountType = accountType;
         this.accountID = accountIDCounter;
-        accountIDCounter ++;
+        accountIDCounter++;
         custumerAccountsTransaktionsList = new ArrayList<>();
     }
 
     public Account(String accountType, double interestRate)
     {
-        
+
         this.balance = balance;
         this.interestRate = interestRate;
         this.accountType = accountType;
         this.accountID = accountIDCounter;
-        accountIDCounter ++;
+        accountIDCounter++;
         custumerAccountsTransaktionsList = new ArrayList<>();
-       
+
     }
-    
+
     //This method will be inherited by the credit account, edited
     public Account(String accountType)
     {
-        
+
         this.balance = balance;
         this.interestRate = interestRate;
         this.accountType = accountType;
         this.accountID = accountIDCounter;
-        accountIDCounter ++;
+        accountIDCounter++;
         custumerAccountsTransaktionsList = new ArrayList<>();
-       
+
     }
-    
 
     public double getBalance()
     {
@@ -235,7 +238,6 @@ public class Account
         this.balance = balance;
     }
 
-    
     public String getAccountType()
     {
         return accountType;
@@ -253,38 +255,41 @@ public class Account
 
     public void deposit(double depositAmount)
     {
-        if(getAccountType().equals("Saving"))
+        if (getAccountType().equals("Saving Account"))
         {
-            balance = depositAmount + balance +(depositIntrest * depositAmount/100) ;
-        }
-        else if(getAccountType().equals("Credit Account"))
+            balance = depositAmount + balance + (depositIntrest * depositAmount / 100);
+
+            custumerAccountsTransaktionsList.add(new Transaktions(dateFormat.format(date), getAccountID(), depositAmount, getBalance(), "In"));
+        } else if (getAccountType().equals("Credit Account"))
         {
-            
+
             balance = balance + depositAmount;
-        }
-    }  
-   
-    public void withdraw(double withdrawAmount)
-    {
-        if(getAccountType().equals("Saving"))
-        {
-        if(counter == 0)
-            {
-            balance = balance - withdrawAmount;
-            counter++;
-            }
-            
-        else if(counter>0)
-            {
-                balance = balance - withdrawAmount;
-            }
-        }
-        else if(getAccountType().equals("Credit Account"))
-        {
-            balance = balance - withdrawAmount;
-            
+            custumerAccountsTransaktionsList.add(new Transaktions(dateFormat.format(date), getAccountID(), depositAmount, getBalance(), "In"));
         }
     }
+
+    public void withdraw(double withdrawAmount)
+    {
+        if (getAccountType().equals("Saving Account"))
+        {
+            if (counter == 0)
+            {
+                balance = balance - withdrawAmount;
+                custumerAccountsTransaktionsList.add(new Transaktions(dateFormat.format(date), getAccountID(), -withdrawAmount, getBalance(), "Ut"));
+                counter++;
+            } else if (counter > 0)
+            {
+                balance = balance - withdrawAmount;
+                custumerAccountsTransaktionsList.add(new Transaktions(dateFormat.format(date), getAccountID(), -withdrawAmount, getBalance(), "Ut"));
+            }
+        } else if (getAccountType().equals("Credit Account"))
+        {
+            balance = balance - withdrawAmount;
+            custumerAccountsTransaktionsList.add(new Transaktions(dateFormat.format(date), getAccountID(), -withdrawAmount, getBalance(), "Ut"));
+
+        }
+    }
+
     public double getInterestRate()
     {
         return interestRate;
@@ -295,11 +300,10 @@ public class Account
         this.interestRate = interestRate;
     }
 
-
     @Override
     public String toString()
     {
-        return "Account{" + "balance=" + balance + ", interestRate=" + interestRate + ", accountType = " + getAccountType() + ", accountID=" + accountID + '}';
+        return "Balance " + balance + ", Rate " + interestRate + ", AccountType  " + getAccountType() + ", AccountID=" + accountID + "\n";
     }
 
 }
