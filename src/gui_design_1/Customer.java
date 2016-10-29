@@ -100,7 +100,7 @@ public class Customer
     
     public String toString2()
     {
-        return "customerName=" + customerName + ",personalNumber=" + personalNumber + "\n";
+        return "CustomerName " + customerName + " Personal Number " + personalNumber + "\n";
     }
  
        

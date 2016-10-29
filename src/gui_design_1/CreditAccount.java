@@ -5,6 +5,8 @@
  */
 package gui_design_1;
 
+import java.util.Calendar;
+
 /**
  *
  * @author Befkadu Degefa
@@ -14,7 +16,7 @@ public class CreditAccount extends Account
     private double creditLimit = -5000;
     static private double creditAccountLoanRate = 7;
     static private double creditAccountDepositInterest=0.5;
-    private int accountID;
+    //private int accountID;
     private double creditBalance;
     
     public CreditAccount(){
@@ -27,7 +29,7 @@ public class CreditAccount extends Account
         this.creditAccountLoanRate = creditAccountLoanRate;
         this.creditAccountDepositInterest = creditAccountDepositInterest;
         this.creditBalance= creditBalance;
-        this.accountID = super.getAccountID();
+       // this.accountID = super.getAccountID();
     }
     
     
@@ -84,5 +86,32 @@ public class CreditAccount extends Account
         return creditBalance;
     }
 
+    @Override
+    public void withdraw(double withdrawAmount)
+    {
+
+        double sum = super.getBalance()- withdrawAmount;
+        //double division = sum/1.07 = 4672;
+        if(sum > -4672)
+        {
+            super.withdraw(withdrawAmount + (creditAccountLoanRate*withdrawAmount/100));  //7% loan rate
+        }
+        
+      else
+        {
+           
+             System.out.println("Credit limit is -5000");
+                    }
+            
+       
+            
+
+    }
+    
+    @Override
+    public void deposit(double depositAmount)
+    {
+        super.deposit(depositAmount + (depositAmount*getCreditAccountDepositInterest()/100));
+    }
     
 }

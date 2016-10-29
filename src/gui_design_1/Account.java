@@ -11,7 +11,7 @@ import java.util.ArrayList;
 //public class Account
 //{
 //    // Magnus testar 2
-//    private double balance;
+//    public double balance;
 //    private String accountType;
 //    private double interestRate = 2;    
 //    private static int accountID = 1000;
@@ -23,6 +23,7 @@ import java.util.ArrayList;
 //     */
 //    public Account()  { }
 // 
+//    
 //    public Account(String accountType, double interestRate)
 //    {
 //        
@@ -33,7 +34,27 @@ import java.util.ArrayList;
 //        setAccountID(accountID);
 //       
 //    }
+//    
+//    public Account(double balance, double interestRate,  String accountType)
+//    {
+//         this.balance = balance;
+//        this.accountType = accountType;
+//        this.interestRate=interestRate;
+//        accountID++;
+//        setAccountID(accountID);
+//    }
 // 
+//    //This method will be inherited by the credit account, edited
+//    public Account(String accountType)
+//    {
+//        
+//        this.balance = balance;
+//        this.accountType = accountType;
+//        this.interestRate=interestRate;
+//        accountID++;
+//        setAccountID(accountID);
+//       
+//    }
 //    public double getBalance()
 //    {
 //        return balance;
@@ -61,19 +82,49 @@ import java.util.ArrayList;
 //    }
 //   
 //   
-//    public void deposit(double depositAmount)
+//        public void deposit(double depositAmount)
 //    {
-//        balance = depositAmount + balance +(depositIntrest * depositAmount/100) ;
+//        if(getAccountType().equals("Saving"))
+//        {
+//            balance = depositAmount + balance +(depositIntrest * depositAmount/100) ;
+//        }
+//        else if(getAccountType().equals("Credit Account"))
+//        {
+//            
+//            CreditAccount creditAccount = new CreditAccount();
+//            balance = balance + (depositAmount*creditAccount.getCreditAccountDepositInterest()/100);
+//        }
 //    }  
 //   
 //    public void withdraw(double withdrawAmount)
 //    {
-//        //balance = balance -withdrawAmount;
+//        if(getAccountType().equals("Saving"))
+//        {
 //        if(counter == 0)
 //            {
 //            balance = balance - withdrawAmount;
 //            counter++;
 //            }
+//            
+//        else if(counter>0)
+//            {
+//                balance = balance - withdrawAmount-(withdrawAmount*interestRate/100);
+//            }
+//        }
+//        else if(getAccountType().equals("Credit Account"))
+//        {
+//            if((balance< 0 && balance> -5000)|| (withdrawAmount>-5000 && withdrawAmount<0))
+//        {
+//            balance = balance + withdrawAmount+  withdrawAmount*7/100;
+//        }
+//        else if(balance < -5000|| (withdrawAmount<-5000))
+//        {
+//            System.out.println("Credit limit is -5000");
+//            this.balance= balance; 
+//        }
+//            
+//        }
+//    
 //            
 //        else if(counter>0)
 //            {
@@ -200,7 +251,7 @@ public class Account
         this.accountID = accountID;
     }
 
-        public void deposit(double depositAmount)
+    public void deposit(double depositAmount)
     {
         if(getAccountType().equals("Saving"))
         {
@@ -209,8 +260,7 @@ public class Account
         else if(getAccountType().equals("Credit Account"))
         {
             
-            CreditAccount creditAccount = new CreditAccount();
-            balance = balance + (depositAmount*creditAccount.getCreditAccountDepositInterest()/100);
+            balance = balance + depositAmount;
         }
     }  
    
@@ -226,20 +276,12 @@ public class Account
             
         else if(counter>0)
             {
-                balance = balance - withdrawAmount-(withdrawAmount*interestRate/100);
+                balance = balance - withdrawAmount;
             }
         }
         else if(getAccountType().equals("Credit Account"))
         {
-            if((balance< 0 && balance> -5000)|| (withdrawAmount>-5000 && withdrawAmount<0))
-        {
-            balance = balance + withdrawAmount+  withdrawAmount*7/100;
-        }
-        else if(balance < -5000|| (withdrawAmount<-5000))
-        {
-            System.out.println("Credit limit is -5000");
-            this.balance= balance; 
-        }
+            balance = balance - withdrawAmount;
             
         }
     }
