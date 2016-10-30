@@ -23,7 +23,6 @@ public class BankLogic
     static List<Customer> allCustomersArrayList;
     private static BankLogic instance; //Step 2 declare the instance variabel
     static List<String> removedCustomerList = new ArrayList<>();
-    static List<String> transaktionsStringArrayList;
 
     private BankLogic() //Step 1 change this constructor to private
     {
@@ -52,6 +51,8 @@ public class BankLogic
             stringListCustomer.add(allCustomersArrayList.get(i).toString2());
 
         }
+        
+        //To print all customer lists to a text file
         try
         {
             FileWriter out = new FileWriter("allCustomersArrayList.txt");
@@ -109,12 +110,14 @@ public class BankLogic
         {
             if (allCustomersArrayList.get(i).getPersonalNumber() == pNr)
             {
-                searchCustomer.add(allCustomersArrayList.get(i).toString());
-                for (int j = 0; j < allCustomersArrayList.get(i).getCustumerAccountsList().size(); j++)
-                {
-                    searchCustomer.add(allCustomersArrayList.get(i).getCustumerAccountsList().get(j).toString());
-
-                }
+                searchCustomer.add(allCustomersArrayList.get(i).toString2());
+//                for (int j = 0; j < allCustomersArrayList.get(i).getCustumerAccountsList().size(); j++)
+//                {
+//                    searchCustomer.add(allCustomersArrayList.get(i).getCustumerAccountsList().get(j).toString());
+//                    System.out.println("trial1 " + searchCustomer);
+//                    //searchCustomer.add(allCustomersArrayList.get(i).toString2());
+//
+//                }
                 break;
             }
 
@@ -369,5 +372,25 @@ public class BankLogic
         }
 
         return null;
+    }
+    
+    public List<String> getAllAccount(long pNr, int accountId)
+    {
+        List<String> getAccountReturnString = new ArrayList<>();
+        for (int i = 0; i < allCustomersArrayList.size(); i++)
+        {
+            if (allCustomersArrayList.get(i).getPersonalNumber() == pNr)
+            {
+                for (int j = 0; j < allCustomersArrayList.get(i).getCustumerAccountsList().size(); j++)
+                {
+//                    if (allCustomersArrayList.get(i).getCustumerAccountsList().get(j).getAccountID() == accountId)
+//                    {
+                        getAccountReturnString.add(allCustomersArrayList.get(i).getCustumerAccountsList().get(j).toString());
+//                    }
+
+                }
+            }
+        }
+        return getAccountReturnString;
     }
 }

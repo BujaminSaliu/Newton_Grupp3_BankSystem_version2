@@ -300,10 +300,17 @@ public abstract class Account
         this.interestRate = interestRate;
     }
 
+    public ArrayList<Transaktions> getCustumerAccountsTransaktionsList()
+    {
+        return custumerAccountsTransaktionsList;
+    }
+    
+    
+
     @Override
     public String toString()
     {
-        return "Balance " + balance + ", Rate " + interestRate + ", AccountType  " + getAccountType() + ", AccountID=" + accountID + "\n";
+        return "Balance " + balance + ", Rate " + interestRate + ", AccountType  " + getAccountType() + ", AccountID " + accountID + "\n";
     }
 
 }

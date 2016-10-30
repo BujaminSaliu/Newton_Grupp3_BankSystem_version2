@@ -1,1 +1,1 @@
-Account{balance=0.0, interestRate=2.0, accountType = Saving, accountID=1001}
+Balance 0.0, Rate 7.0, AccountType  Credit Account, AccountID 1001

@@ -13,7 +13,7 @@
    <children>
       <BorderPane layoutX="289.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="637.0" prefWidth="845.0">
          <right>
-            <VBox prefHeight="377.0" prefWidth="275.0" BorderPane.alignment="CENTER">
+            <VBox prefHeight="435.0" prefWidth="275.0" BorderPane.alignment="CENTER">
                <children>
                   <VBox prefHeight="297.0" prefWidth="275.0">
                      <children>
@@ -31,12 +31,15 @@
                      <children>
                         <HBox prefHeight="40.0" prefWidth="131.0">
                            <children>
-                              <Button mnemonicParsing="false" text="Ändra namn" />
+                              <Button mnemonicParsing="false" onAction="#changeCustumerNameButton" text="Ändra namn" />
                            </children>
                         </HBox>
                         <HBox prefHeight="40.0" prefWidth="131.0">
                            <children>
-                              <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="82.0" text="Ta bort" />
+                              <Button mnemonicParsing="false" onAction="#removeCustomersButton" prefHeight="25.0" prefWidth="82.0" text="Ta bort">
+                                 <HBox.margin>
+                                    <Insets left="5.0" />
+                                 </HBox.margin></Button>
                            </children>
                         </HBox>
                         <HBox prefHeight="40.0" prefWidth="131.0">
@@ -58,15 +61,22 @@
                   </HBox>
                   <HBox prefHeight="17.0" prefWidth="275.0">
                      <children>
-                        <HBox prefHeight="40.0" prefWidth="131.0" />
-                        <HBox prefHeight="40.0" prefWidth="131.0" />
                         <HBox prefHeight="40.0" prefWidth="131.0">
                            <children>
-                              <Button mnemonicParsing="false" onAction="#printAllCustomersButton" prefHeight="25.0" prefWidth="82.0" text="Skriv till fil" />
-                           </children>
-                        </HBox>
+                              <Button mnemonicParsing="false" onAction="#printAllCustomersButton" prefHeight="31.0" prefWidth="107.0" text="Skriv till fil">
+                                 <HBox.margin>
+                                    <Insets />
+                                 </HBox.margin></Button>
+                           </children></HBox>
+                        <HBox prefHeight="40.0" prefWidth="131.0" />
+                        <HBox prefHeight="40.0" prefWidth="131.0" />
                      </children>
                   </HBox>
+                  <Button mnemonicParsing="false" onAction="#seeAccountTransactionButton" prefHeight="31.0" prefWidth="142.0" text="See transaction">
+                     <VBox.margin>
+                        <Insets top="10.0" />
+                     </VBox.margin>
+                  </Button>
                </children>
             </VBox>
          </right>
@@ -112,7 +122,7 @@
                                     <VBox prefHeight="110.0" prefWidth="128.0">
                                        <children>
                                           <VBox prefHeight="27.0" prefWidth="91.0" />
-                                          <VBox prefHeight="57.0" prefWidth="106.0">
+                                          <VBox prefHeight="60.0" prefWidth="106.0">
                                              <children>
                                                 <Button mnemonicParsing="false" onAction="#createNewSavingsAccountButton" text="Nytt Sparkonto" />
                                              </children>
@@ -127,18 +137,27 @@
                                     </VBox>
                                  </children>
                               </HBox>
-                              <HBox prefHeight="110.0" prefWidth="114.0">
+                              <HBox prefHeight="110.0" prefWidth="120.0">
                                  <children>
                                     <VBox prefHeight="110.0" prefWidth="124.0">
                                        <children>
                                           <VBox prefHeight="27.0" prefWidth="91.0" />
                                           <VBox prefHeight="48.0" prefWidth="91.0">
                                              <children>
-                                                <Button mnemonicParsing="false" onAction="#createNewCreditAccountButton" prefHeight="31.0" prefWidth="128.0" text="Nytt Kreditkonto" />
+                                                <Button mnemonicParsing="false" onAction="#createNewCreditAccountButton" prefHeight="31.0" prefWidth="128.0" text="Nytt Kreditkonto">
+                                                   <VBox.margin>
+                                                      <Insets left="10.0" />
+                                                   </VBox.margin></Button>
                                              </children>
                                           </VBox>
                                           <VBox prefHeight="27.0" prefWidth="91.0" />
-                                          <VBox prefHeight="45.0" prefWidth="91.0" />
+                                          <VBox prefHeight="60.0" prefWidth="91.0">
+                                             <children>
+                                                <Button mnemonicParsing="false" onAction="#seeCustomerAccountButton" prefHeight="31.0" prefWidth="120.0" text="See Account">
+                                                   <VBox.margin>
+                                                      <Insets left="10.0" />
+                                                   </VBox.margin></Button>
+                                             </children></VBox>
                                        </children>
                                     </VBox>
                                  </children>
@@ -159,7 +178,10 @@
                                           </VBox>
                                           <VBox prefHeight="9.0" prefWidth="91.0">
                                              <children>
-                                                <Button mnemonicParsing="false" onAction="#depositButton" text="Insättning" />
+                                                <Button mnemonicParsing="false" onAction="#depositButton" text="Insättning">
+                                                   <VBox.margin>
+                                                      <Insets top="20.0" />
+                                                   </VBox.margin></Button>
                                              </children>
                                           </VBox>
                                           <VBox prefHeight="27.0" prefWidth="91.0" />
@@ -175,7 +197,10 @@
                                           <VBox prefHeight="9.0" prefWidth="91.0" />
                                           <VBox prefHeight="55.0" prefWidth="91.0">
                                              <children>
-                                                <Button mnemonicParsing="false" onAction="#withDrawButton" text="Uttag" />
+                                                <Button mnemonicParsing="false" onAction="#withDrawButton" text="Uttag">
+                                                   <VBox.margin>
+                                                      <Insets left="5.0" />
+                                                   </VBox.margin></Button>
                                              </children>
                                           </VBox>
                                           <VBox prefHeight="0.0" prefWidth="91.0" />
@@ -261,9 +286,12 @@
                                     <HBox prefHeight="25.0" prefWidth="292.0">
                                        <children>
                                           <VBox prefHeight="25.0" prefWidth="146.0" />
-                                          <Button mnemonicParsing="false" onAction="#findCustumerButton" prefHeight="25.0" prefWidth="108.0" text="Sök kund" />
                                           <VBox prefHeight="25.0" prefWidth="10.0" />
-                                          <Button mnemonicParsing="false" onAction="#addCustomerButton" prefHeight="25.0" prefWidth="95.0" text="Lägg till kund" />
+                                          <Button mnemonicParsing="false" onAction="#findCustumerButton" prefHeight="31.0" prefWidth="113.0" text="Sök kund" />
+                                          <Button mnemonicParsing="false" onAction="#addCustomerButton" prefHeight="31.0" prefWidth="117.0" text="Lägg till kund">
+                                             <HBox.margin>
+                                                <Insets left="5.0" />
+                                             </HBox.margin></Button>
                                        </children>
                                        <VBox.margin>
                                           <Insets bottom="10.0" />
