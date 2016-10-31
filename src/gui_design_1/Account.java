@@ -166,6 +166,8 @@ public abstract class Account
     Calendar cal = Calendar.getInstance();
     SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd   HH:mm:ss");
     Date date = new Date();
+    static private double creditAccountLoanRate = 7;
+    static private double creditAccountPositiveRate=0.5;
 
     public Account()
     {
@@ -257,13 +259,13 @@ public abstract class Account
     {
         if (getAccountType().equals("Saving Account"))
         {
-            balance = depositAmount + balance + (depositIntrest * depositAmount / 100);
+            balance = depositAmount + balance;
 
             custumerAccountsTransaktionsList.add(new Transaktions(dateFormat.format(date), getAccountID(), depositAmount, getBalance(), "In"));
         } else if (getAccountType().equals("Credit Account"))
         {
 
-            balance = balance + depositAmount;
+             balance = depositAmount + balance;
             custumerAccountsTransaktionsList.add(new Transaktions(dateFormat.format(date), getAccountID(), depositAmount, getBalance(), "In"));
         }
     }
@@ -289,7 +291,29 @@ public abstract class Account
 
         }
     }
+    public double closeAccount()
+    {
+        if (getAccountType().equals("Saving Account"))
+        {
+        balance = balance + (balance*depositIntrest/100);
+        }
+        else if (getAccountType().equals("Credit Account"))
+        {
+            
+              if(balance >=  0)
+        {
+            setBalance(balance + (creditAccountPositiveRate * balance/100));//rate is 0.5% for the balance 
+        }
+        else if(balance <  0)
+        {
+            balance = balance + (creditAccountLoanRate * balance/100);
+        }
+        
+    }return balance;
+        
 
+       
+    }
     public double getInterestRate()
     {
         return interestRate;
@@ -305,7 +329,26 @@ public abstract class Account
         return custumerAccountsTransaktionsList;
     }
     
-    
+    //@Override
+    public String toStringClose()
+    {
+        if (getAccountType().equals("Saving Account"))
+        {
+            return "Balance " + closeAccount() + ", Rate " + depositIntrest + ", AccountType  " + getAccountType() + ", AccountID " + accountID + "\n";
+        }
+        else if(getAccountType().equals("Credit Account"))
+        {
+            if(getBalance() >=  0)
+                {
+                    return "Balance " + closeAccount() + ", Rate " + creditAccountPositiveRate + ", AccountType  " + getAccountType() + ", AccountID " + accountID + "\n";
+                }
+             else if(getBalance() <  0)
+             {
+                 return "Balance " + closeAccount() + ", Rate " + creditAccountLoanRate + ", AccountType  " + getAccountType() + ", AccountID " + accountID + "\n";
+             }
+        }
+        return "";
+    }
 
     @Override
     public String toString()

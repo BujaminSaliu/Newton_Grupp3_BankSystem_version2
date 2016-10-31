@@ -267,7 +267,7 @@ public class BankLogic
                     {
                         //withdrawRate (7%) of withdraw amount plus withdraw amount should be less than -5000
                         //-4672 * 7% - 4672 = -5000
-                        if (allCustomersArrayList.get(i).custumerAccountsList.get(j).getBalance() <= -4672 &&
+                        if (allCustomersArrayList.get(i).custumerAccountsList.get(j).getBalance() <= -5000 &&
                                 allCustomersArrayList.get(i).custumerAccountsList.get(j).getAccountType().equals("Credit Account"))
                         {
                             withdrawMade = false;
@@ -297,7 +297,7 @@ public class BankLogic
                 {
                     if (allCustomersArrayList.get(i).custumerAccountsList.get(j).getAccountID() == accountId)
                     {
-                        closedAccount = allCustomersArrayList.get(i).custumerAccountsList.get(j).toString();
+                        closedAccount = allCustomersArrayList.get(i).custumerAccountsList.get(j).toStringClose();
 
                         //Printing the customer information as a text file when closing his account
                         try
@@ -334,7 +334,7 @@ public class BankLogic
         {
             if (allCustomersArrayList.get(i).getPersonalNumber() == pNr)
             {
-                allCustomersArrayList.get(i).getCustumerAccountsList().add(new CreditAccount("Credit Account", 0.5, 7));
+                allCustomersArrayList.get(i).getCustumerAccountsList().add(new CreditAccount("Credit Account", 0.5, 0));
                 return allCustomersArrayList.get(i).custumerAccountsList.get(allCustomersArrayList
                         .get(i).custumerAccountsList.size() - 1).getAccountID();
             }

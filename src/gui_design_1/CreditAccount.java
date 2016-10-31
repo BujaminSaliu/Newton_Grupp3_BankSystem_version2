@@ -15,7 +15,7 @@ public class CreditAccount extends Account
 {
     private double creditLimit = -5000;
     static private double creditAccountLoanRate = 7;
-    static private double creditAccountDepositInterest=0.5;
+    static private double creditAccountPositiveRate=0.5;
     //private int accountID;
     private double creditBalance;
     
@@ -27,7 +27,7 @@ public class CreditAccount extends Account
         super(accountType, interestRate);  //edited
         this.creditLimit = creditLimit;
         this.creditAccountLoanRate = creditAccountLoanRate;
-        this.creditAccountDepositInterest = creditAccountDepositInterest;
+        this.creditAccountPositiveRate = creditAccountPositiveRate;
         this.creditBalance= creditBalance;
        // this.accountID = super.getAccountID();
     }
@@ -35,14 +35,14 @@ public class CreditAccount extends Account
 
 
 
-    public double getCreditAccountDepositInterest()
+    public double getCreditAccountPositiveRate()
     {
-        return creditAccountDepositInterest;
+        return creditAccountPositiveRate;
     }
 
-    public void setCreditAccountDepositInterest(double creditAccountDepositInterest)
+    public void setCreditAccountPositiveRate(double creditAccountPositiveRate)
     {
-        this.creditAccountDepositInterest = creditAccountDepositInterest;
+        this.creditAccountPositiveRate = creditAccountPositiveRate;
     }
 
     
@@ -73,10 +73,11 @@ public class CreditAccount extends Account
 
         double sum = super.getBalance()- withdrawAmount;
         //double division = sum/1.07 = 4672;
-        if(sum > -4672 && sum < 0)
+        if(sum > -5000 && sum < 0)
         {
-            super.setBalance(0);
-            super.withdraw(-sum - (super.getInterestRate()*sum/100));  //7% loan rate
+            //super.setBalance(0);
+            super.withdraw(-sum);  
+            //super.withdraw(-sum - (super.getInterestRate()*sum/100));  //7% loan rate
         }
         
         else if (sum >=0 )
@@ -95,7 +96,23 @@ public class CreditAccount extends Account
     @Override
     public void deposit(double depositAmount)
     {
-        super.deposit(depositAmount + (depositAmount*getCreditAccountDepositInterest()/100));
+        super.deposit(depositAmount);
     }
+    
+//    @Override
+//    public double closeAccount()
+//    {
+//         
+//        //double division = sum/1.07 = 4672;
+//        if(super.getBalance() >=  0)
+//        {
+//            setBalance(super.getBalance() + (creditAccountPositiveRate * super.getBalance()/100));//rate is 0.5% for the balance 
+//        }
+//        else if(super.getBalance() <  0)
+//        {
+//            setBalance(-super.getBalance() - (creditAccountLoanRate * super.getBalance()/100));
+//        }
+//        return balance;
+//    }
     
 }

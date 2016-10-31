@@ -1,3 +1,2 @@
-[Customer Name aaaa Personal Number 12
-, Customer Name abebe Personal Number 123
+[Customer Name Namn Personal Number 1
 ]

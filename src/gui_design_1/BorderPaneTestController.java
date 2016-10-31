@@ -194,16 +194,19 @@ public class BorderPaneTestController implements Initializable
     private void removeCustomersButton(ActionEvent event) throws Exception
     {
         String removeCustomerString = (String) custumersListView.getSelectionModel().getSelectedItem();
+        nameTextField.clear();
+        pNrTextField.clear();
 
             if(!pNrTextField.getText().isEmpty())
             {
                 returnMessageToOperator.setText("Select the customer or search the specific customer");
-                nameTextField.clear();
-                pNrTextField.clear();
+
             }
 
             else if(removeCustomerString==null)
             {
+                nameTextField.clear();
+                pNrTextField.clear();
                 returnMessageToOperator.setText("Select the customer or search the specific customer");
             }
        
@@ -212,6 +215,8 @@ public class BorderPaneTestController implements Initializable
                 
             for (int j = 0; j < bankLogic.allCustomersArrayList.size(); j++)
             {
+                nameTextField.clear();
+                pNrTextField.clear();
                 System.out.println("removeCustomerString " + removeCustomerString);
                 System.out.println("string2 " + bankLogic.allCustomersArrayList.get(j).toString2());
             if(removeCustomerString.equals(bankLogic.allCustomersArrayList.get(j).toString2()))
@@ -362,7 +367,7 @@ public class BorderPaneTestController implements Initializable
                             }
 
                             //If withdraw is succeded, the transactionListView would be updated
-                            if (bankLogic.withdraw(personalNumber, accountID, amount) == true)
+                            else if (bankLogic.withdraw(personalNumber, accountID, amount) == true)
                             {
                                 transactionsListView.getItems().clear();
                                 /*This code is to write the first line on the transactionListView, it will be reseted in every
@@ -387,7 +392,8 @@ public class BorderPaneTestController implements Initializable
                                 obListAllCustumers.setAll(bankLogic.getCustomers());
                                 custumersListView.setItems(obListAllCustumers);
 
-                            } else if (bankLogic.withdraw(personalNumber, accountID, amount) == false);
+                            } 
+                            else if (bankLogic.withdraw(personalNumber, accountID, amount) == false);
                             {
                                 returnMessageToOperator.setText("Maximum limit is 5000");
                             }
@@ -450,7 +456,7 @@ public class BorderPaneTestController implements Initializable
                         obListtransaktion.addAll(bankLogic.closeAccount(personalNumber, accountID));
                         transactionsListView.setItems(obListtransaktion);
                         System.out.println("The value of i" + i + " j " + j);
-                        obListCreateAccount.remove(j);
+                        obListCreateAccount.clear();
                     }
                 }
             }
@@ -544,12 +550,16 @@ public class BorderPaneTestController implements Initializable
             {
                 personalNumber = Long.valueOf(pNrTextField.getText());
                 getAccountInformation = bankLogic.getAccount(personalNumber, bankLogic.addCreditAccount(Long.valueOf(pNrTextField.getText())));
+                nameTextField.clear();
+                pNrTextField.clear();
                 obListCreateAccount.add(getAccountInformation);
                 accountsListView.setItems(obListCreateAccount);
             } else
             {
                 for (int i = 0; i < bankLogic.allCustomersArrayList.size(); i++)
                 {
+                    nameTextField.clear();
+                    pNrTextField.clear();
                     if (selectedCustomerString.equals(bankLogic.allCustomersArrayList.get(i).toString2()))
                     {
                         System.out.println(bankLogic.allCustomersArrayList.get(i).getPersonalNumber()); // Test to get a personal number
@@ -587,11 +597,15 @@ public class BorderPaneTestController implements Initializable
                 getAccountInformation = bankLogic.getAccount(Long.valueOf(pNrTextField.getText()), bankLogic.addSavingsAccount(Long.valueOf(pNrTextField.getText())));
                 obListCreateAccount.add(getAccountInformation);
                 accountsListView.setItems(obListCreateAccount);
+                nameTextField.clear();
+                pNrTextField.clear();
             } else
             {
                 for (int i = 0; i < bankLogic.allCustomersArrayList.size(); i++)
                 {
 
+                    nameTextField.clear();
+                    pNrTextField.clear();
                     if (selectedCustomerString.equals(bankLogic.allCustomersArrayList.get(i).toString2()))
                     {
 

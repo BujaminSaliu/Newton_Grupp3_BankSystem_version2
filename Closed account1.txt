@@ -1,1 +1,1 @@
-Balance 0.0, Rate 7.0, AccountType  Credit Account, AccountID 1001
+Balance 1005.0, Rate 0.5, AccountType  Credit Account, AccountID 1002
