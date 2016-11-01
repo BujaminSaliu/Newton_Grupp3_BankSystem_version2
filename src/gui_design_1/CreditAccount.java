@@ -5,7 +5,6 @@
  */
 package gui_design_1;
 
-import java.util.Calendar;
 
 /**
  *
@@ -13,76 +12,47 @@ import java.util.Calendar;
  */
 public class CreditAccount extends Account 
 {
-    private double creditLimit = -5000;
-    static private double creditAccountLoanRate = 7;
-    static private double creditAccountPositiveRate=0.5;
-    //private int accountID;
-    private double creditBalance;
+    final static double creditLimit = -5000;
+    final static private double creditAccountLoanRate = 7;
+    final static private double creditAccountPositiveRate=0.5;
+    final static double interestRate = 0;
+
     
     public CreditAccount(){
     }
 
-    public CreditAccount( String accountType, double creditAccountLoanRate,double interestRate)
+    public CreditAccount( String accountType)
     {
-        super(accountType, interestRate);  //edited
-        this.creditLimit = creditLimit;
-        this.creditAccountLoanRate = creditAccountLoanRate;
-        this.creditAccountPositiveRate = creditAccountPositiveRate;
-        this.creditBalance= creditBalance;
-       // this.accountID = super.getAccountID();
+        super(accountType);  //edited
+        super.setInterestRate(interestRate);
+
     }
-
-
-
-
+ 
     public double getCreditAccountPositiveRate()
     {
         return creditAccountPositiveRate;
     }
 
-    public void setCreditAccountPositiveRate(double creditAccountPositiveRate)
-    {
-        this.creditAccountPositiveRate = creditAccountPositiveRate;
-    }
-
-    
-    public double getCreditLimit() {
-        return creditLimit;
-    }
-
-    public void setCreditLimit(double creditLimit) {
-        this.creditLimit = creditLimit;
-    }
 
     public double getCreditAccountLoanRate() {
         return creditAccountLoanRate;
-    }
-
-    public void setCreditAccountLoanRate(double creditAccountLoanRate) {
-        this.creditAccountLoanRate = creditAccountLoanRate;
-    }
-
-    public double getCreditBalance()
-    {
-        return creditBalance;
     }
 
     @Override
     public void withdraw(double withdrawAmount)
     {
 
-        double sum = super.getBalance()- withdrawAmount;
-        //double division = sum/1.07 = 4672;
-        if(sum > -5000 && sum < 0)
-        {
-            //super.setBalance(0);
-            super.withdraw(-sum);  
-            //super.withdraw(-sum - (super.getInterestRate()*sum/100));  //7% loan rate
-        }
+       double sum = super.getBalance()- withdrawAmount;
+       if(sum >= creditLimit && sum < 0)
+       {
+           super.setBalance(sum);        
+           custumerAccountsTransaktionsList.add(new Transaktions(dateFormat.format(date), getAccountID(), -withdrawAmount, getBalance(), "Ut"));
         
-        else if (sum >=0 )
+       }
+       else if (sum >=0 )
         {
-            super.withdraw(withdrawAmount);
+            super.setBalance(sum); 
+            
         }
         
       else
@@ -90,29 +60,45 @@ public class CreditAccount extends Account
            
              System.out.println("Credit limit is -5000");
                     }
-
     }
     
     @Override
     public void deposit(double depositAmount)
     {
-        super.deposit(depositAmount);
+        super.setBalance(depositAmount + super.getBalance());
+            custumerAccountsTransaktionsList.add(new Transaktions(dateFormat.format(date), getAccountID(), depositAmount, getBalance(), "In"));
+       
     }
     
-//    @Override
-//    public double closeAccount()
-//    {
-//         
-//        //double division = sum/1.07 = 4672;
-//        if(super.getBalance() >=  0)
-//        {
-//            setBalance(super.getBalance() + (creditAccountPositiveRate * super.getBalance()/100));//rate is 0.5% for the balance 
-//        }
-//        else if(super.getBalance() <  0)
-//        {
-//            setBalance(-super.getBalance() - (creditAccountLoanRate * super.getBalance()/100));
-//        }
-//        return balance;
-//    }
+    
+    
+    @Override
+    public double closeAccount()
+    {
+         
+        //double division = sum/1.07 = 4672;
+        if(super.getBalance() >=  0)
+        {
+            setBalance(super.getBalance() + (creditAccountPositiveRate * super.getBalance()/100));//rate is 0.5% for the balance 
+        }
+        else if(super.getBalance() <  0)
+        {
+            setBalance(super.getBalance() + (creditAccountLoanRate * super.getBalance()/100));//rate is 7% for the balance
+        }
+        return super.getBalance();
+    }
+    @Override
+     public String toStringClose()
+     {
+      if(super.getBalance() >=  0)
+                {
+                    return "Balance " + closeAccount() + ", Rate " + creditAccountPositiveRate + ", AccountType  " + getAccountType() + ", AccountID " + accountID + "\n";
+                }
+             else if(super.getBalance() <  0)
+             {
+                 return "Balance " + closeAccount() + ", Rate " + creditAccountLoanRate + ", AccountType  " + getAccountType() + ", AccountID " + accountID + "\n";
+             }
+      return "";
+     }
     
 }

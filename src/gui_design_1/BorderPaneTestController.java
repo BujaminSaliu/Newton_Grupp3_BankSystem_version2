@@ -6,16 +6,11 @@
 package gui_design_1;
 
 //import static gui_design_1.BankLogic.allCustomersArrayList;
-import java.awt.event.MouseEvent;
 import java.net.URL;
-import java.util.Arrays;
-
 import java.util.ResourceBundle;
-import javafx.beans.value.ChangeListener;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
@@ -284,7 +279,7 @@ public class BorderPaneTestController implements Initializable
                                 + "          Saldo          " + bankLogic.allCustomersArrayList.get(i).getCustumerAccountsList().get(j).
                                 getBalance() + "kr          " + bankLogic.allCustomersArrayList.get(i).getCustumerAccountsList().
                                 get(j).getAccountType() + "(" + bankLogic.allCustomersArrayList.get(i).
-                                getCustumerAccountsList().get(j).getInterestRate() + "%)");
+                                getCustumerAccountsList().get(j).getInterestRate()+ "%)");
 
                         //All the transactions (diposit and withdraw) will be displayed
                         obListtransaktion.addAll(bankLogic.allCustomersArrayList.get(i).getCustumerAccountsList().get(j).getCustumerAccountsTransaktionsList().toString());

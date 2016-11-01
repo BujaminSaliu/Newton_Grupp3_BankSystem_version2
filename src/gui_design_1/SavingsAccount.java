@@ -18,6 +18,8 @@ public class SavingsAccount extends Account
     Calendar currentYear = Calendar.getInstance();
     private int counter = 0;
     private int accountID;
+    public final static double interestRate = 2;
+    final static double depositIntrest = 1;
     
     /**
      * Default constructor
@@ -26,15 +28,11 @@ public class SavingsAccount extends Account
     super();
     }
 
-    public SavingsAccount(double balance, double interestRate, String accountType)
-    {
-        super(balance, interestRate, accountType);
-    }
 
-    public SavingsAccount(String accountType, double interestRate)
+    public SavingsAccount(String accountType)
     {
-        super(accountType, interestRate);
-        
+        super(accountType);
+        super.setInterestRate(interestRate);
         this.accountID = super.getAccountID();
         
         
@@ -45,36 +43,45 @@ public class SavingsAccount extends Account
     {
         return accountID;
     }
-
     
     
     @Override
     public void withdraw(double withdrawAmount)
     {
-        
-        int numberOfWeeksInYear = currentYear.getWeeksInWeekYear();
-        int currentWeekOfYear = currentYear.get(Calendar.WEEK_OF_YEAR);
-        if(currentWeekOfYear <= numberOfWeeksInYear)
-        {
-            if(counter == 0)
+
+          if (counter == 0)
             {
-            super.withdraw(withdrawAmount);
-            counter++;
-            }
-            
-            else
+                super.setBalance(super.getBalance() - withdrawAmount); 
+                custumerAccountsTransaktionsList.add(new Transaktions(dateFormat.format(date), getAccountID(), -withdrawAmount, super.getBalance(), "Ut"));
+                counter++;
+            } else if (counter > 0)
             {
-               super.withdraw(withdrawAmount + (getInterestRate()*withdrawAmount/100));
+                super.setBalance(super.getBalance() - (withdrawAmount+ (interestRate*withdrawAmount/100))); 
+                custumerAccountsTransaktionsList.add(new Transaktions(dateFormat.format(date), getAccountID(), -withdrawAmount, super.getBalance(), "Ut"));
             }
-        }
 
     }
 
-//    System.out
-//    public void CalculateInterest()
-//    {
-//        System.out.println("Balance " + getBalance()); //test
-//        double calculatedInterest = getBalance() * interestRate/100;   
-//        System.out.println("Calculated Interest " + calculatedInterest); //test
-//    }
+    @Override
+       public void deposit(double depositAmount)
+       {
+            super.setBalance(depositAmount + super.getBalance()); 
+            custumerAccountsTransaktionsList.add(new Transaktions(dateFormat.format(date), getAccountID(), depositAmount, super.getBalance(), "In"));
+        
+       }
+       
+    @Override
+       public double closeAccount()
+    {
+        
+        super.setBalance(super.getBalance() + (super.getBalance()*depositIntrest/100)); 
+       return super.getBalance();
+    }
+       
+    @Override
+       public String toStringClose()
+    {
+
+            return "Balance " + closeAccount() + ", Rate " + depositIntrest + ", AccountType  " + getAccountType() + ", AccountID " + accountID + "\n";
+        }
 }

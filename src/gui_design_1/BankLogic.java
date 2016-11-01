@@ -196,7 +196,7 @@ public class BankLogic
         {
             if (allCustomersArrayList.get(i).getPersonalNumber() == pNr)
             {
-                allCustomersArrayList.get(i).getCustumerAccountsList().add(new SavingsAccount("Saving Account", 2));
+                allCustomersArrayList.get(i).getCustumerAccountsList().add(new SavingsAccount("Saving Account"));
                 return allCustomersArrayList.get(i).custumerAccountsList.get(allCustomersArrayList
                         .get(i).custumerAccountsList.size() - 1).getAccountID();
 
@@ -334,7 +334,7 @@ public class BankLogic
         {
             if (allCustomersArrayList.get(i).getPersonalNumber() == pNr)
             {
-                allCustomersArrayList.get(i).getCustumerAccountsList().add(new CreditAccount("Credit Account", 0.5, 0));
+                allCustomersArrayList.get(i).getCustumerAccountsList().add(new CreditAccount("Credit Account"));
                 return allCustomersArrayList.get(i).custumerAccountsList.get(allCustomersArrayList
                         .get(i).custumerAccountsList.size() - 1).getAccountID();
             }
