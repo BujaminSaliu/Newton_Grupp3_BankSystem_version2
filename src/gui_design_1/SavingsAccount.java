@@ -52,12 +52,12 @@ public class SavingsAccount extends Account
           if (counter == 0)
             {
                 super.setBalance(super.getBalance() - withdrawAmount); 
-                custumerAccountsTransaktionsList.add(new Transaktions(dateFormat.format(date), getAccountID(), -withdrawAmount, super.getBalance(), "Ut"));
+                custumerAccountsTransaktionsList.add(new Transaktions(dateFormat.format(date), getAccountID(), -Math.round(withdrawAmount * 100.0) / 100.0, super.getBalance(), "Ut"));
                 counter++;
             } else if (counter > 0)
             {
                 super.setBalance(super.getBalance() - (withdrawAmount+ (interestRate*withdrawAmount/100))); 
-                custumerAccountsTransaktionsList.add(new Transaktions(dateFormat.format(date), getAccountID(), -withdrawAmount, super.getBalance(), "Ut"));
+                custumerAccountsTransaktionsList.add(new Transaktions(dateFormat.format(date), getAccountID(), -Math.round(withdrawAmount * 100.0) / 100.0, super.getBalance(), "Ut"));
             }
 
     }
@@ -66,7 +66,7 @@ public class SavingsAccount extends Account
        public void deposit(double depositAmount)
        {
             super.setBalance(depositAmount + super.getBalance()); 
-            custumerAccountsTransaktionsList.add(new Transaktions(dateFormat.format(date), getAccountID(), depositAmount, super.getBalance(), "In"));
+            custumerAccountsTransaktionsList.add(new Transaktions(dateFormat.format(date), getAccountID(), Math.round(depositAmount * 100.0) / 100.0, super.getBalance(), "In"));
         
        }
        

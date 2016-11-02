@@ -5,7 +5,6 @@
  */
 package gui_design_1;
 
-import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -46,9 +45,10 @@ public abstract class Account
 
     //To set the updated balance 
     public void setBalance(double balance)
-    {
-        this.balance = balance;
-    }
+   {
+       double roundOff = Math.round(balance * 100.0) / 100.0; //to make only 2 digits after the decimal point
+       this.balance = roundOff;
+   }
 
     //To get the account type
     public String getAccountType()

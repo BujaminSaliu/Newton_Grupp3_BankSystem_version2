@@ -46,7 +46,7 @@ public class CreditAccount extends Account
        if(sum >= creditLimit && sum < 0)
        {
            super.setBalance(sum);        
-           custumerAccountsTransaktionsList.add(new Transaktions(dateFormat.format(date), getAccountID(), -withdrawAmount, getBalance(), "Ut"));
+           custumerAccountsTransaktionsList.add(new Transaktions(dateFormat.format(date), getAccountID(), -Math.round(withdrawAmount * 100.0) / 100.0, super.getBalance(), "Ut"));
         
        }
        else if (sum >=0 )
@@ -66,7 +66,7 @@ public class CreditAccount extends Account
     public void deposit(double depositAmount)
     {
         super.setBalance(depositAmount + super.getBalance());
-            custumerAccountsTransaktionsList.add(new Transaktions(dateFormat.format(date), getAccountID(), depositAmount, getBalance(), "In"));
+            custumerAccountsTransaktionsList.add(new Transaktions(dateFormat.format(date), getAccountID(), Math.round(depositAmount * 100.0) / 100.0, super.getBalance(), "In"));
        
     }
     

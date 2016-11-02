@@ -52,7 +52,7 @@ public class BorderPaneTestController implements Initializable
 
     public ObservableList<String> obListCreateAccount = FXCollections.observableArrayList(); // kunder som skapas och visas i accountsListView
 
-    public ObservableList<Account> obListCreateAccountList = FXCollections.observableArrayList();
+    //public ObservableList<Account> obListCreateAccountList = FXCollections.observableArrayList();
     public ObservableList<String> obListtransaktion = FXCollections.observableArrayList();
 
     @FXML
@@ -61,7 +61,7 @@ public class BorderPaneTestController implements Initializable
 
         if (nameTextField.getText().isEmpty() || pNrTextField.getText().isEmpty()) // om användare inte fyllt i båda fälten, komplettera med instanceOf?
         {
-            returnMessageToOperator.setText("Du måste fyll i båda fälten!");
+            returnMessageToOperator.setText("Du måste fylla i båda fälten!");
         }
 
         try
@@ -219,6 +219,8 @@ public class BorderPaneTestController implements Initializable
                 returnMessageToOperator.setText(bankLogic.allCustomersArrayList.get(j).getCustomerName() + " is removed");
             obListAllCustumers.addAll(bankLogic.removeCustomer(bankLogic.allCustomersArrayList.get(j).getPersonalNumber()));
             custumersListView.setItems(obListAllCustumers);
+            obListCreateAccount.clear();  //To make obListCreateAccount empty
+            obListtransaktion.clear();//To make obListtransaktion empty
             break;
             }
                 
@@ -586,7 +588,7 @@ public class BorderPaneTestController implements Initializable
         {
             if (selectedCustomerString == null && pNrTextField.getText().isEmpty())
             {
-                returnMessageToOperator.setText("Either write the personal number or select the customer from the lists");
+                returnMessageToOperator.setText("select the customer from the lists to create an account");
             } else if (!pNrTextField.getText().isEmpty())
             {
                 getAccountInformation = bankLogic.getAccount(Long.valueOf(pNrTextField.getText()), bankLogic.addSavingsAccount(Long.valueOf(pNrTextField.getText())));

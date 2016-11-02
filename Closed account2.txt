@@ -1,1 +1,0 @@
-Balance 805.98, Rate 1.0, AccountType  Saving Account, AccountID 1002
