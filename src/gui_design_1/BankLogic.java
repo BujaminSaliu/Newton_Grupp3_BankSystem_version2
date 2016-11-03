@@ -8,7 +8,11 @@ package gui_design_1;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -53,22 +57,23 @@ public class BankLogic
         }
         
         //To print all customer lists to a text file
-        try
-        {
+        try {
             FileWriter out = new FileWriter("allCustomersArrayList.txt");
             BufferedWriter bw = new BufferedWriter(out);
-            //bw.write(stringListCustomer.toString());
-            for (String custNamePnr : stringListCustomer)
-            {
-                bw.write(custNamePnr);
+            PrintWriter pw = new PrintWriter(bw);
+            DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+            Date date = new Date();
+             pw.println("Nuvarande kundlista:" + dateFormat.format(date));
+            for (String list : stringListCustomer) {
+               
+                bw.write(list);
                 bw.newLine();
             }
             bw.close();
-        } catch (IOException ex)
-        {
+        } catch (IOException ex) {
             Logger.getLogger(BankLogic.class.getName()).log(Level.SEVERE, null, ex);
         }
-
+ 
         return stringListCustomer;
     }
 
@@ -273,7 +278,9 @@ public class BankLogic
                         //withdrawRate (7%) of withdraw amount plus withdraw amount should be less than -5000
                         //-4672 * 7% - 4672 = -5000
                         if (allCustomersArrayList.get(i).custumerAccountsList.get(j).getBalance() <= -5000 &&
-                                allCustomersArrayList.get(i).custumerAccountsList.get(j).getAccountType().equals("Credit Account"))
+                                allCustomersArrayList.get(i).custumerAccountsList.get(j).getAccountType().equals("Credit Account")||
+                                allCustomersArrayList.get(i).custumerAccountsList.get(j).getBalance() <= 0 &&
+                                allCustomersArrayList.get(i).custumerAccountsList.get(j).getAccountType().equals("Saving Account"))
                         {
                             withdrawMade = false;
                         } 

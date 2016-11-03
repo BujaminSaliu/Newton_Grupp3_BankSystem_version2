@@ -56,6 +56,97 @@ public class BorderPaneTestController implements Initializable
     public ObservableList<String> obListtransaktion = FXCollections.observableArrayList();
 
     @FXML
+    public final void getOnSelectionChangedKontoTab()
+    {
+        returnMessageToOperator.setText("KontoTab Visas");
+
+    }
+
+    @FXML
+    public final void getOnSelectionChangedTransTab()
+    {
+        returnMessageToOperator.setText("TransTab visas");
+
+    }
+
+    @FXML
+    public final void getOnSelectionChangedAvslutTab()
+    {
+        returnMessageToOperator.setText("Avslut visas");
+
+    }
+
+    @FXML
+    public final void getOnMouseClickedCustListView()
+    {
+        transactionsListView.getItems().clear();
+        selectedCustomerString = (String) custumersListView.getSelectionModel().getSelectedItem();
+        for (int i = 0; i < bankLogic.allCustomersArrayList.size(); i++)
+        {
+            if (bankLogic.allCustomersArrayList.get(i).toString2().equals(selectedCustomerString))
+            {
+                //returnMessageToOperator.setText(bankLogic.allCustomersArrayList.get(i).getCustomerName());
+                obListCreateAccount.clear();
+
+                for (int j = 0; j < bankLogic.allCustomersArrayList.get(i).custumerAccountsList.size(); j++)
+                {
+                    obListCreateAccount.add(bankLogic.allCustomersArrayList.get(i).custumerAccountsList.get(j).toString());
+                }
+
+            }
+        }
+        accountsListView.setItems(obListCreateAccount);
+
+    }
+
+    @FXML
+    public final void getOnMouseClickedAccoutListView()
+    {
+        obListtransaktion.clear();
+        String selectedAccountStringDetail = (String) accountsListView.getSelectionModel().getSelectedItem();
+        for (int i = 0; i < bankLogic.allCustomersArrayList.size(); i++)
+        {
+            if (selectedAccountStringDetail == null)
+            {
+                returnMessageToOperator.setText("Select the specific AccountID to see the transaction");
+            } else
+            {
+                Long personalNumber = bankLogic.allCustomersArrayList.get(i).getPersonalNumber();// To get a personal number
+                for (int j = 0; j < bankLogic.allCustomersArrayList.get(i).getCustumerAccountsList().size(); j++)
+                {
+
+                    System.out.println("Test select " + selectedAccountStringDetail);
+                    System.out.println("Test toString" + bankLogic.allCustomersArrayList.get(i).getCustumerAccountsList().get(j).toString());
+                    if (selectedAccountStringDetail.equals(bankLogic.allCustomersArrayList.get(i).getCustumerAccountsList().get(j).toString()))
+                    {
+                        int accountID = bankLogic.allCustomersArrayList.get(i).getCustumerAccountsList().get(j).getAccountID();
+
+                        /*This code is to write the first line on the transactionListView,
+                        this code "transactionsListView.getItems().clear();" will clean the transaction window
+                            The output is like Kontonummer: 1000 Saldo: 600 kr Saving Accout
+                         */
+                        transactionsListView.getItems().clear();
+
+                        //To give the Account number, balance, account type and the rate. It will be displayed as a title in the transaction
+                        //window
+                        obListtransaktion = FXCollections.observableArrayList("Kontonummer:          " + Integer.toString(accountID)
+                                + "          Saldo          " + bankLogic.allCustomersArrayList.get(i).getCustumerAccountsList().get(j).
+                                getBalance() + "kr          " + bankLogic.allCustomersArrayList.get(i).getCustumerAccountsList().
+                                get(j).getAccountType() + "(" + bankLogic.allCustomersArrayList.get(i).
+                                getCustumerAccountsList().get(j).getInterestRate() + "%)");
+
+                        //All the transactions (diposit and withdraw) will be displayed
+                        obListtransaktion.addAll(bankLogic.allCustomersArrayList.get(i).getCustumerAccountsList().get(j).getCustumerAccountsTransaktionsList().toString());
+                        transactionsListView.setItems(obListtransaktion);
+                    }
+
+                }
+            }
+        }
+
+    }
+
+    @FXML
     private void addCustomerButton(ActionEvent event) throws Exception
     {
 
@@ -249,6 +340,11 @@ public class BorderPaneTestController implements Initializable
 
         }
 
+        // 
+        obListAllCustumers.clear();
+        obListAllCustumers.addAll(bankLogic.getCustomers());
+        custumersListView.setItems(obListAllCustumers);
+
     }
 
     @FXML
@@ -298,8 +394,8 @@ public class BorderPaneTestController implements Initializable
                         //To give the Account number, balance, account type and the rate. It will be displayed as a title in the transaction
                         //window
                         obListtransaktion = FXCollections.observableArrayList("Kontonummer:          " + Integer.toString(accountID)
-                                + "          Saldo          " + bankLogic.allCustomersArrayList.get(i).getCustumerAccountsList().get(j).
-                                getBalance() + "kr          " + bankLogic.allCustomersArrayList.get(i).getCustumerAccountsList().
+                                + "          Saldo          " + bankLogic.allCustomersArrayList.get(i).getCustumerAccountsList().get(j)
+                                .getBalance() + "kr          " + bankLogic.allCustomersArrayList.get(i).getCustumerAccountsList().
                                 get(j).getAccountType() + "(" + bankLogic.allCustomersArrayList.get(i).
                                 getCustumerAccountsList().get(j).getInterestRate() + "%)");
 
@@ -378,10 +474,16 @@ public class BorderPaneTestController implements Initializable
                         {
                             //The deposited amount should be above 0
                             double amount = Double.parseDouble(depositWithDrawAmountField.getText());
-                            if (amount < 0)
+                            if (amount <= 0)
                             {
                                 throw new NumberFormatException();
-                            } //If withdraw is succeded, the transactionListView would be updated
+                            } 
+                            else if (amount > bankLogic.allCustomersArrayList.get(i).getCustumerAccountsList().get(j).getBalance())
+                            {
+                                //To clear the accountsListView window after every every deposit action
+                                returnMessageToOperator.setText("Nej!");
+                            }
+                            //If withdraw is succeded, the transactionListView would be updated
                             else if (bankLogic.withdraw(personalNumber, accountID, amount) == true)
                             {
                                 transactionsListView.getItems().clear();
@@ -409,11 +511,11 @@ public class BorderPaneTestController implements Initializable
 
                             } else if (bankLogic.withdraw(personalNumber, accountID, amount) == false);
                             {
-                                returnMessageToOperator.setText("Maximum limit is 5000");
+                                returnMessageToOperator.setText("Medges ej");
                             }
                         } catch (NumberFormatException nfe)
                         {
-                            returnMessageToOperator.setText("Enter a valid amount");
+                            returnMessageToOperator.setText("Ange giltigt belopp");
                         }
 
                     }
@@ -421,6 +523,7 @@ public class BorderPaneTestController implements Initializable
                 }
 
             }
+            depositWithDrawAmountField.clear();
         }
         //Magnus kod
 //        selectedCustomerString = (String) custumersListView.getSelectionModel().getSelectedItem();
@@ -504,10 +607,16 @@ public class BorderPaneTestController implements Initializable
                         try
                         {
                             double amount = Double.parseDouble(depositWithDrawAmountField.getText());
-                            if (amount < 0)
+                            if (amount <= 0)
                             {
                                 throw new NumberFormatException();
-                            } else if (bankLogic.deposit(personalNumber, accountID, amount) == true)
+
+                            } else if (amount > 1000000)
+                            {
+                                throw new IndexOutOfBoundsException();
+                            } 
+                            
+                            else if (bankLogic.deposit(personalNumber, accountID, amount) == true)
                             {
                                 transactionsListView.getItems().clear();
 
@@ -538,14 +647,18 @@ public class BorderPaneTestController implements Initializable
                         } catch (NumberFormatException nfe)
                         {
                             returnMessageToOperator.setText("Ange giltigt belopp");
+                        } catch (IndexOutOfBoundsException e)
+                        {
+                            returnMessageToOperator.setText("Kontakta bankledningen!");
                         }
-
                     }
 
                 }
             }
 
         }
+        
+        depositWithDrawAmountField.clear();
 
     }
 

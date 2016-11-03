@@ -17,7 +17,7 @@
                <children>
                   <VBox prefHeight="297.0" prefWidth="275.0">
                      <children>
-                        <ListView fx:id="custumersListView" prefHeight="322.0" prefWidth="256.0">
+                        <ListView fx:id="custumersListView" onMouseClicked="#getOnMouseClickedCustListView" prefHeight="322.0" prefWidth="256.0">
                            <VBox.margin>
                               <Insets top="10.0" />
                            </VBox.margin>
@@ -85,7 +85,7 @@
                <children>
                   <VBox prefHeight="223.0" prefWidth="569.0">
                      <children>
-                        <ListView fx:id="accountsListView" prefHeight="105.0" prefWidth="606.0">
+                        <ListView fx:id="accountsListView" onMouseClicked="#getOnMouseClickedAccoutListView" prefHeight="105.0" prefWidth="606.0">
                            <VBox.margin>
                               <Insets bottom="10.0" />
                            </VBox.margin>
