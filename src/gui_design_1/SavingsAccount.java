@@ -53,10 +53,18 @@ public class SavingsAccount extends Account
             counter++;
         } else if (counter > 0)
         {
+            //To protect the saving account above 0
+            if((withdrawAmount + (interestRate * withdrawAmount / 100)) > super.getBalance())
+            {
+                super.setBalance(super.getBalance());
+            }
 
+            else
+            {
             super.setBalance(super.getBalance() - (withdrawAmount + (interestRate * withdrawAmount / 100)));
             custumerAccountsTransaktionsList.add(new Transaktions(dateFormat.format(date), getAccountID(), -Math.round(withdrawAmount * 100.0) / 100.0, super.getBalance(), "Ut"));
 
+            }
         }
 
     }

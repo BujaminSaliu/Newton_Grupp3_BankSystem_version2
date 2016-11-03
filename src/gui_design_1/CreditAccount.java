@@ -45,9 +45,10 @@ public class CreditAccount extends Account
        double sum = super.getBalance()- withdrawAmount;
        if(sum >= creditLimit && sum < 0)
        {
-           super.setBalance(sum);        
+           
+           super.setBalance(sum);  
+          
            custumerAccountsTransaktionsList.add(new Transaktions(dateFormat.format(date), getAccountID(), -Math.round(withdrawAmount * 100.0) / 100.0, super.getBalance(), "Ut"));
-        
        }
        else if (sum >=0 )
         {

@@ -261,6 +261,10 @@ public class BankLogic
                         if (allCustomersArrayList.get(i).custumerAccountsList.get(j).getBalance() <= -5000 &&
                                 allCustomersArrayList.get(i).custumerAccountsList.get(j).getAccountType().equals("Credit Account")||
                                 allCustomersArrayList.get(i).custumerAccountsList.get(j).getBalance() <= 0 &&
+                                allCustomersArrayList.get(i).custumerAccountsList.get(j).getAccountType().equals("Saving Account")
+                                ||allCustomersArrayList.get(i).custumerAccountsList.get(j).getBalance() < amount &&
+                                allCustomersArrayList.get(i).custumerAccountsList.get(j).getAccountType().equals("Saving Account")
+                                ||allCustomersArrayList.get(i).custumerAccountsList.get(j).getBalance() - amount < 0 &&
                                 allCustomersArrayList.get(i).custumerAccountsList.get(j).getAccountType().equals("Saving Account"))
                         {
                             withdrawMade = false;
