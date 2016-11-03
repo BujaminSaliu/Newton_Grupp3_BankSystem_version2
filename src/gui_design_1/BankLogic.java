@@ -53,27 +53,8 @@ public class BankLogic
         for (int i = 0; i < allCustomersArrayList.size(); i++)
         {
             stringListCustomer.add(allCustomersArrayList.get(i).toString2());
-
         }
-        
-        //To print all customer lists to a text file
-        try {
-            FileWriter out = new FileWriter("allCustomersArrayList.txt");
-            BufferedWriter bw = new BufferedWriter(out);
-            PrintWriter pw = new PrintWriter(bw);
-            DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-            Date date = new Date();
-             pw.println("Nuvarande kundlista:" + dateFormat.format(date));
-            for (String list : stringListCustomer) {
-               
-                bw.write(list);
-                bw.newLine();
-            }
-            bw.close();
-        } catch (IOException ex) {
-            Logger.getLogger(BankLogic.class.getName()).log(Level.SEVERE, null, ex);
-        }
- 
+   
         return stringListCustomer;
     }
 

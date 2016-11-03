@@ -6,7 +6,15 @@
 package gui_design_1;
 
 //import static gui_design_1.BankLogic.allCustomersArrayList;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.net.URL;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -347,10 +355,29 @@ public class BorderPaneTestController implements Initializable
 
     }
 
+    //To print all customer lists to a text file
     @FXML
     private void printAllCustomersButton(ActionEvent event) throws Exception
     {
-        bankLogic.getCustomers();
+       List<String>stringListCustomer = bankLogic.getCustomers();
+       try {
+            FileWriter out = new FileWriter("Kundlista.txt");
+            BufferedWriter bw = new BufferedWriter(out);
+            PrintWriter pw = new PrintWriter(bw);
+            DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            Date date = new Date();
+            
+             pw.println("Listan skapad:" + "\t" + dateFormat.format(date));
+            for (String list : stringListCustomer) {
+               
+                bw.write(list);
+                bw.newLine();
+            }
+            bw.close();
+        } catch (IOException ex) {
+           returnMessageToOperator.setText("Filen korrupt eller skrivskyddad! ");
+            
+        }
 
     }
 
