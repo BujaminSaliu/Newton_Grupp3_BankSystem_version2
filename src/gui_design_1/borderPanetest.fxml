@@ -72,9 +72,9 @@
                         <HBox prefHeight="40.0" prefWidth="131.0" />
                      </children>
                   </HBox>
-                  <Button mnemonicParsing="false" onAction="#seeAccountTransactionButton" prefHeight="31.0" prefWidth="142.0" text="See transaction">
+                  <Button mnemonicParsing="false" onAction="#seeCustomerAccountButton" prefHeight="31.0" prefWidth="120.0" text="Se konton">
                      <VBox.margin>
-                        <Insets top="10.0" />
+                        <Insets left="5.0" top="10.0" />
                      </VBox.margin>
                   </Button>
                </children>
@@ -153,10 +153,11 @@
                                           <VBox prefHeight="27.0" prefWidth="91.0" />
                                           <VBox prefHeight="60.0" prefWidth="91.0">
                                              <children>
-                                                <Button mnemonicParsing="false" onAction="#seeCustomerAccountButton" prefHeight="31.0" prefWidth="120.0" text="See Account">
+                                                <Button mnemonicParsing="false" onAction="#seeAccountTransactionButton" prefHeight="31.0" prefWidth="142.0" text="See transaction">
                                                    <VBox.margin>
-                                                      <Insets left="10.0" />
-                                                   </VBox.margin></Button>
+                                                      <Insets left="5.0" top="10.0" />
+                                                   </VBox.margin>
+                                                </Button>
                                              </children></VBox>
                                        </children>
                                     </VBox>
@@ -299,8 +300,8 @@
                                     </HBox>
                                  </children>
                               </VBox>
-                              <TextField fx:id="nameTextField" text="Namn" />
-                              <TextField fx:id="pNrTextField" text="Personnummer">
+                              <TextField fx:id="nameTextField" promptText="Namn" />
+                              <TextField fx:id="pNrTextField" promptText="Personnummer">
                                  <VBox.margin>
                                     <Insets bottom="10.0" top="10.0" />
                                  </VBox.margin>

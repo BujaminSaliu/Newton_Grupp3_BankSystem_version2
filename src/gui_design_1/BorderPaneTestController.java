@@ -62,32 +62,36 @@ public class BorderPaneTestController implements Initializable
         if (nameTextField.getText().isEmpty() || pNrTextField.getText().isEmpty()) // om användare inte fyllt i båda fälten, komplettera med instanceOf?
         {
             returnMessageToOperator.setText("Du måste fylla i båda fälten!");
-        }
-
-        try
+        } else if (pNrTextField.getText().length() > 10 || pNrTextField.getText().length() < 10)
         {
-            boolean add = bankLogic.addCustomer(nameTextField.getText(), Long.parseLong(pNrTextField.getText()));
+            returnMessageToOperator.setText("Du måste fylla i 10 siffror!");
+        } else
+        {
+            try
+            {
+                boolean add = bankLogic.addCustomer(nameTextField.getText(), Long.parseLong(pNrTextField.getText()));
 
-            if (add)
+                if (add)
+                {
+                    obListAllCustumers.clear();
+                    obListAllCustumers.addAll(bankLogic.getCustomers());
+                    custumersListView.setItems(obListAllCustumers);
+                    returnMessageToOperator.setText("Kund lades till!");
+                } else
+                {
+                    returnMessageToOperator.setText("Kund lades inte  till!");
+                }
+            } catch (NumberFormatException nfe)
             {
-                obListAllCustumers.clear();
-                obListAllCustumers.addAll(bankLogic.getCustomers());
-                custumersListView.setItems(obListAllCustumers);
-                returnMessageToOperator.setText("Kund lades till!");
-            } else
-            {
-                returnMessageToOperator.setText("Kund lades inte  till!");
+                returnMessageToOperator.setText("Enter a valid Personal number");
             }
-        } catch (NumberFormatException nfe)
-        {
-            returnMessageToOperator.setText("Enter a valid Personal number");
+            // obListAllCustumers.add(0, bankLogic.allCustomersArrayList.get(0).toStringForcustumersListView());
+            //upDateobListAllCustumers();
+
+            nameTextField.clear();
+            pNrTextField.clear();
+
         }
-        // obListAllCustumers.add(0, bankLogic.allCustomersArrayList.get(0).toStringForcustumersListView());
-        //upDateobListAllCustumers();
-
-        nameTextField.clear();
-        pNrTextField.clear();
-
     }
 
     @FXML
@@ -131,19 +135,19 @@ public class BorderPaneTestController implements Initializable
                 obListFoundCustumers.addAll(bankLogic.getCustomer(personalNumber));
                 custumersListView.setItems(obListFoundCustumers);
                 System.out.println("hii " + bankLogic.getCustomer(personalNumber));
-                
+                returnMessageToOperator.setText("Kund hittad");
                 //A message will be displayed if there is no customer having the given personal 
                 //number the return arrayList size would be 0,"[]"
-                if(bankLogic.getCustomer(personalNumber).isEmpty())
+                if (bankLogic.getCustomer(personalNumber).isEmpty())
                 {
-                    returnMessageToOperator.setText("No customer having this personal number");
+                    returnMessageToOperator.setText("Ingen kund med angivet personnummer hittad");
                 }
                 break;
 
             }
         } catch (NumberFormatException nfe)
         {
-            returnMessageToOperator.setText("Enter a valid Personal number");
+            returnMessageToOperator.setText("Ange ett giltig personnummer (10 siffror)");
         }
 
     }
@@ -155,32 +159,37 @@ public class BorderPaneTestController implements Initializable
         Long personalNumber;
         try
         {
-            if(nameTextField.getText().isEmpty())
+            if (nameTextField.getText().isEmpty())
             {
-                returnMessageToOperator.setText("Enter your name");
-            }
-
-            else
+                returnMessageToOperator.setText("Skriv namn och personnummer");
+            } else
             {
-            personalNumber = Long.valueOf(pNrTextField.getText());// To get a personal number
-            for (int i = 0; i < bankLogic.allCustomersArrayList.size(); i++)
-            {
-
-                if (bankLogic.allCustomersArrayList.get(i).getPersonalNumber() == personalNumber)
+                personalNumber = Long.valueOf(pNrTextField.getText());// To get a personal number
+                for (int i = 0; i < bankLogic.allCustomersArrayList.size(); i++)
                 {
-                    if (bankLogic.changeCustomerName(name, personalNumber))
-                    {
-                        obListAllCustumers.clear();
-                        obListAllCustumers.addAll(bankLogic.getCustomer(personalNumber));
-                        custumersListView.setItems(obListAllCustumers);
 
+                    if (bankLogic.allCustomersArrayList.get(i).getPersonalNumber() == personalNumber)
+                    {
+                        if (bankLogic.changeCustomerName(name, personalNumber))
+                        {
+                            obListAllCustumers.clear();
+                            obListAllCustumers.addAll(bankLogic.getCustomer(personalNumber));
+                            custumersListView.setItems(obListAllCustumers);
+                            returnMessageToOperator.setText("Kundens namn ändrades");
+                            break;
+                        }
+
+                    } else if (personalNumber != bankLogic.allCustomersArrayList.get(i).getPersonalNumber())
+                    {
+                        returnMessageToOperator.setText("Kunde inte ändra namn. Ingen kund hittad");
+                        break;
                     }
+
                 }
-            }
             }
         } catch (NumberFormatException nfe)
         {
-            returnMessageToOperator.setText("Enter a name and valid Personal number");
+            returnMessageToOperator.setText("Skriv namn och personnummer");
         }
 
     }
@@ -192,42 +201,53 @@ public class BorderPaneTestController implements Initializable
         nameTextField.clear();
         pNrTextField.clear();
 
-            if(!pNrTextField.getText().isEmpty())
-            {
-                returnMessageToOperator.setText("Select the customer or search the specific customer");
+        if (!pNrTextField.getText().isEmpty())
+        {
+            returnMessageToOperator.setText("Select the customer or search the specific customer");
 
-            }
+        } else if (removeCustomerString == null)
+        {
+            nameTextField.clear();
+            pNrTextField.clear();
+            returnMessageToOperator.setText("Select the customer or search the specific customer");
+        } else
+        {
 
-            else if(removeCustomerString==null)
-            {
-                nameTextField.clear();
-                pNrTextField.clear();
-                returnMessageToOperator.setText("Select the customer or search the specific customer");
-            }
-       
-            else
-            {
-                
             for (int j = 0; j < bankLogic.allCustomersArrayList.size(); j++)
             {
                 nameTextField.clear();
                 pNrTextField.clear();
                 System.out.println("removeCustomerString " + removeCustomerString);
                 System.out.println("string2 " + bankLogic.allCustomersArrayList.get(j).toString2());
-            if(removeCustomerString.equals(bankLogic.allCustomersArrayList.get(j).toString2()))
-            {
-                returnMessageToOperator.setText(bankLogic.allCustomersArrayList.get(j).getCustomerName() + " is removed");
-            obListAllCustumers.addAll(bankLogic.removeCustomer(bankLogic.allCustomersArrayList.get(j).getPersonalNumber()));
-            custumersListView.setItems(obListAllCustumers);
-            obListCreateAccount.clear();  //To make obListCreateAccount empty
-            obListtransaktion.clear();//To make obListtransaktion empty
-            break;
-            }
-                
-            }
+                if (removeCustomerString.equals(bankLogic.allCustomersArrayList.get(j).toString2()))
+                {
+                    returnMessageToOperator.setText(bankLogic.allCustomersArrayList.get(j).getCustomerName() + " is removed");
+
+                    //To clear the observable list in the Account ListView
+                    obListCreateAccount.clear();  //To make obListCreateAccount empty
+
+                    obListCreateAccount.add("Följande konto avslutas");
+                    for (int i = 0; i < bankLogic.allCustomersArrayList.get(j).getCustumerAccountsList().size(); i++)
+                    {
+                        //Adding all the customers' removed account int account ListView
+                        //obListCreateAccount.addAll(bankLogic.allCustomersArrayList.get(j).getCustumerAccountsList().toString());
+                        Long personalNumber = bankLogic.allCustomersArrayList.get(j).getPersonalNumber();// To get a personal number
+                        int accountID = bankLogic.allCustomersArrayList.get(j).getCustumerAccountsList().get(i).getAccountID();//To get accountID   
+
+                        obListCreateAccount.addAll(bankLogic.allCustomersArrayList.get(j).getCustumerAccountsList().get(i).toStringClose());
+                        accountsListView.setItems(obListCreateAccount);
+                    }
+
+                    obListAllCustumers.addAll(bankLogic.removeCustomer(bankLogic.allCustomersArrayList.get(j).getPersonalNumber()));
+                    custumersListView.setItems(obListAllCustumers);
+
+                    obListtransaktion.clear();//To make obListtransaktion empty
+                    break;
+                }
 
             }
 
+        }
 
     }
 
@@ -281,7 +301,7 @@ public class BorderPaneTestController implements Initializable
                                 + "          Saldo          " + bankLogic.allCustomersArrayList.get(i).getCustumerAccountsList().get(j).
                                 getBalance() + "kr          " + bankLogic.allCustomersArrayList.get(i).getCustumerAccountsList().
                                 get(j).getAccountType() + "(" + bankLogic.allCustomersArrayList.get(i).
-                                getCustumerAccountsList().get(j).getInterestRate()+ "%)");
+                                getCustumerAccountsList().get(j).getInterestRate() + "%)");
 
                         //All the transactions (diposit and withdraw) will be displayed
                         obListtransaktion.addAll(bankLogic.allCustomersArrayList.get(i).getCustumerAccountsList().get(j).getCustumerAccountsTransaktionsList().toString());
@@ -361,9 +381,7 @@ public class BorderPaneTestController implements Initializable
                             if (amount < 0)
                             {
                                 throw new NumberFormatException();
-                            }
-
-                            //If withdraw is succeded, the transactionListView would be updated
+                            } //If withdraw is succeded, the transactionListView would be updated
                             else if (bankLogic.withdraw(personalNumber, accountID, amount) == true)
                             {
                                 transactionsListView.getItems().clear();
@@ -389,8 +407,7 @@ public class BorderPaneTestController implements Initializable
                                 obListAllCustumers.setAll(bankLogic.getCustomers());
                                 custumersListView.setItems(obListAllCustumers);
 
-                            } 
-                            else if (bankLogic.withdraw(personalNumber, accountID, amount) == false);
+                            } else if (bankLogic.withdraw(personalNumber, accountID, amount) == false);
                             {
                                 returnMessageToOperator.setText("Maximum limit is 5000");
                             }
@@ -449,11 +466,13 @@ public class BorderPaneTestController implements Initializable
 
                         //To show the deleted Account on the transaction window, the result would be printed
                         //as a text form too, the printer code is written in BankLogic.closeAccount(personalNumber, accountID)
-                        transactionsListView.getItems().clear();
-                        obListtransaktion.addAll(bankLogic.closeAccount(personalNumber, accountID));
-                        transactionsListView.setItems(obListtransaktion);
-                        System.out.println("The value of i" + i + " j " + j);
                         obListCreateAccount.clear();
+                        transactionsListView.getItems().clear();
+                        obListCreateAccount.add("Följande konto avslutas");
+                        obListCreateAccount.addAll(bankLogic.closeAccount(personalNumber, accountID));
+                        accountsListView.setItems(obListCreateAccount);
+                        System.out.println("The value of i" + i + " j " + j);
+                        //obListCreateAccount.clear();
                     }
                 }
             }
@@ -467,7 +486,7 @@ public class BorderPaneTestController implements Initializable
         selectedAccountString = (String) accountsListView.getSelectionModel().getSelectedItem();
         if (selectedAccountString == null)
         {
-            returnMessageToOperator.setText("Select the specific accountID to deposit");
+            returnMessageToOperator.setText("Välj konto för transaktion");
         } else
         {
             for (int i = 0; i < bankLogic.allCustomersArrayList.size(); i++)
@@ -518,7 +537,7 @@ public class BorderPaneTestController implements Initializable
                             }
                         } catch (NumberFormatException nfe)
                         {
-                            returnMessageToOperator.setText("Enter a valid amount");
+                            returnMessageToOperator.setText("Ange giltigt belopp");
                         }
 
                     }
@@ -533,6 +552,14 @@ public class BorderPaneTestController implements Initializable
     @FXML
     private void createNewCreditAccountButton(ActionEvent event) throws Exception
     {
+//        if(obListCreateAccount.get(0).equals("Följande konto avslutas"))
+//        {
+//            accountsListView.getItems().clear();
+//            
+//        }
+//        else
+//        {
+
         selectedCustomerString = (String) custumersListView.getSelectionModel().getSelectedItem();
         selectedAccountString = (String) accountsListView.getSelectionModel().getSelectedItem();
         String getAccountInformation;
@@ -575,11 +602,13 @@ public class BorderPaneTestController implements Initializable
         {
             returnMessageToOperator.setText("Enter a valid Personal number");
         }
+        //}
     }
 
     @FXML
     private void createNewSavingsAccountButton(ActionEvent event) throws Exception
     {
+
         selectedCustomerString = (String) custumersListView.getSelectionModel().getSelectedItem();
         selectedAccountString = (String) accountsListView.getSelectionModel().getSelectedItem();
         String getAccountInformation;
@@ -613,6 +642,7 @@ public class BorderPaneTestController implements Initializable
 
                         obListCreateAccount.add(getAccountInformation);
                         accountsListView.setItems(obListCreateAccount);
+
                     }
 
                 }

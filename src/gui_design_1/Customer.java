@@ -89,7 +89,7 @@ public class Customer
     
     public String toString2()
     {
-        return "Customer Name " + customerName + " Personal Number " + personalNumber + "\n";
+        return customerName + " " + personalNumber + "\n";
     }
  
        

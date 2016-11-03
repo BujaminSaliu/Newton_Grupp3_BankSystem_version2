@@ -96,7 +96,7 @@ public class CreditAccount extends Account
                 }
              else if(super.getBalance() <  0)
              {
-                 return "Balance " + closeAccount() + ", Rate " + creditAccountLoanRate + ", AccountType  " + getAccountType() + ", AccountID " + accountID + "\n";
+                 return "Balance " + closeAccount() + ", Rate " + -creditAccountLoanRate + ", AccountType  " + getAccountType() + ", AccountID " + accountID + "\n";
              }
       return "";
      }

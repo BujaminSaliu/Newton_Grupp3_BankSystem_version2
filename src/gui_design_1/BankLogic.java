@@ -57,7 +57,12 @@ public class BankLogic
         {
             FileWriter out = new FileWriter("allCustomersArrayList.txt");
             BufferedWriter bw = new BufferedWriter(out);
-            bw.write(stringListCustomer.toString());
+            //bw.write(stringListCustomer.toString());
+            for (String custNamePnr : stringListCustomer)
+            {
+                bw.write(custNamePnr);
+                bw.newLine();
+            }
             bw.close();
         } catch (IOException ex)
         {
