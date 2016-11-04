@@ -291,7 +291,6 @@ public class BankLogic
 
                       
                         allCustomersArrayList.get(i).getCustumerAccountsList().remove(allCustomersArrayList.get(i).getCustumerAccountsList().get(j));
-                        System.out.print("Personal number " + pNr + ", ");
 
                     }
                 }
