@@ -13,7 +13,7 @@ import javafx.stage.Stage;
 
 /**
  *
- * @author Allan
+ * @author SYSJM2 GRUPP 3
  */
 public class GUI_design_1 extends Application
 {

@@ -7,7 +7,7 @@ package gui_design_1;
 
 /**
  *
- * @author Befkadu Degefa
+ * @author SYSJM2 GRUPP 3
  */
 public class Transaktions
 {
@@ -92,6 +92,6 @@ public class Transaktions
     {
         
         
-        return  getDate()+ "          " + getInOut() + "          " + amount + "kr          Saldo: " + balanceAfterTransaction + " kr\n";
+        return  getDate()+ "          " + getInOut() + "          " + amount + "kr          Saldo: " + balanceAfterTransaction + " kr";
     } 
 }

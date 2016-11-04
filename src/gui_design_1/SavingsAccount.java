@@ -9,7 +9,7 @@ import java.util.Calendar;
 
 /**
  *
- * @author Befkadu Degefa
+ * @author SYSJM2 GRUPP 3
  */
 public class SavingsAccount extends Account
 {

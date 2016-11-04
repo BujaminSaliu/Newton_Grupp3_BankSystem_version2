@@ -16,7 +16,7 @@ import javafx.scene.text.TextFlow;
 
 /**
  *
- * @author Allan
+ * @author SYSJM2 GRUPP 3
  */
 public class FXMLDocumentController implements Initializable
 {
