@@ -5,53 +5,36 @@
  */
 package gui_design_1;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
-import javafx.scene.text.TextFlow;
+import javafx.scene.layout.AnchorPane;
 
 /**
  *
- * @author Allan
+ * @author SYSJM2 GRUPP 3
  */
-public class FXMLDocumentController implements Initializable
-{
+public class FXMLDocumentController implements Initializable {
+    @FXML
+    private AnchorPane anchorp;
+    
     
     @FXML
-    private Label label;
-    
-    @FXML
-    private TextFlow textflowTest;
-    
-    @FXML
-    private TextField textFieldName;
-    
-    @FXML
-    private TextField textFieldPnr;
-    
-    
-    public static BankLogic bankLogic;
-    
-    @FXML
-    private void addCustomerButton(ActionEvent event)
-    {
-//        BankLogic bl = new BankLogic
-        bankLogic.addCustomer(textFieldName.getText(),Long.parseLong(textFieldPnr.getText()));
-        for (int i = 0; i < bankLogic.getCustomers().size(); i++)
-        {
-            System.out.println(bankLogic.getCustomers().get(i).toString());
-        }
-        
+    private void change(ActionEvent event) throws IOException {
+        Parent pane = FXMLLoader.load(getClass().getResource("borderPanetest.fxml"));
+        anchorp.getChildren().setAll(pane);
     }
     
     @Override
-    public void initialize(URL url, ResourceBundle rb)
-    {
-        bankLogic = BankLogic.getInstance();
+    public void initialize(URL url, ResourceBundle rb) {
+        // TODO
     }    
     
 }
+

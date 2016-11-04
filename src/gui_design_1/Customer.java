@@ -14,7 +14,7 @@ public class Customer
 
     private String customerName;
     private long personalNumber;
-    public ArrayList<Account> custumerAccountsList;
+    private ArrayList<Account> custumerAccountsList;
 
     /**
      * Default constructor
@@ -69,7 +69,7 @@ public class Customer
    @Override
     public String toString()
     {
-        return "Customer Name " + customerName + " Personal Number " + personalNumber + "\n";
+        return "Kundens namn " + customerName + " Personnummer " + personalNumber + "\n";
     }
     
     public String toString1()

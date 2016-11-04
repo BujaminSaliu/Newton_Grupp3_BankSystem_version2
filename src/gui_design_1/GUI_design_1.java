@@ -13,7 +13,7 @@ import javafx.stage.Stage;
 
 /**
  *
- * @author Allan
+ * @author SYSJM2 GRUPP 3
  */
 public class GUI_design_1 extends Application
 {
@@ -26,9 +26,10 @@ public class GUI_design_1 extends Application
         
             
         //Parent root = FXMLLoader.load(getClass().getResource("borderPanetest.fxml"));
-        Parent root = FXMLLoader.load(getClass().getResource("borderPanetest.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("FXMLDocument.fxml"));
         Scene scene = new Scene(root);
         stage.setScene(scene);
+        stage.setTitle("NewtonBank");
         stage.show();
         stage.setResizable(false);
     

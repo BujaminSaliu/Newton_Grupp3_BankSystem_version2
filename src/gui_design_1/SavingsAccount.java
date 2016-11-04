@@ -9,7 +9,7 @@ import java.util.Calendar;
 
 /**
  *
- * @author Befkadu Degefa
+ * @author SYSJM2 GRUPP 3
  */
 public class SavingsAccount extends Account
 {
@@ -17,7 +17,7 @@ public class SavingsAccount extends Account
     Calendar currentYear = Calendar.getInstance();
     private int counter = 0;
     private int accountID;
-    public final static double interestRate = 2;
+    private final static double interestRate = 2;
     final static double depositIntrest = 1;
 
     /**
@@ -89,6 +89,6 @@ public class SavingsAccount extends Account
     public String toStringClose()
     {
 
-        return "Balance " + closeAccount() + ", Rate " + depositIntrest + ", AccountType  " + getAccountType() + ", AccountID " + accountID + "\n";
+        return "Saldo: " + closeAccount() + ", Ränta: " + depositIntrest + "%, Kontotyp:  " + getAccountType() + ", KontoID: " + accountID + "\n";
     }
 }

@@ -13,13 +13,13 @@ import java.util.Date;
 public abstract class Account
 {
 
-    public static int accountIDCounter = 1000;
+    public static int accountIDCounter = 1001;
 
     private double balance;
     private double interestRate;
     private String accountType;
-    int accountID;
-    int counter = 0;
+    private int accountID;
+    private int counter = 0;
     public ArrayList<Transaktions> custumerAccountsTransaktionsList;
     Calendar cal = Calendar.getInstance();
     SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd   HH:mm:ss");
@@ -97,7 +97,7 @@ public abstract class Account
     @Override
     public String toString()
     {
-        return "Balance " + balance + ", Rate " + interestRate + ", AccountType  " + getAccountType() + ", AccountID " + accountID + "\n";
+        return "Saldo: " + balance + ", Ränta: " + interestRate + "%, Kontotyp:  " + getAccountType() + ", kontoID: " + accountID + "\n";
     }
 
 }

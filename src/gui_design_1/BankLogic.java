@@ -5,21 +5,14 @@
  */
 package gui_design_1;
 
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
+
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
 
 /**
  *
- * @author Befkadu Degefa
+ * @author SYSJM2 GRUPP 3
  */
 public class BankLogic
 {
@@ -188,8 +181,8 @@ public class BankLogic
             if (allCustomersArrayList.get(i).getPersonalNumber() == pNr)
             {
                 allCustomersArrayList.get(i).getCustumerAccountsList().add(new SavingsAccount("Saving Account"));
-                return allCustomersArrayList.get(i).custumerAccountsList.get(allCustomersArrayList
-                        .get(i).custumerAccountsList.size() - 1).getAccountID();
+                return allCustomersArrayList.get(i).getCustumerAccountsList().get(allCustomersArrayList
+                        .get(i).getCustumerAccountsList().size() - 1).getAccountID();
 
             }
 
@@ -225,13 +218,13 @@ public class BankLogic
         {
             if (allCustomersArrayList.get(i).getPersonalNumber() == pNr)
             {
-                for (int j = 0; j < allCustomersArrayList.get(i).custumerAccountsList.size(); j++)
+                for (int j = 0; j < allCustomersArrayList.get(i).getCustumerAccountsList().size(); j++)
                 {
                     //if condition edited, checked the account type- for Savings
                     if (allCustomersArrayList.get(i).getCustumerAccountsList().get(j).getAccountID() == accountId)
                     {
                         allCustomersArrayList.get(i).getCustumerAccountsList().get(j).deposit(amount);
-                        System.out.println("Balance becomes in side BankLigic class in deposit method " + i + " " + allCustomersArrayList.get(i).custumerAccountsList.get(j).getBalance()
+                        System.out.println("Balance becomes in side BankLigic class in deposit method " + i + " " + allCustomersArrayList.get(i).getCustumerAccountsList().get(j).getBalance()
                         );
                         //transaktionsArrayList.add(new Transaktions(accountId, allCustomersArrayList.get(i).custumerAccountsList.get(i).getAccountType(), amount, allCustomersArrayList.get(i).custumerAccountsList.get(i).getBalance()));
                         depositMade = true;
@@ -252,28 +245,28 @@ public class BankLogic
         {
             if (allCustomersArrayList.get(i).getPersonalNumber() == pNr)
             {
-                for (int j = 0; j < allCustomersArrayList.get(i).custumerAccountsList.size(); j++)
+                for (int j = 0; j < allCustomersArrayList.get(i).getCustumerAccountsList().size(); j++)
                 {
-                    if (allCustomersArrayList.get(i).custumerAccountsList.get(j).getAccountID() == accountId)
+                    if (allCustomersArrayList.get(i).getCustumerAccountsList().get(j).getAccountID() == accountId)
                     {
                         //withdrawRate (7%) of withdraw amount plus withdraw amount should be less than -5000
                         //-4672 * 7% - 4672 = -5000
-                        if (allCustomersArrayList.get(i).custumerAccountsList.get(j).getBalance() <= -5000 &&
-                                allCustomersArrayList.get(i).custumerAccountsList.get(j).getAccountType().equals("Credit Account")||
-                                allCustomersArrayList.get(i).custumerAccountsList.get(j).getBalance() <= 0 &&
-                                allCustomersArrayList.get(i).custumerAccountsList.get(j).getAccountType().equals("Saving Account")
-                                ||allCustomersArrayList.get(i).custumerAccountsList.get(j).getBalance() < amount &&
-                                allCustomersArrayList.get(i).custumerAccountsList.get(j).getAccountType().equals("Saving Account")
-                                ||allCustomersArrayList.get(i).custumerAccountsList.get(j).getBalance() - amount < 0 &&
-                                allCustomersArrayList.get(i).custumerAccountsList.get(j).getAccountType().equals("Saving Account"))
+                        if (allCustomersArrayList.get(i).getCustumerAccountsList().get(j).getBalance() <= -5000 &&
+                                allCustomersArrayList.get(i).getCustumerAccountsList().get(j).getAccountType().equals("Credit Account")||
+                                allCustomersArrayList.get(i).getCustumerAccountsList().get(j).getBalance() <= 0 &&
+                                allCustomersArrayList.get(i).getCustumerAccountsList().get(j).getAccountType().equals("Saving Account")
+                                ||allCustomersArrayList.get(i).getCustumerAccountsList().get(j).getBalance() < amount &&
+                                allCustomersArrayList.get(i).getCustumerAccountsList().get(j).getAccountType().equals("Saving Account")
+                                ||allCustomersArrayList.get(i).getCustumerAccountsList().get(j).getBalance() - amount < 0 &&
+                                allCustomersArrayList.get(i).getCustumerAccountsList().get(j).getAccountType().equals("Saving Account"))
                         {
                             withdrawMade = false;
                         } 
                         else
                         {
-                            allCustomersArrayList.get(i).custumerAccountsList.get(j).withdraw(amount);
+                            allCustomersArrayList.get(i).getCustumerAccountsList().get(j).withdraw(amount);
                             System.out.println("Balance becomes in side BankLigic class in withdraw method "
-                                    + allCustomersArrayList.get(i).custumerAccountsList.get(j).getBalance());
+                                    + allCustomersArrayList.get(i).getCustumerAccountsList().get(j).getBalance());
                             withdrawMade = true;
                         }
                     }
@@ -290,24 +283,14 @@ public class BankLogic
         {
             if (allCustomersArrayList.get(i).getPersonalNumber() == pNr)
             {
-                for (int j = 0; j < allCustomersArrayList.get(i).custumerAccountsList.size(); j++)
+                for (int j = 0; j < allCustomersArrayList.get(i).getCustumerAccountsList().size(); j++)
                 {
-                    if (allCustomersArrayList.get(i).custumerAccountsList.get(j).getAccountID() == accountId)
+                    if (allCustomersArrayList.get(i).getCustumerAccountsList().get(j).getAccountID() == accountId)
                     {
-                        closedAccount = allCustomersArrayList.get(i).custumerAccountsList.get(j).toStringClose();
+                        closedAccount = allCustomersArrayList.get(i).getCustumerAccountsList().get(j).toStringClose();
 
-                        //Printing the customer information as a text file when closing his account
-                        try
-                        {
-                            FileWriter out = new FileWriter("Closed account" + j + ".txt");
-                            BufferedWriter bw = new BufferedWriter(out);
-                            bw.write(closedAccount); //closedAccount String type to be printed on the text file
-                            bw.close();
-                        } catch (IOException ex)
-                        {
-                            Logger.getLogger(BankLogic.class.getName()).log(Level.SEVERE, null, ex);
-                        }
-                        allCustomersArrayList.get(i).custumerAccountsList.remove(allCustomersArrayList.get(i).custumerAccountsList.get(j));
+                      
+                        allCustomersArrayList.get(i).getCustumerAccountsList().remove(allCustomersArrayList.get(i).getCustumerAccountsList().get(j));
                         System.out.print("Personal number " + pNr + ", ");
 
                     }
@@ -332,8 +315,8 @@ public class BankLogic
             if (allCustomersArrayList.get(i).getPersonalNumber() == pNr)
             {
                 allCustomersArrayList.get(i).getCustumerAccountsList().add(new CreditAccount("Credit Account"));
-                return allCustomersArrayList.get(i).custumerAccountsList.get(allCustomersArrayList
-                        .get(i).custumerAccountsList.size() - 1).getAccountID();
+                return allCustomersArrayList.get(i).getCustumerAccountsList().get(allCustomersArrayList
+                        .get(i).getCustumerAccountsList().size() - 1).getAccountID();
             }
 
         }

@@ -8,7 +8,7 @@ package gui_design_1;
 
 /**
  *
- * @author Befkadu Degefa
+ * @author SYSJM2 GRUPP 3
  */
 public class CreditAccount extends Account 
 {
@@ -59,7 +59,7 @@ public class CreditAccount extends Account
       else
         {
            
-             System.out.println("Credit limit is -5000");
+             System.out.println("Kreditgräns -5000");
                     }
     }
     
@@ -93,11 +93,11 @@ public class CreditAccount extends Account
      {
       if(super.getBalance() >=  0)
                 {
-                    return "Balance " + closeAccount() + ", Rate " + creditAccountPositiveRate + ", AccountType  " + getAccountType() + ", AccountID " + accountID + "\n";
+                    return "Saldo: " + closeAccount() + ", Ränta: " + creditAccountPositiveRate + "%, Kontotyp:  " + getAccountType() + ", KontoID " + getAccountID() + "\n";
                 }
              else if(super.getBalance() <  0)
              {
-                 return "Balance " + closeAccount() + ", Rate " + -creditAccountLoanRate + ", AccountType  " + getAccountType() + ", AccountID " + accountID + "\n";
+                 return "Saldo: " + closeAccount() + ", Ränta: " + creditAccountLoanRate + "%, KontoTyp  " + getAccountType() + ", KontoID " + getAccountID() + "\n";
              }
       return "";
      }
