@@ -56,10 +56,6 @@ public class Customer
         return custumerAccountsList;
     }
     
-    public String toStringForcustumersListView()
-    {
-        return customerName + " " + personalNumber;
-    }
 
     public void setCustumerAccountsList(ArrayList<Account> custumerAccountsList)
     {
