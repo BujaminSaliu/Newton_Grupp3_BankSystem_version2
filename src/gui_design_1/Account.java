@@ -13,14 +13,12 @@ import java.util.Date;
 public abstract class Account
 {
 
-    public static int accountIDCounter = 1001;
-
+    private static int accountIDCounter = 1001;
     private double balance;
     private double interestRate;
     private String accountType;
     private int accountID;
-    private int counter = 0;
-    public ArrayList<Transaktions> custumerAccountsTransaktionsList;
+    private ArrayList<Transaktions> custumerAccountsTransaktionsList;
     Calendar cal = Calendar.getInstance();
     SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd   HH:mm:ss");
     Date date = new Date();

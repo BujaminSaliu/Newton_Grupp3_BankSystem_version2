@@ -15,7 +15,7 @@ public class CreditAccount extends Account
     final static double creditLimit = -5000;
     final static private double creditAccountLoanRate = 7;
     final static private double creditAccountPositiveRate=0.5;
-    final static double interestRate = 0;
+    private double interestRate = 0;
 
     
     public CreditAccount(){
@@ -48,7 +48,7 @@ public class CreditAccount extends Account
            
            super.setBalance(sum);  
           
-           custumerAccountsTransaktionsList.add(new Transaktions(dateFormat.format(date), getAccountID(), -Math.round(withdrawAmount * 100.0) / 100.0, super.getBalance(), "Ut"));
+           getCustumerAccountsTransaktionsList().add(new Transaktions(dateFormat.format(date), super.getAccountID(), -Math.round(withdrawAmount * 100.0) / 100.0, super.getBalance(), "Ut"));
        }
        else if (sum >=0 )
         {
@@ -67,7 +67,7 @@ public class CreditAccount extends Account
     public void deposit(double depositAmount)
     {
         super.setBalance(depositAmount + super.getBalance());
-            custumerAccountsTransaktionsList.add(new Transaktions(dateFormat.format(date), getAccountID(), Math.round(depositAmount * 100.0) / 100.0, super.getBalance(), "In"));
+            getCustumerAccountsTransaktionsList().add(new Transaktions(dateFormat.format(date), super.getAccountID(), Math.round(depositAmount * 100.0) / 100.0, super.getBalance(), "In"));
        
     }
     
@@ -93,11 +93,11 @@ public class CreditAccount extends Account
      {
       if(super.getBalance() >=  0)
                 {
-                    return "Saldo: " + closeAccount() + ", Ränta: " + creditAccountPositiveRate + "%, Kontotyp:  " + getAccountType() + ", KontoID " + getAccountID() + "\n";
+                    return "Saldo: " + closeAccount() + ", Ränta: " + creditAccountPositiveRate + "%, Kontotyp:  " + super.getAccountType() + ", KontoID " + super.getAccountID() + "\n";
                 }
              else if(super.getBalance() <  0)
              {
-                 return "Saldo: " + closeAccount() + ", Ränta: " + creditAccountLoanRate + "%, KontoTyp  " + getAccountType() + ", KontoID " + getAccountID() + "\n";
+                 return "Saldo: " + closeAccount() + ", Ränta: " + creditAccountLoanRate + "%, KontoTyp  " + super.getAccountType() + ", KontoID " + super.getAccountID() + "\n";
              }
       return "";
      }
