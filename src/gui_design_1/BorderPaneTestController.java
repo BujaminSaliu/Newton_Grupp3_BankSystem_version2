@@ -205,12 +205,12 @@ public class BorderPaneTestController implements Initializable
           
         for (int i = 0; i < bankLogic.getAllCustomersArrayList().size(); i++)
         {
-            if (bankLogic.getAllCustomersArrayList().get(i).toString2().contains(searchTextField.getText()))
+            if (bankLogic.getAllCustomersArrayList().get(i).toString2().toLowerCase().contains(searchTextField.getText().toLowerCase()))
 
             {
 
                 //custumersListView.getItems().clear();
-                
+                searchTextField.clear();
                 obListFoundCustumers.add(bankLogic.getAllCustomersArrayList().get(i).toString2());
                 custumersListView.setItems(obListFoundCustumers);
                  
