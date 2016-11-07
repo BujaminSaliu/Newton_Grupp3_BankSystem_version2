@@ -99,8 +99,7 @@ public class BorderPaneTestController implements Initializable
     }
 
     @FXML
-    public final void getOnMouseClickedAccoutListView()
-    {
+    public final void getOnMouseClickedAccoutListView() {
         obListtransaktion.clear();
         returnMessageToOperator.setText("");
         
@@ -151,8 +150,7 @@ public class BorderPaneTestController implements Initializable
     }
 
     @FXML
-    private void addCustomerButton(ActionEvent event) throws Exception
-    {
+    private void addCustomerButton(ActionEvent event) throws Exception {
 
         if (nameTextField.getText().isEmpty() || pNrTextField.getText().isEmpty()) // om användare inte fyllt i båda fälten, komplettera med instanceOf?
         {
@@ -168,8 +166,7 @@ public class BorderPaneTestController implements Initializable
             {
                 boolean add = bankLogic.addCustomer(nameTextField.getText(), Long.parseLong(pNrTextField.getText()));
 
-                if (add)
-                {
+                if (add) {
                     obListAllCustumers.clear();
                     obListAllCustumers.addAll(bankLogic.getCustomers());
                     custumersListView.setItems(obListAllCustumers);
@@ -260,16 +257,14 @@ public class BorderPaneTestController implements Initializable
                         
                 }
             }
-        } catch (NumberFormatException nfe)
-        {
+        } catch (NumberFormatException nfe) {
             returnMessageToOperator.setText("Skriv namn och personnummer");
         }
         
     }
 
     @FXML
-    private void removeCustomersButton(ActionEvent event) throws Exception
-    {
+    private void removeCustomersButton(ActionEvent event) throws Exception {
         String removeCustomerString = (String) custumersListView.getSelectionModel().getSelectedItem();
         nameTextField.clear();
         pNrTextField.clear();
@@ -278,8 +273,7 @@ public class BorderPaneTestController implements Initializable
         {
             returnMessageToOperator.setText("Välj kund att ta bort");
 
-        } else if (removeCustomerString == null)
-        {
+        } else if (removeCustomerString == null) {
             nameTextField.clear();
             pNrTextField.clear();
             returnMessageToOperator.setText("Välj kund att ta bort");
@@ -330,8 +324,7 @@ public class BorderPaneTestController implements Initializable
 
     //To print all customer lists to a text file
     @FXML
-    private void printAllCustomersButton(ActionEvent event) throws Exception
-    {
+    private void printAllCustomersButton(ActionEvent event) throws Exception {
         List<String> stringListCustomer = bankLogic.getCustomers();
         try {
             FileWriter out = new FileWriter("Kundlista.txt");
@@ -355,8 +348,7 @@ public class BorderPaneTestController implements Initializable
     }
 
     @FXML
-    private void seeAllCustomersButton(ActionEvent event) throws Exception
-    {
+    private void seeAllCustomersButton(ActionEvent event) throws Exception {
         obListAllCustumers.clear();
         obListAllCustumers.addAll(bankLogic.getCustomers());
         custumersListView.setItems(obListAllCustumers);
@@ -449,8 +441,7 @@ public class BorderPaneTestController implements Initializable
 //    }
 
     @FXML
-    private void withDrawButton(ActionEvent event) throws Exception
-    {
+    private void withDrawButton(ActionEvent event) throws Exception {
         selectedCustomerString = (String) custumersListView.getSelectionModel().getSelectedItem();
         selectedAccountString = (String) accountsListView.getSelectionModel().getSelectedItem();
         if (selectedAccountString == null)
@@ -472,36 +463,28 @@ public class BorderPaneTestController implements Initializable
                         
                         int accountID = bankLogic.getAllCustomersArrayList().get(i).getCustumerAccountsList().get(j).getAccountID();//To get accountID   
 
-                        
-                        
                             //The deposited amount should be above 0
                             double amount = Double.parseDouble(depositWithDrawAmountField.getText());
-                            if (amount <= 0)
-                            {
+                            if (amount <= 0) {
                                 throw new NumberFormatException();
-                            } 
-                            //If withdraw is succeded, the transactionListView would be updated
-                            else if (bankLogic.withdraw(personalNumber, accountID, amount) == true)
-                            {
-                                 //To clear the ListView window,
+                            } //If withdraw is succeded, the transactionListView would be updated
+                            else if (bankLogic.withdraw(personalNumber, accountID, amount) == true) {
+                                //To clear the ListView window,
                                 accountsListView.getItems().clear();
                                 //Shows the updated values accountsListView for the specific accountID
                                 obListCreateAccount.add(bankLogic.getAllCustomersArrayList().get(i).getCustumerAccountsList().get(j).toString());
                                 accountsListView.setItems(obListCreateAccount);
-                                
+
                                 /*This code is to write the first line on the transactionListView, it will be reseted in every
                             withdraw that is because of this code "transactionsListView.getItems().clear();"
                             The output is like Kontonummer: 1000 Saldo: 600 kr Saving Accout
-                                 */ 
+                                 */
                                 //transactionsListView.getItems().clear();                              
-                               
-                                
                                 obListtransaktion = FXCollections.observableArrayList("Kontonummer:          " + Integer.toString(accountID)
                                         + "          Saldo          " + bankLogic.getAllCustomersArrayList().get(i).getCustumerAccountsList().get(j).
                                         getBalance() + "kr          " + bankLogic.getAllCustomersArrayList().get(i).getCustumerAccountsList().
                                         get(j).getAccountType() + "(" + bankLogic.getAllCustomersArrayList().get(i).
                                         getCustumerAccountsList().get(j).getInterestRate() + "%)");
-                                                           
 
                                 obListtransaktion.add(bankLogic.getAllCustomersArrayList().get(i).getCustumerAccountsList().get(j).getCustumerAccountsTransaktionsList().toString()
                                         .replace("[", "")//remove the right bracket
@@ -517,8 +500,7 @@ public class BorderPaneTestController implements Initializable
                             {
                                 returnMessageToOperator.setText("Medges ej");
                             }
-                        } catch (NumberFormatException nfe)
-                        {
+                        } catch (NumberFormatException nfe) {
                             returnMessageToOperator.setText("Ange giltigt belopp");
                         }
 
@@ -534,8 +516,7 @@ public class BorderPaneTestController implements Initializable
     }
 
     @FXML
-    private void closeAccountButton(ActionEvent event) throws Exception
-    {
+    private void closeAccountButton(ActionEvent event) throws Exception {
         selectedAccountString = (String) accountsListView.getSelectionModel().getSelectedItem();
         if (selectedAccountString == null)
         {
@@ -567,8 +548,7 @@ public class BorderPaneTestController implements Initializable
     }
 
     @FXML
-    private void depositButton(ActionEvent event) throws Exception
-    {
+    private void depositButton(ActionEvent event) throws Exception {
         selectedCustomerString = (String) custumersListView.getSelectionModel().getSelectedItem();
         selectedAccountString = (String) accountsListView.getSelectionModel().getSelectedItem();
         if (selectedAccountString == null)
@@ -587,18 +567,14 @@ public class BorderPaneTestController implements Initializable
 
                         int accountID = bankLogic.getAllCustomersArrayList().get(i).getCustumerAccountsList().get(j).getAccountID();//To get accountID   
 
-                        try
-                        {
+                        try {
                             double amount = Double.parseDouble(depositWithDrawAmountField.getText());
-                            if (amount <= 0)
-                            {
+                            if (amount <= 0) {
                                 throw new NumberFormatException();
 
-                            } else if (amount > 1000000)
-                            {
+                            } else if (amount > 1000000) {
                                 throw new IndexOutOfBoundsException();
-                            } else if (bankLogic.deposit(personalNumber, accountID, amount) == true)
-                            {
+                            } else if (bankLogic.deposit(personalNumber, accountID, amount) == true) {
                                 transactionsListView.getItems().clear();
 
                                 /*This code is to write the first line on the transactionListView, it will be reseted in every
@@ -630,11 +606,9 @@ public class BorderPaneTestController implements Initializable
                                 obListAllCustumers.setAll(bankLogic.getCustomers());
 
                             }
-                        } catch (NumberFormatException nfe)
-                        {
+                        } catch (NumberFormatException nfe) {
                             returnMessageToOperator.setText("Ange giltigt belopp");
-                        } catch (IndexOutOfBoundsException e)
-                        {
+                        } catch (IndexOutOfBoundsException e) {
                             returnMessageToOperator.setText("Kontakta bankledningen!");
                         }
                     }
@@ -649,8 +623,7 @@ public class BorderPaneTestController implements Initializable
     }
 
     @FXML
-    private void createNewCreditAccountButton(ActionEvent event) throws Exception
-    {
+    private void createNewCreditAccountButton(ActionEvent event) throws Exception {
 //        if(obListCreateAccount.get(0).equals("Följande konto avslutas"))
 //        {
 //            accountsListView.getItems().clear();
@@ -663,8 +636,7 @@ public class BorderPaneTestController implements Initializable
         selectedAccountString = (String) accountsListView.getSelectionModel().getSelectedItem();
         String getAccountInformation;
         Long personalNumber;
-        try
-        {
+        try {
 
             if (selectedCustomerString == null && pNrTextField.getText().isEmpty())
             {
@@ -705,8 +677,7 @@ public class BorderPaneTestController implements Initializable
     }
 
     @FXML
-    private void createNewSavingsAccountButton(ActionEvent event) throws Exception
-    {
+    private void createNewSavingsAccountButton(ActionEvent event) throws Exception {
 
         selectedCustomerString = (String) custumersListView.getSelectionModel().getSelectedItem();
         selectedAccountString = (String) accountsListView.getSelectionModel().getSelectedItem();

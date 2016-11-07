@@ -23,8 +23,10 @@ public abstract class Account
     Calendar cal = Calendar.getInstance();
     SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd   HH:mm:ss");
     Date date = new Date();
-    
-    public Account() {  }
+
+    public Account()
+    {
+    }
 
     //This method will be inherited by the credit account, edited
     public Account(String accountType)
@@ -44,10 +46,10 @@ public abstract class Account
 
     //To set the updated balance 
     public void setBalance(double balance)
-   {
-       double roundOff = Math.round(balance * 100.0) / 100.0; //to make only 2 digits after the decimal point
-       this.balance = roundOff;
-   }
+    {
+        double roundOff = Math.round(balance * 100.0) / 100.0; //to make only 2 digits after the decimal point
+        this.balance = roundOff;
+    }
 
     //To get the account type
     public String getAccountType()
@@ -68,12 +70,15 @@ public abstract class Account
     }
 
     //Abstract methods implemented by sub classes, SavingsAccount and CreditAccount
-    public abstract void withdraw(double withdrawAmount); 
+    public abstract void withdraw(double withdrawAmount);
+
     public abstract void deposit(double depositAmount);
+
     public abstract double closeAccount();
+
     public abstract String toStringClose();
 
-   //To get the interest set by the sub classes,SavingsAccount and CreditAccount
+    //To get the interest set by the sub classes,SavingsAccount and CreditAccount
     public double getInterestRate()
     {
         return interestRate;
@@ -82,7 +87,7 @@ public abstract class Account
     //To set the interest rate set by the sub classes,SavingsAccount and CreditAccount
     public void setInterestRate(double interestRate)
     {
-        
+
         this.interestRate = interestRate;
     }
 
@@ -91,7 +96,6 @@ public abstract class Account
     {
         return custumerAccountsTransaktionsList;
     }
-
 
     @Override
     public String toString()
