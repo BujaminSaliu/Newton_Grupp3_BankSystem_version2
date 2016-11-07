@@ -229,7 +229,7 @@ public class BorderPaneTestController implements Initializable
         {
             if (nameChange.getText().isEmpty())
             {
-                returnMessageToOperator.setText("Skriv namn och personnummer");
+                returnMessageToOperator.setText("Välj kund och ange nytt namn");
             } else
             {
                 personalNumber = Long.valueOf(pNrDisplayLabel.getText());// To get a personal number
@@ -468,6 +468,10 @@ public class BorderPaneTestController implements Initializable
                             if (amount <= 0) {
                                 throw new NumberFormatException();
                             } //If withdraw is succeded, the transactionListView would be updated
+                           else if ((bankLogic.getAllCustomersArrayList().get(i).getCustumerAccountsList().get(j).getBalance() - amount) < -5000 &&
+                                bankLogic.getAllCustomersArrayList().get(i).getCustumerAccountsList().get(j).getAccountType().equals("Credit Account")){
+                                throw new ArrayIndexOutOfBoundsException();
+                            } //If withdraw is succeded, the transactionListView would be updated
                             else if (bankLogic.withdraw(personalNumber, accountID, amount) == true) {
                                 //To clear the ListView window,
                                 accountsListView.getItems().clear();
@@ -502,6 +506,9 @@ public class BorderPaneTestController implements Initializable
                             }
                         } catch (NumberFormatException nfe) {
                             returnMessageToOperator.setText("Ange giltigt belopp");
+                        }
+                        catch (ArrayIndexOutOfBoundsException nfe) {
+                            returnMessageToOperator.setText("Medges ej. Kreditgräns övertrasserad");
                         }
 
                     }
