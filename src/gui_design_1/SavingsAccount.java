@@ -45,7 +45,7 @@ public class SavingsAccount extends Account
         if (counter == 0)
         {
             super.setBalance(super.getBalance() - withdrawAmount);
-            getCustumerAccountsTransaktionsList().add(new Transaktions(dateFormat.format(date), getAccountID(), -Math.round(withdrawAmount * 100.0) / 100.0, super.getBalance(), "Ut"));
+            getCustumerAccountsTransaktionsList().add(new Transaktions(dateFormat.format(date), super.getAccountID(), -Math.round(withdrawAmount * 100.0) / 100.0, super.getBalance(), "Ut"));
             counter++;
         } else if (counter > 0)
         {
@@ -69,7 +69,7 @@ public class SavingsAccount extends Account
     public void deposit(double depositAmount)
     {
         super.setBalance(depositAmount + super.getBalance());
-        getCustumerAccountsTransaktionsList().add(new Transaktions(dateFormat.format(date), getAccountID(), Math.round(depositAmount * 100.0) / 100.0, super.getBalance(), "In"));
+        getCustumerAccountsTransaktionsList().add(new Transaktions(dateFormat.format(date), super.getAccountID(), Math.round(depositAmount * 100.0) / 100.0, super.getBalance(), "In"));
 
     }
 
@@ -85,6 +85,6 @@ public class SavingsAccount extends Account
     public String toStringClose()
     {
 
-        return "Saldo: " + closeAccount() + ", Ränta: " + DEPOSITINTREST + "%, Kontotyp:  " + getAccountType() + ", KontoID: " + super.getAccountID() + "\n";
+        return "Saldo: " + closeAccount() + ", Ränta: " + DEPOSITINTREST + "%, Kontotyp:  " + super.getAccountType() + ", KontoID: " + super.getAccountID() + "\n";
     }
 }
