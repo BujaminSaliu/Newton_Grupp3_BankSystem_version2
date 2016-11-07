@@ -210,7 +210,7 @@ public class BorderPaneTestController implements Initializable
             {
 
                 //custumersListView.getItems().clear();
-                searchTextField.clear();
+                
                 obListFoundCustumers.add(bankLogic.getAllCustomersArrayList().get(i).toString2());
                 custumersListView.setItems(obListFoundCustumers);
                  
