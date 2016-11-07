@@ -17,7 +17,7 @@ import java.util.List;
 public class BankLogic
 {
 
-    static List<Customer> allCustomersArrayList;
+    private static List<Customer> allCustomersArrayList;
     private static BankLogic instance; //Step 2 declare the instance variabel
     static List<String> removedCustomerList = new ArrayList<>();
 
@@ -34,6 +34,12 @@ public class BankLogic
         }
         return instance;
     }
+
+    public static List<Customer> getAllCustomersArrayList() {
+        return allCustomersArrayList;
+    }
+    
+    
 
     /**
      * Returns all allCustomersArrayList of the bank(Personal number and name)
@@ -257,7 +263,7 @@ public class BankLogic
                                 allCustomersArrayList.get(i).getCustumerAccountsList().get(j).getAccountType().equals("Saving Account")
                                 ||allCustomersArrayList.get(i).getCustumerAccountsList().get(j).getBalance() < amount &&
                                 allCustomersArrayList.get(i).getCustumerAccountsList().get(j).getAccountType().equals("Saving Account")
-                                ||allCustomersArrayList.get(i).getCustumerAccountsList().get(j).getBalance() - amount < 0 &&
+                                ||allCustomersArrayList.get(i).getCustumerAccountsList().get(j).getBalance() - amount <= 0 &&
                                 allCustomersArrayList.get(i).getCustumerAccountsList().get(j).getAccountType().equals("Saving Account"))
                         {
                             withdrawMade = false;
@@ -271,7 +277,7 @@ public class BankLogic
                         }
                     }
                 }
-            }
+            }System.out.println("Output " + withdrawMade);
         }
         return withdrawMade;
     }
@@ -338,12 +344,12 @@ public class BankLogic
                     if (allCustomersArrayList.get(i).getCustumerAccountsList().get(j).getAccountID() == accountId)
                     {
                         for (int t = 0; t < allCustomersArrayList.get(i).getCustumerAccountsList().get(j).
-                                custumerAccountsTransaktionsList.size(); t++)
+                                getCustumerAccountsTransaktionsList().size(); t++)
 
                         {
 
-                            System.out.println(allCustomersArrayList.get(i).getCustumerAccountsList().get(j).custumerAccountsTransaktionsList.toString()); //Test
-                            transactionList.add(allCustomersArrayList.get(i).getCustumerAccountsList().get(j).custumerAccountsTransaktionsList.get(t).toString());
+                            System.out.println(allCustomersArrayList.get(i).getCustumerAccountsList().get(j).getCustumerAccountsTransaktionsList().toString()); //Test
+                            transactionList.add(allCustomersArrayList.get(i).getCustumerAccountsList().get(j).getCustumerAccountsTransaktionsList().get(t).toString());
                             return transactionList;
                         }
                     }

@@ -16,9 +16,9 @@ public class SavingsAccount extends Account
 
     Calendar currentYear = Calendar.getInstance();
     private int counter = 0;
-    private int accountID;
-    private final static double interestRate = 2;
-    final static double depositIntrest = 1;
+    
+    private double interestRate = 2;
+    private final static double DEPOSITINTREST = 1;
 
     /**
      * Default constructor
@@ -32,15 +32,11 @@ public class SavingsAccount extends Account
     {
         super(accountType);
         super.setInterestRate(interestRate);
-        this.accountID = super.getAccountID();
+        
 
     }
 
-    @Override
-    public int getAccountID()
-    {
-        return accountID;
-    }
+
 
     @Override
     public void withdraw(double withdrawAmount)
@@ -49,7 +45,7 @@ public class SavingsAccount extends Account
         if (counter == 0)
         {
             super.setBalance(super.getBalance() - withdrawAmount);
-            custumerAccountsTransaktionsList.add(new Transaktions(dateFormat.format(date), getAccountID(), -Math.round(withdrawAmount * 100.0) / 100.0, super.getBalance(), "Ut"));
+            getCustumerAccountsTransaktionsList().add(new Transaktions(dateFormat.format(date), getAccountID(), -Math.round(withdrawAmount * 100.0) / 100.0, super.getBalance(), "Ut"));
             counter++;
         } else if (counter > 0)
         {
@@ -62,7 +58,7 @@ public class SavingsAccount extends Account
             else
             {
             super.setBalance(super.getBalance() - (withdrawAmount + (interestRate * withdrawAmount / 100)));
-            custumerAccountsTransaktionsList.add(new Transaktions(dateFormat.format(date), getAccountID(), -Math.round(withdrawAmount * 100.0) / 100.0, super.getBalance(), "Ut"));
+            getCustumerAccountsTransaktionsList().add(new Transaktions(dateFormat.format(date), getAccountID(), -Math.round(withdrawAmount * 100.0) / 100.0, super.getBalance(), "Ut"));
 
             }
         }
@@ -73,7 +69,7 @@ public class SavingsAccount extends Account
     public void deposit(double depositAmount)
     {
         super.setBalance(depositAmount + super.getBalance());
-        custumerAccountsTransaktionsList.add(new Transaktions(dateFormat.format(date), getAccountID(), Math.round(depositAmount * 100.0) / 100.0, super.getBalance(), "In"));
+        getCustumerAccountsTransaktionsList().add(new Transaktions(dateFormat.format(date), getAccountID(), Math.round(depositAmount * 100.0) / 100.0, super.getBalance(), "In"));
 
     }
 
@@ -81,7 +77,7 @@ public class SavingsAccount extends Account
     public double closeAccount()
     {
 
-        super.setBalance(super.getBalance() + (super.getBalance() * depositIntrest / 100));
+        super.setBalance(super.getBalance() + (super.getBalance() * DEPOSITINTREST / 100));
         return super.getBalance();
     }
 
@@ -89,6 +85,6 @@ public class SavingsAccount extends Account
     public String toStringClose()
     {
 
-        return "Saldo: " + closeAccount() + ", Ränta: " + depositIntrest + "%, Kontotyp:  " + getAccountType() + ", KontoID: " + accountID + "\n";
+        return "Saldo: " + closeAccount() + ", Ränta: " + DEPOSITINTREST + "%, Kontotyp:  " + getAccountType() + ", KontoID: " + super.getAccountID() + "\n";
     }
 }

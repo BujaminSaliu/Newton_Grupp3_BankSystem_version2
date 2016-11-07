@@ -30,8 +30,8 @@ public class GUI_design_1 extends Application
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.setTitle("NewtonBank");
-        stage.show();
-        stage.setResizable(false);
+        stage.show();   
+        stage.setResizable(false);  
     
         
     }

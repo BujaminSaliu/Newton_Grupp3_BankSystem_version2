@@ -1,33 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
 <?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.layout.*?>
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
-<?import javafx.scene.paint.*?>
-<?import javafx.scene.effect.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import java.lang.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.effect.InnerShadow?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="anchor" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="567.0" prefWidth="745.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui_design_1.BorderPaneTestController">
+<AnchorPane fx:id="anchor" prefHeight="567.0" prefWidth="745.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui_design_1.BorderPaneTestController">
    <children>
-      <SplitPane dividerPositions="0.9285714285714286" orientation="VERTICAL" prefHeight="44.0" prefWidth="745.0">
+      <SplitPane dividerPositions="0.9285714285714286" orientation="VERTICAL" prefHeight="44.0" prefWidth="745.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
         <items>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0" style="-fx-background-color: ea670f;">
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="743.0" style="-fx-background-image: url(file:src/gui_design_1/images/BorderTexture.jpg); -fx-background-size: cover, auto;">
                <children>
-                  <Label layoutX="6.0" layoutY="-4.0" opacity="0.63" prefHeight="44.0" prefWidth="136.0" text="Newton Bank" textFill="#0a0502">
-                     <font>
-                        <Font name="Bernard MT Condensed" size="26.0" />
-                     </font>
-                     <effect>
-                        <Lighting bumpInput="$null" diffuseConstant="1.23" specularConstant="0.6" specularExponent="7.44" surfaceScale="9.4">
-                           <light>
-                              <Light.Distant azimuth="233.37" elevation="237.56" />
-                           </light>
-                        </Lighting>
-                     </effect>
-                  </Label>
                   <Label fx:id="returnMessageToOperator" layoutX="362.0" layoutY="10.0" textAlignment="JUSTIFY" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="16.0" />
@@ -35,6 +32,14 @@
                      <padding>
                         <Insets left="10.0" right="10.0" />
                      </padding></Label>
+                  <Label layoutX="7.0" layoutY="-7.0" opacity="0.8" prefHeight="51.0" prefWidth="160.0" text="Newton Bank" textFill="#0a0502">
+                     <font>
+                        <Font name="Bernard MT Condensed" size="26.0" />
+                     </font>
+                     <effect>
+                        <DropShadow height="6.17" radius="2.585" width="6.17" />
+                     </effect>
+                  </Label>
                </children>
                <effect>
                   <InnerShadow choke="0.02" height="2.97" radius="3.2675" width="12.1" />
@@ -43,34 +48,56 @@
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0" />
         </items>
       </SplitPane>
-      <SplitPane dividerPositions="0.3612040133779264" layoutY="42.0" prefHeight="532.0" prefWidth="745.0">
+      <SplitPane dividerPositions="0.3612040133779264" layoutY="42.0" prefHeight="532.0" prefWidth="745.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
         <items>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="236.0" prefWidth="0.0" style="-fx-background-color: gray;">
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="236.0" prefWidth="0.0" style="-fx-background-image: url(file:src/gui_design_1/images/Texture2.jpg); -fx-background-size: cover, auto;">
                <children>
-                  <ListView fx:id="custumersListView" layoutX="27.0" layoutY="146.0" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#getOnMouseClickedCustListView" prefHeight="338.0" prefWidth="224.0">
-                     <effect>
-                        <InnerShadow />
-                     </effect>
-                  </ListView>
-                  <TextField fx:id="nameTextField" layoutX="6.0" layoutY="23.0" prefHeight="25.0" prefWidth="147.0" promptText="Namn">
-                     <effect>
-                        <InnerShadow height="18.03" radius="4.0075" width="0.0" />
-                     </effect>
-                  </TextField>
-                  <TextField fx:id="pNrTextField" layoutX="6.0" layoutY="60.0" pickOnBounds="false" prefHeight="25.0" prefWidth="147.0" promptText="Personnummer">
-                     <effect>
-                        <InnerShadow height="9.14" radius="1.7850000000000001" width="0.0" />
-                     </effect>
-                  </TextField>
-                  <Button fx:id="addCustomerButton" layoutX="163.0" layoutY="60.0" mnemonicParsing="false" onAction="#addCustomerButton" text="Lägg till kund" />
-                  <Button alignment="CENTER_RIGHT" layoutX="174.0" layoutY="112.0" mnemonicParsing="false" onAction="#findCustumerButton" prefHeight="25.0" prefWidth="71.0" text="Sök kund" />
-                  <TextField fx:id="searchTextField" layoutX="27.0" layoutY="112.0" prefHeight="25.0" prefWidth="136.0" promptText="Sök (blankt visar alla)">
-                     <effect>
-                        <InnerShadow height="9.14" radius="1.7850000000000001" width="0.0" />
-                     </effect>
-                  </TextField>
-                  <Button layoutX="27.0" layoutY="494.0" mnemonicParsing="false" onAction="#seeAllCustomersButton" prefHeight="25.0" prefWidth="100.0" text="Visa alla kunder" />
-                  <Button layoutX="133.0" layoutY="494.0" mnemonicParsing="false" onAction="#printAllCustomersButton" prefHeight="25.0" prefWidth="113.0" text="Skriv kunder till fil" />
+                  <SplitPane dividerPositions="0.7215909090909091" layoutY="-1.0" orientation="VERTICAL" prefHeight="530.0" prefWidth="265.0" style="-fx-background-image: url(file:src/gui_design_1/images/Texture2.jpg); -fx-background-size: cover, auto;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                    <items>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="190.0" prefWidth="158.0">
+                           <children>
+                              <Button layoutX="21.0" layoutY="345.0" mnemonicParsing="false" onAction="#seeAllCustomersButton" prefHeight="25.0" prefWidth="100.0" text="Visa alla kunder" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="142.0" />
+                              <Button layoutX="132.0" layoutY="345.0" mnemonicParsing="false" onAction="#printAllCustomersButton" prefHeight="25.0" prefWidth="113.0" text="Skriv kunder till fil" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="21.0">
+                                 <opaqueInsets>
+                                    <Insets />
+                                 </opaqueInsets>
+                              </Button>
+                              <ListView fx:id="custumersListView" layoutX="21.0" layoutY="71.0" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#getOnMouseClickedCustListView" prefHeight="284.0" prefWidth="221.0" AnchorPane.bottomAnchor="43.0" AnchorPane.leftAnchor="21.0" AnchorPane.rightAnchor="21.0" AnchorPane.topAnchor="53.0">
+                                 <effect>
+                                    <InnerShadow />
+                                 </effect>
+                              </ListView>
+                              <TextField fx:id="searchTextField" layoutX="21.0" layoutY="18.0" prefHeight="25.0" prefWidth="136.0" promptText="Sök (blankt visar alla)" AnchorPane.leftAnchor="21.0" AnchorPane.rightAnchor="106.0">
+                                 <effect>
+                                    <InnerShadow height="9.14" radius="1.7850000000000001" width="0.0" />
+                                 </effect>
+                              </TextField>
+                              <Button alignment="CENTER_RIGHT" layoutX="171.0" layoutY="18.0" mnemonicParsing="false" onAction="#findCustumerButton" prefHeight="25.0" prefWidth="71.0" text="Sök kund" AnchorPane.rightAnchor="21.0" />
+                           </children>
+                        </AnchorPane>
+                      <AnchorPane maxHeight="-Infinity" minHeight="28.0" minWidth="0.0" prefHeight="150.0" prefWidth="160.0">
+                           <children>
+                              <Button fx:id="addCustomerButton" layoutX="88.0" layoutY="110.0" mnemonicParsing="false" onAction="#addCustomerButton" prefHeight="25.0" prefWidth="88.0" text="Lägg till kund" AnchorPane.leftAnchor="88.0" AnchorPane.topAnchor="110.0" />
+                              <TextField fx:id="pNrTextField" layoutX="58.0" layoutY="74.0" pickOnBounds="false" prefHeight="28.0" prefWidth="147.0" promptText="Personnummer" AnchorPane.leftAnchor="59.0" AnchorPane.topAnchor="74.0">
+                                 <effect>
+                                    <InnerShadow height="9.14" radius="1.7850000000000001" width="0.0" />
+                                 </effect>
+                              </TextField>
+                              <TextField fx:id="nameTextField" layoutX="59.0" layoutY="40.0" prefHeight="25.0" prefWidth="147.0" promptText="Namn" AnchorPane.leftAnchor="59.0" AnchorPane.topAnchor="40.0">
+                                 <effect>
+                                    <InnerShadow height="18.03" radius="4.0075" width="0.0" />
+                                 </effect>
+                              </TextField>
+                              <Label layoutY="-4.0" prefHeight="34.0" prefWidth="142.0" text="Lägg till kund" textFill="WHITE" AnchorPane.leftAnchor="3.0">
+                                 <font>
+                                    <Font name="Times New Roman Bold Italic" size="24.0" />
+                                 </font>
+                              </Label>
+                              <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#d91fff" height="28.0" layoutX="-3.0" layoutY="-1.0" opacity="0.11" stroke="BLACK" strokeType="INSIDE" width="158.0" AnchorPane.topAnchor="0.0" />
+                           </children>
+                        </AnchorPane>
+                    </items>
+                  </SplitPane>
                </children>
                <effect>
                   <InnerShadow height="9.14" radius="4.07" width="9.14" />
@@ -78,27 +105,32 @@
             </AnchorPane>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="416.0" prefWidth="360.0" style="-fx-background-color: darkgray;">
                <children>
-                  <SplitPane dividerPositions="0.2358490566037736" orientation="VERTICAL" prefHeight="532.0" prefWidth="472.0">
+                  <SplitPane dividerPositions="0.2358490566037736" maxHeight="-Infinity" orientation="VERTICAL" prefHeight="530.0" prefWidth="472.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
                     <items>
-                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="114.0" prefWidth="470.0" style="-fx-background-color: Darkgray;">
+                      <AnchorPane maxHeight="-Infinity" minHeight="-Infinity" minWidth="0.0" prefHeight="123.0" prefWidth="470.0" style="-fx-background-image: url(file:src/gui_design_1/images/Texture.jpg); -fx-background-size: cover, auto;">
                            <children>
-                              <Button alignment="BOTTOM_RIGHT" layoutX="369.0" layoutY="59.0" mnemonicParsing="false" onAction="#changeCustumerNameButton" text="Ändra namn" />
-                              <Button alignment="BOTTOM_RIGHT" layoutX="368.0" layoutY="92.0" mnemonicParsing="false" onAction="#removeCustomersButton" text="Ta bort kund" />
+                              <Button alignment="BOTTOM_RIGHT" layoutX="358.0" layoutY="61.0" mnemonicParsing="false" onAction="#changeCustumerNameButton" prefHeight="25.0" prefWidth="88.0" text="Ändra namn" AnchorPane.rightAnchor="24.0" AnchorPane.topAnchor="61.0" />
+                              <Button alignment="BOTTOM_RIGHT" layoutX="358.0" layoutY="92.0" mnemonicParsing="false" onAction="#removeCustomersButton" prefHeight="25.0" prefWidth="88.0" text="Ta bort kund" AnchorPane.rightAnchor="24.0" AnchorPane.topAnchor="92.0" />
                               <Label layoutX="6.0" text="Kunduppgifter" textFill="#fffdfd">
                                  <font>
                                     <Font name="Times New Roman Bold Italic" size="24.0" />
                                  </font>
                               </Label>
-                              <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#8a0707" height="34.0" layoutX="-7.0" layoutY="-4.0" opacity="0.11" stroke="BLACK" strokeType="INSIDE" width="164.0" />
-                              <Label layoutX="30.0" layoutY="49.0" text="Namn:">
+                              <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#8a0707" height="34.0" layoutX="-7.0" layoutY="-4.0" opacity="0.11" stroke="BLACK" strokeType="INSIDE" width="158.0" AnchorPane.leftAnchor="0.0" />
+                              <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#f6faff" height="63.0" layoutX="18.0" layoutY="45.0" stroke="BLACK" strokeType="INSIDE" width="263.0" AnchorPane.leftAnchor="18.0" AnchorPane.rightAnchor="189.0">
+                                 <effect>
+                                    <InnerShadow height="6.17" radius="2.585" width="6.17" />
+                                 </effect>
+                              </Rectangle>
+                              <Label layoutX="30.0" layoutY="49.0" text="Namn:" AnchorPane.leftAnchor="30.0">
                                  <font>
                                     <Font name="System Bold" size="14.0" />
                                  </font></Label>
-                              <Label layoutX="30.0" layoutY="84.0" text="Personnummer:">
+                              <Label layoutX="30.0" layoutY="84.0" prefHeight="20.0" prefWidth="113.0" text="Personnummer:" AnchorPane.leftAnchor="30.0">
                                  <font>
                                     <Font name="System Bold" size="14.0" />
                                  </font></Label>
-                              <TextField fx:id="nameChange" layoutX="304.0" layoutY="28.0" promptText="Ange nytt namn">
+                              <TextField fx:id="nameChange" layoutX="304.0" layoutY="28.0" promptText="Ange nytt namn" AnchorPane.rightAnchor="24.0" AnchorPane.topAnchor="28.0">
                                  <effect>
                                     <InnerShadow height="5.26" radius="0.815" width="0.0" />
                                  </effect>
@@ -118,49 +150,49 @@
                         </AnchorPane>
                       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="121.0" prefWidth="450.0" style="-fx-background-color: Darkgray;">
                            <children>
-                              <SplitPane dividerPositions="0.54" layoutX="-4.0" orientation="VERTICAL" prefHeight="402.0" prefWidth="479.0">
+                              <SplitPane dividerPositions="0.54" layoutX="-4.0" orientation="VERTICAL" prefHeight="402.0" prefWidth="472.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
                                 <items>
-                                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="161.0" prefWidth="477.0" style="-fx-background-color: Darkgray;">
+                                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="161.0" prefWidth="477.0" style="-fx-background-image: url(file:src/gui_design_1/images/Texture.jpg); -fx-background-size: cover, auto;">
                                        <children>
-                                          <ListView fx:id="accountsListView" layoutX="21.0" layoutY="71.0" onMouseClicked="#getOnMouseClickedAccoutListView" prefHeight="103.0" prefWidth="432.0">
+                                          <ListView fx:id="accountsListView" layoutX="21.0" layoutY="71.0" onMouseClicked="#getOnMouseClickedAccoutListView" prefHeight="103.0" prefWidth="432.0" AnchorPane.bottomAnchor="39.0" AnchorPane.leftAnchor="12.0" AnchorPane.rightAnchor="24.0" AnchorPane.topAnchor="71.0">
                                              <effect>
                                                 <InnerShadow />
                                              </effect>
                                           </ListView>
-                                          <Button layoutX="227.0" layoutY="38.0" mnemonicParsing="false" onAction="#createNewSavingsAccountButton" text="Nytt sparkonto" />
-                                          <Button layoutX="349.0" layoutY="38.0" mnemonicParsing="false" onAction="#createNewCreditAccountButton" text="Nytt kreditkonto" />
-                                          <Button layoutX="344.0" layoutY="180.0" mnemonicParsing="false" onAction="#closeAccountButton" text="Ta bort konto" />
+                                          <Button layoutX="227.0" layoutY="38.0" mnemonicParsing="false" onAction="#createNewSavingsAccountButton" text="Nytt sparkonto" AnchorPane.rightAnchor="147.0" />
+                                          <Button layoutX="340.0" layoutY="38.0" mnemonicParsing="false" onAction="#createNewCreditAccountButton" prefHeight="25.0" prefWidth="104.0" text="Nytt kreditkonto" AnchorPane.rightAnchor="24.0" />
+                                          <Button layoutX="340.0" layoutY="180.0" mnemonicParsing="false" onAction="#closeAccountButton" prefHeight="25.0" prefWidth="104.0" text="Ta bort konto" AnchorPane.bottomAnchor="8.0" AnchorPane.rightAnchor="24.0" />
                                           <Label layoutX="6.0" text="Konton" textFill="WHITE">
                                              <font>
                                                 <Font name="Times New Roman Bold Italic" size="24.0" />
                                              </font>
                                           </Label>
-                                          <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="28.0" opacity="0.11" stroke="BLACK" strokeType="INSIDE" width="82.0" />
+                                          <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="28.0" opacity="0.11" stroke="BLACK" strokeType="INSIDE" width="88.0" AnchorPane.leftAnchor="0.0" />
                                        </children>
                                        <effect>
                                           <InnerShadow height="9.14" radius="4.07" width="9.14" />
                                        </effect>
                                     </AnchorPane>
-                                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="203.0" prefWidth="477.0" style="-fx-background-color: darkgray;">
+                                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="203.0" prefWidth="477.0" style="-fx-background-image: url(file:src/gui_design_1/images/Texture.jpg); -fx-background-size: cover, auto;">
                                        <children>
-                                          <ListView fx:id="transactionsListView" layoutX="21.0" layoutY="65.0" prefHeight="103.0" prefWidth="432.0">
+                                          <ListView fx:id="transactionsListView" layoutX="21.0" layoutY="65.0" prefHeight="103.0" prefWidth="432.0" AnchorPane.bottomAnchor="7.0" AnchorPane.leftAnchor="12.0" AnchorPane.rightAnchor="24.0" AnchorPane.topAnchor="71.0">
                                              <effect>
                                                 <InnerShadow />
                                              </effect>
                                           </ListView>
-                                          <TextField fx:id="depositWithDrawAmountField" layoutX="329.0" layoutY="3.0" prefHeight="25.0" prefWidth="125.0" promptText="Summa">
+                                          <TextField fx:id="depositWithDrawAmountField" layoutX="329.0" layoutY="3.0" prefHeight="25.0" prefWidth="125.0" promptText="Summa" AnchorPane.rightAnchor="24.0">
                                              <effect>
                                                 <InnerShadow height="9.14" radius="1.7850000000000001" width="0.0" />
                                              </effect>
                                           </TextField>
-                                          <Button layoutX="384.0" layoutY="34.0" mnemonicParsing="false" onAction="#depositButton" text="Insättning" />
-                                          <Button layoutX="332.0" layoutY="34.0" mnemonicParsing="false" onAction="#withDrawButton" text="Uttag" />
+                                          <Button layoutX="385.0" layoutY="34.0" mnemonicParsing="false" onAction="#depositButton" text="Insättning" AnchorPane.rightAnchor="24.0" />
+                                          <Button layoutX="320.0" layoutY="34.0" mnemonicParsing="false" onAction="#withDrawButton" prefHeight="25.0" prefWidth="51.0" text="Uttag" AnchorPane.rightAnchor="97.0" />
                                           <Label layoutX="8.0" text="Transaktioner" textFill="WHITE">
                                              <font>
                                                 <Font name="Times New Roman Bold Italic" size="24.0" />
                                              </font>
                                           </Label>
-                                          <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#0fd159" height="34.0" layoutY="-2.0" opacity="0.11" stroke="BLACK" strokeType="INSIDE" width="158.0" />
+                                          <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#0fd159" height="34.0" layoutY="-2.0" opacity="0.11" stroke="BLACK" strokeType="INSIDE" width="158.0" AnchorPane.leftAnchor="0.0" />
                                        </children>
                                        <effect>
                                           <InnerShadow height="9.14" radius="4.07" width="9.14" />

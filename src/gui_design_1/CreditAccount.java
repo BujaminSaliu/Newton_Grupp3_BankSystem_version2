@@ -13,9 +13,9 @@ package gui_design_1;
 public class CreditAccount extends Account 
 {
     final static double creditLimit = -5000;
-    final static private double creditAccountLoanRate = 7;
-    final static private double creditAccountPositiveRate=0.5;
-    final static double interestRate = 0;
+    private final static double CREDITACCOUNTLOANRATE = 7;
+    final static private double CREDITACCOUNTPOSITIVERATE=0.5;
+    private double interestRate = 0;
 
     
     public CreditAccount(){
@@ -28,14 +28,14 @@ public class CreditAccount extends Account
 
     }
  
-    public double getCreditAccountPositiveRate()
+    public double getCREDITACCOUNTPOSITIVERATE()
     {
-        return creditAccountPositiveRate;
+        return CREDITACCOUNTPOSITIVERATE;
     }
 
 
-    public double getCreditAccountLoanRate() {
-        return creditAccountLoanRate;
+    public double getCREDITACCOUNTLOANRATE() {
+        return CREDITACCOUNTLOANRATE;
     }
 
     @Override
@@ -48,11 +48,13 @@ public class CreditAccount extends Account
            
            super.setBalance(sum);  
           
-           custumerAccountsTransaktionsList.add(new Transaktions(dateFormat.format(date), getAccountID(), -Math.round(withdrawAmount * 100.0) / 100.0, super.getBalance(), "Ut"));
+           getCustumerAccountsTransaktionsList().add(new Transaktions(dateFormat.format(date), getAccountID(), -Math.round(withdrawAmount * 100.0) / 100.0, super.getBalance(), "Ut"));
        }
        else if (sum >=0 )
         {
             super.setBalance(sum); 
+            getCustumerAccountsTransaktionsList().add(new Transaktions(dateFormat.format(date), getAccountID(), -Math.round(withdrawAmount * 100.0) / 100.0, super.getBalance(), "Ut"));
+
             
         }
         
@@ -67,7 +69,7 @@ public class CreditAccount extends Account
     public void deposit(double depositAmount)
     {
         super.setBalance(depositAmount + super.getBalance());
-            custumerAccountsTransaktionsList.add(new Transaktions(dateFormat.format(date), getAccountID(), Math.round(depositAmount * 100.0) / 100.0, super.getBalance(), "In"));
+            getCustumerAccountsTransaktionsList().add(new Transaktions(dateFormat.format(date), getAccountID(), Math.round(depositAmount * 100.0) / 100.0, super.getBalance(), "In"));
        
     }
     
@@ -80,11 +82,11 @@ public class CreditAccount extends Account
         //double division = sum/1.07 = 4672;
         if(super.getBalance() >=  0)
         {
-            setBalance(super.getBalance() + (creditAccountPositiveRate * super.getBalance()/100));//rate is 0.5% for the balance 
+            setBalance(super.getBalance() + (CREDITACCOUNTPOSITIVERATE * super.getBalance()/100));//rate is 0.5% for the balance 
         }
         else if(super.getBalance() <  0)
         {
-            setBalance(super.getBalance() + (creditAccountLoanRate * super.getBalance()/100));//rate is 7% for the balance
+            setBalance(super.getBalance() + (CREDITACCOUNTLOANRATE * super.getBalance()/100));//rate is 7% for the balance
         }
         return super.getBalance();
     }
@@ -93,11 +95,11 @@ public class CreditAccount extends Account
      {
       if(super.getBalance() >=  0)
                 {
-                    return "Saldo: " + closeAccount() + ", Ränta: " + creditAccountPositiveRate + "%, Kontotyp:  " + getAccountType() + ", KontoID " + getAccountID() + "\n";
+                    return "Saldo: " + closeAccount() + ", Ränta: " + CREDITACCOUNTPOSITIVERATE + "%, Kontotyp:  " + getAccountType() + ", KontoID " + getAccountID() + "\n";
                 }
              else if(super.getBalance() <  0)
              {
-                 return "Saldo: " + closeAccount() + ", Ränta: " + creditAccountLoanRate + "%, KontoTyp  " + getAccountType() + ", KontoID " + getAccountID() + "\n";
+                 return "Saldo: " + closeAccount() + ", Ränta: " + CREDITACCOUNTLOANRATE + "%, KontoTyp  " + getAccountType() + ", KontoID " + getAccountID() + "\n";
              }
       return "";
      }

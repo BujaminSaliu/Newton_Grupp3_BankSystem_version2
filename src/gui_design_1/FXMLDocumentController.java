@@ -12,9 +12,11 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Parent;
-import javafx.scene.control.Label;
+import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 
 /**
  *
@@ -28,7 +30,13 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     private void change(ActionEvent event) throws IOException {
         Parent pane = FXMLLoader.load(getClass().getResource("borderPanetest.fxml"));
-        anchorp.getChildren().setAll(pane);
+//        anchorp.getChildren().setAll(pane);
+        Scene scene2 = new Scene(pane);
+        Stage stg2 = (Stage)((Node)event.getSource()).getScene().getWindow();
+        stg2.setTitle("NewtonBank - Kundservice");
+        stg2.setScene(scene2);
+        stg2.show();
+        
     }
     
     @Override

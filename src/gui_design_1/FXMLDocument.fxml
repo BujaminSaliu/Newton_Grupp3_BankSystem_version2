@@ -1,37 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.web.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.shape.*?>
-<?import javafx.scene.text.*?>
-<?import javafx.scene.effect.*?>
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.effect.InnerShadow?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" fx:id="anchorp" prefHeight="567.0" prefWidth="745.0" style="-fx-background-color: Gray;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui_design_1.FXMLDocumentController">
+<AnchorPane id="AnchorPane" fx:id="anchorp" prefHeight="567.0" prefWidth="745.0" style="-fx-background-color: Gray;" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui_design_1.FXMLDocumentController">
     <children>
-      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="35.0" prefWidth="745.0" style="-fx-background-color: ea670f;">
-         <children>
-            <Label layoutX="6.0" layoutY="-4.0" opacity="0.63" prefHeight="44.0" prefWidth="136.0" text="Newton Bank" textFill="#0a0502">
-               <effect>
-                  <Lighting bumpInput="$null" diffuseConstant="1.23" specularConstant="0.6" specularExponent="7.44" surfaceScale="9.4">
-                     <light>
-                        <Light.Distant azimuth="233.37" elevation="237.56" />
-                     </light>
-                  </Lighting>
-               </effect>
-               <font>
-                  <Font name="Bernard MT Condensed" size="26.0" />
-               </font>
-            </Label>
-         </children>
-         <effect>
-            <InnerShadow choke="0.02" height="22.49" radius="11.855" width="26.93" />
-         </effect>
-      </AnchorPane>
       <Label layoutX="215.0" layoutY="151.0" opacity="0.93" text="Välkommen">
          <font>
             <Font name="Bernard MT Condensed" size="69.0" />
@@ -40,32 +17,32 @@
             <InnerShadow choke="0.44" height="12.1" radius="5.55" width="12.1" />
          </effect>
       </Label>
-      <AnchorPane opacity="0.11" prefHeight="567.0" prefWidth="745.0">
+      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="35.0" prefWidth="745.0" style="-fx-background-image: url(file:src/gui_design_1/images/BorderTexture.jpg); -fx-background-size: cover, auto;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <Label layoutX="6.0" layoutY="-4.0" opacity="0.8" prefHeight="44.0" prefWidth="160.0" text="Newton Bank" textFill="#0a0502">
+               <font>
+                  <Font name="Bernard MT Condensed" size="26.0" />
+               </font>
+               <effect>
+                  <DropShadow height="6.17" radius="2.585" width="6.17" />
+               </effect>
+            </Label>
+         </children>
          <effect>
-            <ImageInput>
-               <source>
-                  <Image url="file:/C:/Users/Nygreon/Desktop/test.jpg" />
-               </source>
-            </ImageInput>
+            <InnerShadow choke="0.02" height="0.0" radius="0.0" width="0.0" />
          </effect>
       </AnchorPane>
-      <ImageView fitHeight="278.0" fitWidth="702.0" layoutX="30.0" layoutY="196.0" opacity="0.09" pickOnBounds="true" preserveRatio="true" rotate="23.2">
-         <image>
-            <Image url="@../../../../Logo.png" />
-         </image>
-         <effect>
-            <DropShadow height="25.45" radius="13.337499999999999" width="29.9" />
-         </effect>
-      </ImageView>
+      <AnchorPane layoutX="1.0" layoutY="6.0" opacity="0.11" prefHeight="567.0" prefWidth="745.0" style="-fx-background-image: url(file:src/gui_design_1/images/test.jpg); -fx-background-size: cover, auto;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
         <Button layoutX="305.0" layoutY="308.0" onAction="#change" prefHeight="44.0" prefWidth="136.0" text="Logga in">
          <font>
             <Font name="Bell MT" size="20.0" />
          </font>
          <effect>
             <DropShadow color="#250101" height="3.2" radius="2.585" width="9.14" />
-         </effect></Button>
+         </effect>
+      </Button>
     </children>
    <effect>
-      <InnerShadow />
+      <InnerShadow height="35.83" radius="17.415" width="35.83" />
    </effect>
 </AnchorPane>
