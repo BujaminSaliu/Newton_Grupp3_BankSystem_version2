@@ -230,7 +230,11 @@ public class BorderPaneTestController implements Initializable
             if (nameChange.getText().isEmpty())
             {
                 returnMessageToOperator.setText("Välj kund och ange nytt namn");
-            } else
+            }else if (nameChange.getText().matches(".*[0-9*@!#¤%&/()=?`+].*")) {
+            returnMessageToOperator.setText("Namn får endast bestå av bokstäver!");
+            }
+            
+            else
             {
                 personalNumber = Long.valueOf(pNrDisplayLabel.getText());// To get a personal number
                 for (int i = 0; i < bankLogic.getAllCustomersArrayList().size(); i++)

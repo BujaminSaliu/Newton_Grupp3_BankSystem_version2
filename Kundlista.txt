@@ -1,4 +1,6 @@
-Listan skapad:	2016-11-07 20:48:16
+Listan skapad:	2016-11-08 11:31:14
+Magnus Norlin 198205060000
+
 Pontus Nygren 198305060001
 
 Befkadu Assefa 198405060002
@@ -7,7 +9,7 @@ Richard Gustafsson 198405060003
 
 Bujamin Saliu 198405060004
 
-Tanya Hultgren 198405060005
+David Jonsson 198405060006
 
-David Jonsson 198203021122
+Tanya Hultgren 198405060005
 
