@@ -21,7 +21,7 @@ public class BankLogic
     private static BankLogic instance; //Step 2 declare the instance variabel
     static List<String> removedCustomerList = new ArrayList<>();
 
-    private BankLogic() //Step 1 change this constructor to private
+    private BankLogic() //Step 1 declare the constructor and change it to private
     {
         allCustomersArrayList = new ArrayList<>();
     }
@@ -53,7 +53,7 @@ public class BankLogic
         {
             stringListCustomer.add(allCustomersArrayList.get(i).toString2());
         }
-   
+
         return stringListCustomer;
     }
 
@@ -63,7 +63,7 @@ public class BankLogic
      *
      * @param name
      * @param pNr
-     * @return
+     * @return check
      */
     public boolean addCustomer(String name, long pNr)
     {
@@ -90,7 +90,7 @@ public class BankLogic
      * entering the personal number, returns name and pNr
      *
      * @param pNr
-     * @return
+     * @return searchCustomer
      */
     public List<String> getCustomer(long pNr)
     {
@@ -101,13 +101,6 @@ public class BankLogic
             if (allCustomersArrayList.get(i).getPersonalNumber() == pNr)
             {
                 searchCustomer.add(allCustomersArrayList.get(i).toString2());
-//                for (int j = 0; j < allCustomersArrayList.get(i).getCustumerAccountsList().size(); j++)
-//                {
-//                    searchCustomer.add(allCustomersArrayList.get(i).getCustumerAccountsList().get(j).toString());
-//                    System.out.println("trial1 " + searchCustomer);
-//                    //searchCustomer.add(allCustomersArrayList.get(i).toString2());
-//
-//                }
                 break;
             }
 
@@ -121,7 +114,7 @@ public class BankLogic
      *
      * @param name
      * @param pNr
-     * @return
+     * @return changeCustomerName
      */
     public boolean changeCustomerName(String name, long pNr)
     {
@@ -139,7 +132,6 @@ public class BankLogic
 
         }
 
-    
         return changeCustomerName;
     }
 
@@ -149,7 +141,7 @@ public class BankLogic
      * balance, interest
      *
      * @param pNr
-     * @return
+     * @return removedCustomerList
      */
     public List<String> removeCustomer(long pNr)
     {
@@ -243,6 +235,14 @@ public class BankLogic
         return depositMade;
     }
 
+    /**
+     * To check if it is possible to make a withdraw, if successful the return is true 
+     * if not(for example if there is no enough money in the savings account) the return is false
+     * @param pNr
+     * @param accountId
+     * @param amount
+     * @return withdrawMade
+     */
     public boolean withdraw(long pNr, int accountId, double amount)
     {
         boolean withdrawMade = false;
@@ -267,8 +267,7 @@ public class BankLogic
                                 allCustomersArrayList.get(i).getCustumerAccountsList().get(j).getAccountType().equals("Saving Account"))
                         {
                             withdrawMade = false;
-                        } 
-                        else
+                        } else
                         {
                             allCustomersArrayList.get(i).getCustumerAccountsList().get(j).withdraw(amount);
                             System.out.println("Balance becomes in side BankLigic class in withdraw method "
@@ -282,6 +281,13 @@ public class BankLogic
         return withdrawMade;
     }
 
+    /**
+     * To close the specific account for the customer which returns the customer's 
+     * account information, the remaining money, interest rate
+     * @param pNr
+     * @param accountId
+     * @return 
+     */
     public String closeAccount(long pNr, int accountId)
     {
         String closedAccount = null;
@@ -359,7 +365,8 @@ public class BankLogic
 
         return null;
     }
-    
+
+    //To get the specific customer's accounts
     public List<String> getAllAccount(long pNr, int accountId)
     {
         List<String> getAccountReturnString = new ArrayList<>();
@@ -369,10 +376,8 @@ public class BankLogic
             {
                 for (int j = 0; j < allCustomersArrayList.get(i).getCustumerAccountsList().size(); j++)
                 {
-//                    if (allCustomersArrayList.get(i).getCustumerAccountsList().get(j).getAccountID() == accountId)
-//                    {
-                        getAccountReturnString.add(allCustomersArrayList.get(i).getCustumerAccountsList().get(j).toString());
-//                    }
+
+                    getAccountReturnString.add(allCustomersArrayList.get(i).getCustumerAccountsList().get(j).toString());
 
                 }
             }
