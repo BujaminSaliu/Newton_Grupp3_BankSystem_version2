@@ -246,7 +246,8 @@ public class BorderPaneTestController implements Initializable
                             obListAllCustumers.clear();
                             obListAllCustumers.addAll(bankLogic.getCustomer(personalNumber));
                             custumersListView.setItems(obListAllCustumers);
-                            returnMessageToOperator.setText("Kundens namn ändrades: "+ name);
+                            returnMessageToOperator.setText("Kundens namn ändrades till: "+ name);
+                            nameChange.clear();
                             nameDisplayLabel.setText(name);
                             break;
                         }
