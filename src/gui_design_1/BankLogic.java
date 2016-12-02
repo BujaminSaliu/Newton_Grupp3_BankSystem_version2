@@ -8,6 +8,9 @@ package gui_design_1;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import repository.Repository;
 
 
 /**
@@ -16,7 +19,7 @@ import java.util.List;
  */
 public class BankLogic
 {
-
+    private static Repository bankLogicRepository = new Repository();
     private static List<Customer> allCustomersArrayList;
     private static BankLogic instance; //Step 2 declare the instance variabel
     static List<String> removedCustomerList = new ArrayList<>();
@@ -36,7 +39,8 @@ public class BankLogic
     }
 
     public static List<Customer> getAllCustomersArrayList() {
-        return allCustomersArrayList;
+        // return allCustomersArrayList;
+        return bankLogicRepository.getAllCustomers();
     }
     
     
@@ -49,9 +53,9 @@ public class BankLogic
     public List<String> getCustomers()
     {
         List<String> stringListCustomer = new ArrayList<>();
-        for (int i = 0; i < allCustomersArrayList.size(); i++)
+        for (int i = 0; i < getAllCustomersArrayList().size(); i++)
         {
-            stringListCustomer.add(allCustomersArrayList.get(i).toString2());
+            stringListCustomer.add(getAllCustomersArrayList().get(i).toString2());
         }
 
         return stringListCustomer;
@@ -68,9 +72,9 @@ public class BankLogic
     public boolean addCustomer(String name, long pNr)
     {
         boolean check = true;
-        for (int i = 0; i < allCustomersArrayList.size(); i++)
+        for (int i = 0; i < getAllCustomersArrayList().size(); i++)
         {
-            if (allCustomersArrayList.get(i).getPersonalNumber() == pNr)
+            if (bankLogicRepository.getAllCustomers().get(i).getPersonalNumber() == pNr)
             {
                 check = false;
                 break;
@@ -80,7 +84,14 @@ public class BankLogic
         //if the allCustomersArrayList doesn't exist in the database, he/she will be added here
         if (check == true)
         {
-            allCustomersArrayList.add(new Customer(name, pNr));//
+            try
+            {
+                bankLogicRepository.addCustomer(name, pNr);
+//            allCustomersArrayList.add(new Customer(name, pNr));//
+            } catch (Exception ex)
+            {
+                Logger.getLogger(BankLogic.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         return check;
     }
@@ -322,18 +333,20 @@ public class BankLogic
      */
     public int addCreditAccount(long pNr)
     {
-        for (int i = 0; i < allCustomersArrayList.size(); i++)
-        {
-            if (allCustomersArrayList.get(i).getPersonalNumber() == pNr)
-            {
-                allCustomersArrayList.get(i).getCustumerAccountsList().add(new CreditAccount("Credit Account"));
-                return allCustomersArrayList.get(i).getCustumerAccountsList().get(allCustomersArrayList
-                        .get(i).getCustumerAccountsList().size() - 1).getAccountID();
-            }
-
-        }
-
-        return -1;
+//        for (int i = 0; i < bankLogicRepository.getAllCustomers().size(); i++)
+//        {
+//            if (bankLogicRepository.getAllCustomers().get(i).getPersonalNumber() == pNr)
+//            {
+//                bankLogicRepository.getAllCustomers().get(i).getCustumerAccountsList().add(new CreditAccount("Credit Account"));
+//                return bankLogicRepository.getAllCustomers().get(i).getCustumerAccountsList().get(bankLogicRepository.getAllCustomers()
+//                        .get(i).getCustumerAccountsList().size() - 1).getAccountID();
+//            }
+//
+//        }
+//
+//        return -1;
+        return bankLogicRepository.addCreditAccount(pNr);
+        
     }
 
     public List<String> getTransaktions(long pNr, int accountId)
