@@ -87,10 +87,16 @@ public class BorderPaneTestController implements Initializable
                 pNrDisplayLabel.setText(Long.toString(bankLogic.getAllCustomersArrayList().get(i).getPersonalNumber()));
                 obListCreateAccount.clear();
 
-                for (int j = 0; j < bankLogic.getAllCustomersArrayList().get(i).getCustumerAccountsList().size(); j++)
+                for (int j = 0; j < bankLogic.getAllCustomersArrayList().size(); j++)
                 {
-                    obListCreateAccount.add(bankLogic.getAllCustomersArrayList().get(i).getCustumerAccountsList().get(j).toString());
-                }
+                    long pNr = bankLogic.getAllCustomersArrayList().get(i).getPersonalNumber();
+                obListCreateAccount.add(bankLogic.getAllAccount(pNr).toString());
+                                                                
+            }
+//                for (int j = 0; j < bankLogic.getAllCustomersArrayList().get(i).getCustumerAccountsList().size(); j++)
+//                {
+//                    obListCreateAccount.add(bankLogic.getAllCustomersArrayList().get(i).getCustumerAccountsList().get(j).toString());
+//                }
 
             }
         }
@@ -737,36 +743,36 @@ public class BorderPaneTestController implements Initializable
     @Override
     public void initialize(URL url, ResourceBundle rb)
     {
-        bankLogic.addCustomer("Magnus Norlin", 198205060000L);
-        bankLogic.addCreditAccount(198205060000L);
-        bankLogic.addSavingsAccount(198205060000L);
-	
-        bankLogic.addCustomer("Pontus Nygren", 198305060001L);
-        bankLogic.addCreditAccount(198305060001L);
-        bankLogic.addSavingsAccount(198305060001L);
-        
-        bankLogic.addCustomer("Befkadu Assefa", 198405060002L);
-        bankLogic.addCreditAccount(198405060002L);
-        bankLogic.addSavingsAccount(198405060002L);
-        
-        bankLogic.addCustomer("Richard Gustafsson", 198405060003L);
-        bankLogic.addCreditAccount(198405060003L);
-        bankLogic.addSavingsAccount(198405060003L);
-        
-        bankLogic.addCustomer("Bujamin Saliu", 198405060004L);
-        bankLogic.addCreditAccount(198405060004L);
-        bankLogic.addSavingsAccount(198405060004L);
-        
-        bankLogic.addCustomer("David Jonsson", 198405060006L);
-        bankLogic.addCreditAccount(198405060006L);
-        bankLogic.addSavingsAccount(198405060006L);
-        
-        bankLogic.addCustomer("Tanya Hultgren", 198405060005L);
-        bankLogic.addCreditAccount(198405060005L);
-        bankLogic.addSavingsAccount(198405060005L);
-        
-        
-        
+//        bankLogic.addCustomer("Magnus Norlin", 198205060000L);
+//        bankLogic.addCreditAccount(198205060000L);
+//        bankLogic.addSavingsAccount(198205060000L);
+//	
+//        bankLogic.addCustomer("Pontus Nygren", 198305060001L);
+//        bankLogic.addCreditAccount(198305060001L);
+//        bankLogic.addSavingsAccount(198305060001L);
+//        
+//        bankLogic.addCustomer("Befkadu Assefa", 198405060002L);
+//        bankLogic.addCreditAccount(198405060002L);
+//        bankLogic.addSavingsAccount(198405060002L);
+//        
+//        bankLogic.addCustomer("Richard Gustafsson", 198405060003L);
+//        bankLogic.addCreditAccount(198405060003L);
+//        bankLogic.addSavingsAccount(198405060003L);
+//        
+//        bankLogic.addCustomer("Bujamin Saliu", 198405060004L);
+//        bankLogic.addCreditAccount(198405060004L);
+//        bankLogic.addSavingsAccount(198405060004L);
+//        
+//        bankLogic.addCustomer("David Jonsson", 198405060006L);
+//        bankLogic.addCreditAccount(198405060006L);
+//        bankLogic.addSavingsAccount(198405060006L);
+//        
+//        bankLogic.addCustomer("Tanya Hultgren", 198405060005L);
+//        bankLogic.addCreditAccount(198405060005L);
+//        bankLogic.addSavingsAccount(198405060005L);
+//        
+//        
+//        
         
 
 
