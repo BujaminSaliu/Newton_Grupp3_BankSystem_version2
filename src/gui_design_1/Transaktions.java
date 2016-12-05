@@ -5,14 +5,17 @@
  */
 package gui_design_1;
 
+import java.util.Date;
+
 /**
  *
  * @author SYSJM2 GRUPP 3
  */
 public class Transaktions
 {
-    private long accountId;
-    //private Date dateTime;
+    //private long accountId;
+    private int accountId;
+    private Date dateTime;
     private String transactionType;
     private double amount;
     private double balanceAfterTransaction;
@@ -26,7 +29,7 @@ public class Transaktions
                             
     }
         
-    public Transaktions(String date,long accountId,double amount, double balanceAfterTransaction, String inOut)
+    public Transaktions(String date,int accountId,double amount, double balanceAfterTransaction, String inOut)
     {
         this.accountId = accountId;
         this.transactionType = transactionType;
@@ -46,7 +49,7 @@ public class Transaktions
         return accountId;
     }
 
-    public void setAccountId(long accountId)
+    public void setAccountId(int accountId)
     {
         this.accountId = accountId;
     }

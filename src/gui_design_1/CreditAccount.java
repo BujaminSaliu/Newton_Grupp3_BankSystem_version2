@@ -14,7 +14,7 @@ public class CreditAccount extends Account
 {
     final static double creditLimit = -5000;
     private final static double CREDITACCOUNTLOANRATE = 7;
-    final static private double CREDITACCOUNTPOSITIVERATE=0.5;
+    final static private double CREDITACCOUNTPOSITIVERATE = 0.5;
     private double interestRate = 0;
 
     

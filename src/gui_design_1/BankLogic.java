@@ -42,6 +42,10 @@ public class BankLogic
         // return allCustomersArrayList;
         return bankLogicRepository.getAllCustomers();
     }
+    public static List<Transaktions> getAllTransactionsArrayList() {
+        // return allCustomersArrayList;
+        return bankLogicRepository.getAllTransactions();
+    }
     
     
 
@@ -130,18 +134,19 @@ public class BankLogic
     public boolean changeCustomerName(String name, long pNr)
     {
         boolean changeCustomerName = false;
-        for (int i = 0; i < allCustomersArrayList.size(); i++)
-        {
-
-            if (allCustomersArrayList.get(i).getPersonalNumber() == pNr)
-            {
-                //allCustomersArrayList.remove(allCustomersArrayList.get(i));
-                allCustomersArrayList.get(i).setCustomerName(name);
-                changeCustomerName = true;
-                break;
-            }
-
-        }
+//        for (int i = 0; i < allCustomersArrayList.size(); i++)
+//        {
+//
+//            if (allCustomersArrayList.get(i).getPersonalNumber() == pNr)
+//            {
+//                //allCustomersArrayList.remove(allCustomersArrayList.get(i));
+//                allCustomersArrayList.get(i).setCustomerName(name);
+//                changeCustomerName = true;
+//                break;
+//            }
+//
+//        }
+        
 
         return changeCustomerName;
     }
@@ -380,7 +385,7 @@ public class BankLogic
     }
 
     //To get the specific customer's accounts
-    public List<String> getAllAccount(long pNr, int accountId)
+    public List<String> getAllAccount(long pNr)
     {
         List<String> getAccountReturnString = new ArrayList<>();
         for (int i = 0; i < allCustomersArrayList.size(); i++)

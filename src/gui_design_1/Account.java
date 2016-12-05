@@ -37,7 +37,8 @@ public abstract class Account
         custumerAccountsTransaktionsList = new ArrayList<>();
 
     }
-
+    
+    
     //To get the recent balance
     public double getBalance()
     {
