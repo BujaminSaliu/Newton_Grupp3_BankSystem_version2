@@ -127,13 +127,13 @@ public class BorderPaneTestController implements Initializable
                 
                 for (int j = 0; j < bankLogic.getAllTransactionsArrayList(accountID).size(); j++)
                 {
-
                 obListtransaktion.add(bankLogic.getAllTransactionsArrayList(accountID).get(j).toString2());
                    
                                                                 
             }
 
             }
+            
         }
         transactionsListView.setItems(obListtransaktion);
 //        obListtransaktion.clear();
@@ -603,72 +603,102 @@ public class BorderPaneTestController implements Initializable
     private void depositButton(ActionEvent event) throws Exception {
         selectedCustomerString = (String) custumersListView.getSelectionModel().getSelectedItem();
         selectedAccountString = (String) accountsListView.getSelectionModel().getSelectedItem();
-        if (selectedAccountString == null)
+        long pNr = 0;
+        double amount = Double.parseDouble(depositWithDrawAmountField.getText());
+        
+        int accountID1 =1;
+        for (int i = 0; i < bankLogic.getAllCustomersArrayList().size(); i++)
         {
-            returnMessageToOperator.setText("Välj eller skapa konto för transaktion");
-        } else
-        {
-            for (int i = 0; i < bankLogic.getAllCustomersArrayList().size(); i++)
-            {
-                Long personalNumber = bankLogic.getAllCustomersArrayList().get(i).getPersonalNumber();// To get a personal number
-                for (int j = 0; j < bankLogic.getAllCustomersArrayList().get(i).getCustumerAccountsList().size(); j++)
-                {
-
-                    if (selectedAccountString.equals(bankLogic.getAllCustomersArrayList().get(i).getCustumerAccountsList().get(j).toString()))
-                    {
-
-                        int accountID = bankLogic.getAllCustomersArrayList().get(i).getCustumerAccountsList().get(j).getAccountID();//To get accountID   
-
-                        try {
-                            double amount = Double.parseDouble(depositWithDrawAmountField.getText());
-                            if (amount <= 0) {
-                                throw new NumberFormatException();
-
-                            } else if (amount > 1000000) {
-                                throw new IndexOutOfBoundsException();
-                            } else if (bankLogic.deposit(personalNumber, accountID, amount) == true) {
-                                transactionsListView.getItems().clear();
-
-                                /*This code is to write the first line on the transactionListView, it will be reseted in every
-                            deposit because of this code transactionsListView.getItems().clear();
-                            The output is like Kontonummer: 1000 Saldo: 600 kr Saving Accout
-                                 */
-                                obListtransaktion = FXCollections.observableArrayList("Kontonummer:          " + Integer.toString(accountID) + "          Saldo          "
-                                        + bankLogic.getAllCustomersArrayList().get(i).getCustumerAccountsList().get(j).getBalance() + "kr          "
-                                        + bankLogic.getAllCustomersArrayList().get(i).getCustumerAccountsList().get(j).getAccountType()
-                                        + "(" + bankLogic.getAllCustomersArrayList().get(i).getCustumerAccountsList().get(j).getInterestRate() + "%)");
-
-                                //To get the updated new transactions in transactionsListView after every deposit made                                 
-                                obListtransaktion.add(bankLogic.getAllCustomersArrayList().get(i).getCustumerAccountsList().get(j).
-                                        getCustumerAccountsTransaktionsList().toString()
-                                        
-                                        .replace("[", "")//remove the right bracket
-                                        .replace("]", "")//remove the left bracket
-                                        .replace(",", ""));//remove the comma       
-
-                                transactionsListView.setItems(obListtransaktion);
-
-                                //To clear the accountsListView window after every every deposit action
-                                accountsListView.getItems().clear();
-
-                                //To update the accountsListView after the deposit action
-                                obListCreateAccount.add(bankLogic.getAllCustomersArrayList().get(i).getCustumerAccountsList().get(j).toString());
-                                accountsListView.setItems(obListCreateAccount);
-
-                                obListAllCustumers.setAll(bankLogic.getCustomers());
-
-                            }
-                        } catch (NumberFormatException nfe) {
-                            returnMessageToOperator.setText("Ange giltigt belopp");
-                        } catch (IndexOutOfBoundsException e) {
-                            returnMessageToOperator.setText("Kontakta bankledningen!");
-                        }
-                    }
-
-                }
-            }
-
+            if (selectedCustomerString.equals(bankLogic.getAllCustomersArrayList().get(i).toString2()))
+            pNr = bankLogic.getAllCustomersArrayList().get(i).getPersonalNumber();
         }
+        for (int i = 0; i < bankLogic.getAllAccount(pNr).size(); i++)
+        {
+            if (bankLogic.getAllAccount(pNr).get(i).toString2().equals(selectedAccountString))
+            {
+                //returnMessageToOperator.setText(bankLogic.allCustomersArrayList.get(i).getCustomerName());
+//                nameDisplayLabel.setText(bankLogic.getAllCustomersArrayList().get(i).getCustomerName());
+//                pNrDisplayLabel.setText(Long.toString(bankLogic.getAllCustomersArrayList().get(i).getPersonalNumber()));
+                accountID1 = bankLogic.getAllAccount(pNr).get(i).getAccountID();
+                System.out.println("accountID1" +accountID1);
+            if (bankLogic.deposit(accountID1, amount) == true)
+            {
+                getOnMouseClickedCustListView();
+                getOnMouseClickedAccoutListView();
+            }
+            }
+       
+           
+        }
+        
+         System.out.println("accountID2" + accountID1);
+        
+//        if (selectedAccountString == null)
+//        {
+//            returnMessageToOperator.setText("Välj eller skapa konto för transaktion");
+//        } else
+//        {
+//            for (int i = 0; i < bankLogic.getAllAccount(0).size(); i++)
+//            {
+//                Long personalNumber = bankLogic.getAllCustomersArrayList().get(i).getPersonalNumber();// To get a personal number
+//                for (int j = 0; j < bankLogic.getAllAccount(0).size(); j++)
+//                {
+//                    if (selectedAccountString.equals(bankLogic.getAllCustomersArrayList().get(i).getCustumerAccountsList().get(j).toString()))
+//                    {
+//
+//                        int accountID = bankLogic.getAllCustomersArrayList().get(i).getCustumerAccountsList().get(j).getAccountID();//To get accountID   
+//                                
+//
+//                        try {
+//                            double amount = Double.parseDouble(depositWithDrawAmountField.getText());
+//                            if (amount <= 0) {
+//                                throw new NumberFormatException();
+//
+//                            } else if (amount > 1000000) {
+//                                throw new IndexOutOfBoundsException();
+//                            } else if (bankLogic.deposit(personalNumber, accountID, amount) == true) {
+//                                transactionsListView.getItems().clear();
+//
+//                                /*This code is to write the first line on the transactionListView, it will be reseted in every
+//                            deposit because of this code transactionsListView.getItems().clear();
+//                            The output is like Kontonummer: 1000 Saldo: 600 kr Saving Accout
+//                                 */
+//                                obListtransaktion = FXCollections.observableArrayList("Kontonummer:          " + Integer.toString(accountID) + "          Saldo          "
+//                                        + bankLogic.getAllCustomersArrayList().get(i).getCustumerAccountsList().get(j).getBalance() + "kr          "
+//                                        + bankLogic.getAllCustomersArrayList().get(i).getCustumerAccountsList().get(j).getAccountType()
+//                                        + "(" + bankLogic.getAllCustomersArrayList().get(i).getCustumerAccountsList().get(j).getInterestRate() + "%)");
+//
+//                                //To get the updated new transactions in transactionsListView after every deposit made                                 
+//                                obListtransaktion.add(bankLogic.getAllCustomersArrayList().get(i).getCustumerAccountsList().get(j).
+//                                        getCustumerAccountsTransaktionsList().toString()
+//                                        
+//                                        .replace("[", "")//remove the right bracket
+//                                        .replace("]", "")//remove the left bracket
+//                                        .replace(",", ""));//remove the comma       
+//
+//                                transactionsListView.setItems(obListtransaktion);
+//
+//                                //To clear the accountsListView window after every every deposit action
+//                                accountsListView.getItems().clear();
+//
+//                                //To update the accountsListView after the deposit action
+//                                obListCreateAccount.add(bankLogic.getAllCustomersArrayList().get(i).getCustumerAccountsList().get(j).toString());
+//                                accountsListView.setItems(obListCreateAccount);
+//
+//                                obListAllCustumers.setAll(bankLogic.getCustomers());
+//
+//                            }
+//                        } catch (NumberFormatException nfe) {
+//                            returnMessageToOperator.setText("Ange giltigt belopp");
+//                        } catch (IndexOutOfBoundsException e) {
+//                            returnMessageToOperator.setText("Kontakta bankledningen!");
+//                        }
+//                    }
+//
+//                }
+//            }
+//
+//        }
 
         depositWithDrawAmountField.clear();
 

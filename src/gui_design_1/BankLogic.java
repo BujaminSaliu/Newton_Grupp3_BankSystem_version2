@@ -1,4 +1,4 @@
-/*
+        /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -191,19 +191,20 @@ public class BankLogic
      */
     public int addSavingsAccount(long pNr)
     {
-        for (int i = 0; i < allCustomersArrayList.size(); i++)
-        {
-            if (allCustomersArrayList.get(i).getPersonalNumber() == pNr)
-            {
-                allCustomersArrayList.get(i).getCustumerAccountsList().add(new SavingsAccount("Saving Account"));
-                return allCustomersArrayList.get(i).getCustumerAccountsList().get(allCustomersArrayList
-                        .get(i).getCustumerAccountsList().size() - 1).getAccountID();
-
-            }
-
-        }
-
-        return -1;
+//        for (int i = 0; i < allCustomersArrayList.size(); i++)
+//        {
+//            if (allCustomersArrayList.get(i).getPersonalNumber() == pNr)
+//            {
+//                allCustomersArrayList.get(i).getCustumerAccountsList().add(new SavingsAccount("Saving Account"));
+//                return allCustomersArrayList.get(i).getCustumerAccountsList().get(allCustomersArrayList
+//                        .get(i).getCustumerAccountsList().size() - 1).getAccountID();
+//
+//            }
+//
+//        }
+//
+//        return -1;
+        return bankLogicRepository.addSavingsAccount(pNr);
     }
 
     public String getAccount(long pNr, int accountId)
@@ -226,30 +227,32 @@ public class BankLogic
 //        return getAccountReturnString;
 return bankLogicRepository.getAccount(pNr);
     }
-
-    public boolean deposit(long pNr, int accountId, double amount)
+    public boolean deposit(int acoountID, double amount)
+//    public boolean deposit(long pNr, int accountId, double amount)
     {
-        boolean depositMade = false;
-        for (int i = 0; i < allCustomersArrayList.size(); i++)
-        {
-            if (allCustomersArrayList.get(i).getPersonalNumber() == pNr)
-            {
-                for (int j = 0; j < allCustomersArrayList.get(i).getCustumerAccountsList().size(); j++)
-                {
-                    //if condition edited, checked the account type- for Savings
-                    if (allCustomersArrayList.get(i).getCustumerAccountsList().get(j).getAccountID() == accountId)
-                    {
-                        allCustomersArrayList.get(i).getCustumerAccountsList().get(j).deposit(amount);
-                        System.out.println("Balance becomes in side BankLigic class in deposit method " + i + " " + allCustomersArrayList.get(i).getCustumerAccountsList().get(j).getBalance()
-                        );
-                        //transaktionsArrayList.add(new Transaktions(accountId, allCustomersArrayList.get(i).custumerAccountsList.get(i).getAccountType(), amount, allCustomersArrayList.get(i).custumerAccountsList.get(i).getBalance()));
-                        depositMade = true;
-                    }
-
-                }
-            }
-
-        }
+        boolean depositMade = true;
+        bankLogicRepository.deposit(acoountID, amount);
+        
+//        for (int i = 0; i < allCustomersArrayList.size(); i++)
+//        {
+//            if (allCustomersArrayList.get(i).getPersonalNumber() == pNr)
+//            {
+//                for (int j = 0; j < allCustomersArrayList.get(i).getCustumerAccountsList().size(); j++)
+//                {
+//                    //if condition edited, checked the account type- for Savings
+//                    if (allCustomersArrayList.get(i).getCustumerAccountsList().get(j).getAccountID() == accountId)
+//                    {
+//                        allCustomersArrayList.get(i).getCustumerAccountsList().get(j).deposit(amount);
+//                        System.out.println("Balance becomes in side BankLigic class in deposit method " + i + " " + allCustomersArrayList.get(i).getCustumerAccountsList().get(j).getBalance()
+//                        );
+//                        //transaktionsArrayList.add(new Transaktions(accountId, allCustomersArrayList.get(i).custumerAccountsList.get(i).getAccountType(), amount, allCustomersArrayList.get(i).custumerAccountsList.get(i).getBalance()));
+//                        depositMade = true;
+//                    }
+//
+//                }
+//            }
+//
+//        }
         return depositMade;
     }
 

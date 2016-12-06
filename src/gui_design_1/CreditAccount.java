@@ -21,7 +21,7 @@ public class CreditAccount extends Account
     public CreditAccount(){
     }
 
-    public CreditAccount( String accountType, int accountID)
+    public CreditAccount( String accountType)
     {
         super(accountType);  //edited
         super.setInterestRate(interestRate);
