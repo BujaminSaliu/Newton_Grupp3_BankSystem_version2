@@ -32,8 +32,8 @@ public abstract class Account
     public Account(String accountType)
     {
         this.accountType = accountType;
-        this.accountID = accountIDCounter;
-        accountIDCounter++;
+        this.accountID = accountID;
+        
         custumerAccountsTransaktionsList = new ArrayList<>();
 
     }
@@ -98,10 +98,10 @@ public abstract class Account
         return custumerAccountsTransaktionsList;
     }
 
-    @Override
-    public String toString()
+    
+    public String toString2()
     {
-        return "Saldo: " + balance + ", Ränta: " + interestRate + "%, Kontotyp:  " + getAccountType() + ", kontoID: " + accountID + "\n";
+        return "Saldo: " + balance + ", Ränta: " + interestRate + "%, Kontotyp: " + getAccountType() + ", kontoID: " + accountID + "\n";
     }
 
 }

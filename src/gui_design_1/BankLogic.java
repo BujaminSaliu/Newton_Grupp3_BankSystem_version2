@@ -42,9 +42,9 @@ public class BankLogic
         // return allCustomersArrayList;
         return bankLogicRepository.getAllCustomers();
     }
-    public static List<Transaktions> getAllTransactionsArrayList() {
+    public static List<Transaktions> getAllTransactionsArrayList(int accountID) {
         // return allCustomersArrayList;
-        return bankLogicRepository.getAllTransactions();
+        return bankLogicRepository.getAllTransactions(accountID);
     }
     
     
@@ -56,13 +56,14 @@ public class BankLogic
      */
     public List<String> getCustomers()
     {
-        List<String> stringListCustomer = new ArrayList<>();
-        for (int i = 0; i < getAllCustomersArrayList().size(); i++)
-        {
-            stringListCustomer.add(getAllCustomersArrayList().get(i).toString2());
-        }
+//        List<String> stringListCustomer = new ArrayList<>();
+//        for (int i = 0; i < getAllCustomersArrayList().size(); i++)
+//        {
+//            stringListCustomer.add(getAllCustomersArrayList().get(i).toString2());
+//        }
 
-        return stringListCustomer;
+//        return stringListCustomer;
+        return bankLogicRepository.getCustomers();
     }
 
     /**
@@ -208,21 +209,22 @@ public class BankLogic
     public String getAccount(long pNr, int accountId)
     {
         String getAccountReturnString = null;
-        for (int i = 0; i < allCustomersArrayList.size(); i++)
-        {
-            if (allCustomersArrayList.get(i).getPersonalNumber() == pNr)
-            {
-                for (int j = 0; j < allCustomersArrayList.get(i).getCustumerAccountsList().size(); j++)
-                {
-                    if (allCustomersArrayList.get(i).getCustumerAccountsList().get(j).getAccountID() == accountId)
-                    {
-                        getAccountReturnString = allCustomersArrayList.get(i).getCustumerAccountsList().get(j).toString();
-                    }
-
-                }
-            }
-        }
-        return getAccountReturnString;
+//        for (int i = 0; i < allCustomersArrayList.size(); i++)
+//        {
+//            if (allCustomersArrayList.get(i).getPersonalNumber() == pNr)
+//            {
+//                for (int j = 0; j < allCustomersArrayList.get(i).getCustumerAccountsList().size(); j++)
+//                {
+//                    if (allCustomersArrayList.get(i).getCustumerAccountsList().get(j).getAccountID() == accountId)
+//                    {
+//                        getAccountReturnString = allCustomersArrayList.get(i).getCustumerAccountsList().get(j).toString();
+//                    }
+//
+//                }
+//            }
+//        }
+//        return getAccountReturnString;
+return bankLogicRepository.getAccount(pNr);
     }
 
     public boolean deposit(long pNr, int accountId, double amount)
@@ -385,21 +387,22 @@ public class BankLogic
     }
 
     //To get the specific customer's accounts
-    public List<String> getAllAccount(long pNr)
+    public List<Account> getAllAccount(long pNr)
     {
-        List<String> getAccountReturnString = new ArrayList<>();
-        for (int i = 0; i < allCustomersArrayList.size(); i++)
-        {
-            if (allCustomersArrayList.get(i).getPersonalNumber() == pNr)
-            {
-                for (int j = 0; j < allCustomersArrayList.get(i).getCustumerAccountsList().size(); j++)
-                {
-
-                    getAccountReturnString.add(allCustomersArrayList.get(i).getCustumerAccountsList().get(j).toString());
-
-                }
-            }
-        }
-        return getAccountReturnString;
+//        List<String> getAccountReturnString = new ArrayList<>();
+//        for (int i = 0; i < allCustomersArrayList.size(); i++)
+//        {
+//            if (allCustomersArrayList.get(i).getPersonalNumber() == pNr)
+//            {
+//                for (int j = 0; j < allCustomersArrayList.get(i).getCustumerAccountsList().size(); j++)
+//                {
+//
+//                    getAccountReturnString.add(allCustomersArrayList.get(i).getCustumerAccountsList().get(j).toString());
+//
+//                }
+//            }
+//        }
+//        return getAccountReturnString;
+   return bankLogicRepository.getAllAccountArrayList(pNr);
     }
 }

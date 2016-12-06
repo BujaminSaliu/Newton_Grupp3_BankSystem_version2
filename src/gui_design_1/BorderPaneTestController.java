@@ -87,10 +87,12 @@ public class BorderPaneTestController implements Initializable
                 pNrDisplayLabel.setText(Long.toString(bankLogic.getAllCustomersArrayList().get(i).getPersonalNumber()));
                 obListCreateAccount.clear();
 
-                for (int j = 0; j < bankLogic.getAllCustomersArrayList().get(i).getCustumerAccountsList().size(); j++)
+                for (int j = 0; j < bankLogic.getAllAccount(bankLogic.getAllCustomersArrayList().get(i).getPersonalNumber()).size(); j++)
                 {
-                    obListCreateAccount.add(bankLogic.getAllCustomersArrayList().get(i).getCustumerAccountsList().get(j).toString());
-                }
+                    long pNr = bankLogic.getAllCustomersArrayList().get(i).getPersonalNumber();
+                obListCreateAccount.add(bankLogic.getAllAccount(pNr).get(j).toString2());
+                                                                
+            }
 
             }
         }
@@ -99,58 +101,92 @@ public class BorderPaneTestController implements Initializable
     }
 
     @FXML
-    public final void getOnMouseClickedAccoutListView() {
-        obListtransaktion.clear();
-        returnMessageToOperator.setText("");
+    public final void getOnMouseClickedAccoutListView() 
+    {
+        // clears transactions window
+        transactionsListView.getItems().clear();
         
-        String selectedAccountStringDetail = (String) accountsListView.getSelectionModel().getSelectedItem();
+        // gets the toString-text of customer from customer list view
+        selectedAccountString = (String) accountsListView.getSelectionModel().getSelectedItem();
+        
         Long pNr = Long.parseLong(pNrDisplayLabel.getText());
         
-        for (int i = 0; i < bankLogic.getAllTransactionsArrayList().size(); i++)
+        int accountID;
+        
+        returnMessageToOperator.setText(" ");
+        for (int i = 0; i < bankLogic.getAllAccount(pNr).size(); i++)
         {
-            if (selectedAccountStringDetail == null)
+            if (bankLogic.getAllAccount(pNr).get(i).toString2().equals(selectedAccountString))
             {
-                returnMessageToOperator.setText("Välj specifikt konto för att se transaktioner");
-            } 
-            else
-            {
-                //Long personalNumber = bankLogic.getAllCustomersArrayList().get(i).getPersonalNumber();// To get a personal number
+                //returnMessageToOperator.setText(bankLogic.allCustomersArrayList.get(i).getCustomerName());
+//                nameDisplayLabel.setText(bankLogic.getAllCustomersArrayList().get(i).getCustomerName());
+//                pNrDisplayLabel.setText(Long.toString(bankLogic.getAllCustomersArrayList().get(i).getPersonalNumber()));
+                accountID = bankLogic.getAllAccount(pNr).get(i).getAccountID();
+                obListtransaktion.clear();
                 
                 
-                for (int j = 0; j < bankLogic.getAllTransactionsArrayList().size(); j++)
+                for (int j = 0; j < bankLogic.getAllTransactionsArrayList(accountID).size(); j++)
                 {
 
-                    
-                    if (selectedAccountStringDetail.equals(bankLogic.getAllAccount(pNr).get(j).toString()));
-                    {
-                        int accountID = bankLogic.getAllCustomersArrayList().get(i).getCustumerAccountsList().get(j).getAccountID();
+                obListtransaktion.add(bankLogic.getAllTransactionsArrayList(accountID).get(j).toString2());
+                   
+                                                                
+            }
 
-                        /*This code is to write the first line on the transactionListView,
-                        this code "transactionsListView.getItems().clear();" will clean the transaction window
-                            The output is like Kontonummer: 1000 Saldo: 600 kr Saving Accout
-                         */
-                        transactionsListView.getItems().clear();
-
-                        //To give the Account number, balance, account type and the rate. It will be displayed as a title in the transaction
-                        //window
-                        obListtransaktion = FXCollections.observableArrayList("Kontonummer:          " + Integer.toString(accountID)
-                                + "          Saldo          " + bankLogic.getAllCustomersArrayList().get(i).getCustumerAccountsList().get(j).
-                                getBalance() + "kr          " + bankLogic.getAllCustomersArrayList().get(i).getCustumerAccountsList().
-                                get(j).getAccountType() + "(" + bankLogic.getAllCustomersArrayList().get(i).
-                                getCustumerAccountsList().get(j).getInterestRate() + "%)");
-
-                        //All the transactions (diposit and withdraw) will be displayed
-                        obListtransaktion.addAll(bankLogic.getAllCustomersArrayList().get(i).getCustumerAccountsList().get(j).getCustumerAccountsTransaktionsList().toString()
-                                        .replace(",", "")//remove the commas
-                                        .replace("[", "")//remove the right bracket
-                                        .replace("]", "")//remove the left bracket
-                                        .replace(",", ""));//remove the comma   
-                        transactionsListView.setItems(obListtransaktion);
-                    }
-
-                }
             }
         }
+        transactionsListView.setItems(obListtransaktion);
+//        obListtransaktion.clear();
+//        returnMessageToOperator.setText("");
+//        
+//        String selectedAccountStringDetail = (String) accountsListView.getSelectionModel().getSelectedItem();
+//        Long pNr = Long.parseLong(pNrDisplayLabel.getText());
+//        
+//        for (int i = 0; i < bankLogic.getAllTransactionsArrayList().size(); i++)
+//        {
+//            if (selectedAccountStringDetail == null)
+//            {
+//                returnMessageToOperator.setText("Välj specifikt konto för att se transaktioner");
+//            } 
+//            else
+//            {
+//                //Long personalNumber = bankLogic.getAllCustomersArrayList().get(i).getPersonalNumber();// To get a personal number
+//                
+//                
+//                for (int j = 0; j < bankLogic.getAllTransactionsArrayList().size(); j++)
+//                {
+//
+//                    
+//                    if (selectedAccountStringDetail.equals(bankLogic.getAllAccount(pNr).get(j).toString()));
+//                    {
+//                        int accountID = bankLogic.getAllCustomersArrayList().get(i).getCustumerAccountsList().get(j).getAccountID();
+//
+//                        /*This code is to write the first line on the transactionListView,
+//                        this code "transactionsListView.getItems().clear();" will clean the transaction window
+//                            The output is like Kontonummer: 1000 Saldo: 600 kr Saving Accout
+//                         */
+//                        transactionsListView.getItems().clear();
+//
+//                        //To give the Account number, balance, account type and the rate. It will be displayed as a title in the transaction
+//                        //window
+//                        obListtransaktion = FXCollections.observableArrayList("Kontonummer:          " + Integer.toString(accountID)
+//                                + "          Saldo          " + bankLogic.getAllCustomersArrayList().get(i).getCustumerAccountsList().get(j).
+//                                getBalance() + "kr          " + bankLogic.getAllCustomersArrayList().get(i).getCustumerAccountsList().
+//                                get(j).getAccountType() + "(" + bankLogic.getAllCustomersArrayList().get(i).
+//                                getCustumerAccountsList().get(j).getInterestRate() + "%)");
+//
+//                        //All the transactions (diposit and withdraw) will be displayed
+//                        obListtransaktion.addAll(bankLogic.getAllCustomersArrayList().get(i).getCustumerAccountsList().get(j).getCustumerAccountsTransaktionsList().toString()
+//                                        .replace(",", "")//remove the commas
+//                                        .replace("[", "")//remove the right bracket
+//                                        .replace("]", "")//remove the left bracket
+//                                        .replace(",", ""));//remove the comma   
+//                        transactionsListView.setItems(obListtransaktion);
+//                    }
+//
+//                }
+//            }
+//        }
 
     }
 
@@ -769,10 +805,7 @@ public class BorderPaneTestController implements Initializable
 //        bankLogic.addCustomer("Tanya Hultgren", 198405060005L);
 //        bankLogic.addCreditAccount(198405060005L);
 //        bankLogic.addSavingsAccount(198405060005L);
-        
-        
-        
-        
+
 
 
         obListAllCustumers.clear();

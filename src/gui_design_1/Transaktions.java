@@ -89,9 +89,8 @@ public class Transaktions
         return inOut;
     }
 
-    
-    @Override
-    public String toString()
+
+    public String toString2()
     {
         
         
