@@ -6,6 +6,7 @@
 package gui_design_1;
 
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -41,6 +42,10 @@ public class BankLogic
     public static List<Customer> getAllCustomersArrayList() {
         // return allCustomersArrayList;
         return bankLogicRepository.getAllCustomers();
+    }
+    
+    public static ArrayList<Account> getAllAccountsArrayList(Long pNr){
+    return bankLogicRepository.getAllAccountArrayList(pNr);
     }
     public static List<Transaktions> getAllTransactionsArrayList(int accountID) {
         // return allCustomersArrayList;
@@ -160,25 +165,49 @@ public class BankLogic
      * @param pNr
      * @return removedCustomerList
      */
+//    public List<String> removeCustomer(long pNr)
+//    {
+//
+//        for (int i = 0; i < allCustomersArrayList.size(); i++)
+//        {
+//
+//            if (allCustomersArrayList.get(i).getPersonalNumber() == pNr)
+//            {
+//
+//                removedCustomerList.add(allCustomersArrayList.get(i).toString1());
+//
+//                //After removing allCustomersArrayList, the allCustomersArrayList will be removed
+//                allCustomersArrayList.remove(allCustomersArrayList.get(i));
+//
+//                break;
+//            }
+//
+//        }
+//
+//        return removedCustomerList;
+//    }
+    
     public List<String> removeCustomer(long pNr)
     {
-
-        for (int i = 0; i < allCustomersArrayList.size(); i++)
+        ArrayList<String> removedCustomerList = new ArrayList<>();
+        for (int i = 0; i < getAllCustomersArrayList().size(); i++)
         {
-
-            if (allCustomersArrayList.get(i).getPersonalNumber() == pNr)
+            if (getAllCustomersArrayList().get(i).getPersonalNumber() == pNr)
             {
-
-                removedCustomerList.add(allCustomersArrayList.get(i).toString1());
-
+                
+                for (int k =0; k<getAllAccountsArrayList(pNr).size(); k++ ){
+                removedCustomerList.add(getAllAccountsArrayList(pNr).get(k).toStringClose());
+                }
+                if (bankLogicRepository.removeCustomer(pNr)){ // Kalla på repository metoden och kolla så den är true(tagit bort kund)
+                    
+//                removedCustomerList.add(getAllCustomersArrayList().get(i).toString1());
                 //After removing allCustomersArrayList, the allCustomersArrayList will be removed
-                allCustomersArrayList.remove(allCustomersArrayList.get(i));
-
+                
+//                getAllCustomersArrayList().remove(getAllCustomersArrayList().get(i));
                 break;
+                }
             }
-
         }
-
         return removedCustomerList;
     }
 
@@ -309,27 +338,49 @@ return bankLogicRepository.getAccount(pNr);
      * @param accountId
      * @return 
      */
-    public String closeAccount(long pNr, int accountId)
+//    public String closeAccount(long pNr, int accountId)
+//    {
+//        String closedAccount = null;
+//        for (int i = 0; i < allCustomersArrayList.size(); i++)
+//        {
+//            if (allCustomersArrayList.get(i).getPersonalNumber() == pNr)
+//            {
+//                for (int j = 0; j < allCustomersArrayList.get(i).getCustumerAccountsList().size(); j++)
+//                {
+//                    if (allCustomersArrayList.get(i).getCustumerAccountsList().get(j).getAccountID() == accountId)
+//                    {
+//                        closedAccount = allCustomersArrayList.get(i).getCustumerAccountsList().get(j).toStringClose();
+//
+//                      
+//                        allCustomersArrayList.get(i).getCustumerAccountsList().remove(allCustomersArrayList.get(i).getCustumerAccountsList().get(j));
+//                        System.out.print("Personal number " + pNr + ", ");
+//
+//                    }
+//                }
+//            }
+//
+//        }
+//        return closedAccount;
+//    }
+    
+    public String closeAccount(long pNr, int accountId) throws SQLException
     {
         String closedAccount = null;
-        for (int i = 0; i < allCustomersArrayList.size(); i++)
+        for (int i = 0; i < getAllAccountsArrayList(pNr).size(); i++)
         {
-            if (allCustomersArrayList.get(i).getPersonalNumber() == pNr)
+            if (getAllAccountsArrayList(pNr).get(i).getAccountID() == accountId)
             {
-                for (int j = 0; j < allCustomersArrayList.get(i).getCustumerAccountsList().size(); j++)
-                {
-                    if (allCustomersArrayList.get(i).getCustumerAccountsList().get(j).getAccountID() == accountId)
-                    {
-                        closedAccount = allCustomersArrayList.get(i).getCustumerAccountsList().get(j).toStringClose();
-
+//                           System.out.println(pNr);  
+//                           System.out.println(accountId);
+                            closedAccount = getAllAccountsArrayList(pNr).get(i).toStringClose();
+                            bankLogicRepository.closeAccount(pNr, getAllAccountsArrayList(pNr).get(i).getAccountID());
+                        
                       
-                        allCustomersArrayList.get(i).getCustumerAccountsList().remove(allCustomersArrayList.get(i).getCustumerAccountsList().get(j));
+//                        getAllAccountsArrayList(pNr).remove(allCustomersArrayList.get(i).getCustumerAccountsList().get(i));
                         System.out.print("Personal number " + pNr + ", ");
-
-                    }
-                }
+                    
+                
             }
-
         }
         return closedAccount;
     }

@@ -307,24 +307,21 @@ public class BorderPaneTestController implements Initializable
         }
         
     }
-
+    
     @FXML
     private void removeCustomersButton(ActionEvent event) throws Exception {
         String removeCustomerString = (String) custumersListView.getSelectionModel().getSelectedItem();
         nameTextField.clear();
         pNrTextField.clear();
-
         if (!pNrTextField.getText().isEmpty())
         {
             returnMessageToOperator.setText("Välj kund att ta bort");
-
         } else if (removeCustomerString == null) {
             nameTextField.clear();
             pNrTextField.clear();
             returnMessageToOperator.setText("Välj kund att ta bort");
         } else
         {
-
             for (int j = 0; j < bankLogic.getAllCustomersArrayList().size(); j++)
             {
                 nameTextField.clear();
@@ -333,39 +330,89 @@ public class BorderPaneTestController implements Initializable
                 if (removeCustomerString.equals(bankLogic.getAllCustomersArrayList().get(j).toString2()))
                 {
                     returnMessageToOperator.setText(bankLogic.getAllCustomersArrayList().get(j).getCustomerName() + " borttagen");
-
                     //To clear the observable list in the Account ListView
                     obListCreateAccount.clear();  //To make obListCreateAccount empty
-
                     obListCreateAccount.add("Följande konto avslutas");
-                    for (int i = 0; i < bankLogic.getAllCustomersArrayList().get(j).getCustumerAccountsList().size(); i++)
+                    for (int i = 0; i < BankLogic.getAllAccountsArrayList(Long.parseLong(pNrDisplayLabel.getText())).size(); i++)
                     {
                         //Adding all the customers' removed account int account ListView
                         //obListCreateAccount.addAll(bankLogic.allCustomersArrayList.get(j).getCustumerAccountsList().toString());
-                        Long personalNumber = bankLogic.getAllCustomersArrayList().get(j).getPersonalNumber();// To get a personal number
-                        int accountID = bankLogic.getAllCustomersArrayList().get(j).getCustumerAccountsList().get(i).getAccountID();//To get accountID   
-
-                        obListCreateAccount.addAll(bankLogic.getAllCustomersArrayList().get(j).getCustumerAccountsList().get(i).toStringClose());
+                        Long personalNumber = Long.parseLong(pNrDisplayLabel.getText());// To get a personal number
+                        int accountID = BankLogic.getAllAccountsArrayList(personalNumber).get(i).getAccountID();//To get accountID   
+                        
+                        obListCreateAccount.addAll(bankLogic.removeCustomer(personalNumber));
                         accountsListView.setItems(obListCreateAccount);
                     }
-
-                    obListAllCustumers.addAll(bankLogic.removeCustomer(bankLogic.getAllCustomersArrayList().get(j).getPersonalNumber()));
+                    obListAllCustumers.addAll((List)BankLogic.getAllCustomersArrayList());
                     custumersListView.setItems(obListAllCustumers);
-
                     obListtransaktion.clear();//To make obListtransaktion empty
                     break;
                 }
-
             }
-
         }
-
-        // 
-        obListAllCustumers.clear();
+   obListAllCustumers.clear();
         obListAllCustumers.addAll(bankLogic.getCustomers());
         custumersListView.setItems(obListAllCustumers);
-
     }
+
+//    @FXML
+//    private void removeCustomersButton(ActionEvent event) throws Exception {
+//        String removeCustomerString = (String) custumersListView.getSelectionModel().getSelectedItem();
+//        nameTextField.clear();
+//        pNrTextField.clear();
+//
+//        if (!pNrTextField.getText().isEmpty())
+//        {
+//            returnMessageToOperator.setText("Välj kund att ta bort");
+//
+//        } else if (removeCustomerString == null) {
+//            nameTextField.clear();
+//            pNrTextField.clear();
+//            returnMessageToOperator.setText("Välj kund att ta bort");
+//        } else
+//        {
+//
+//            for (int j = 0; j < bankLogic.getAllCustomersArrayList().size(); j++)
+//            {
+//                nameTextField.clear();
+//                pNrTextField.clear();
+//                
+//                if (removeCustomerString.equals(bankLogic.getAllCustomersArrayList().get(j).toString2()))
+//                {
+//                    returnMessageToOperator.setText(bankLogic.getAllCustomersArrayList().get(j).getCustomerName() + " borttagen");
+//
+//                    //To clear the observable list in the Account ListView
+//                    obListCreateAccount.clear();  //To make obListCreateAccount empty
+//
+//                    obListCreateAccount.add("Följande konto avslutas");
+//                    for (int i = 0; i < bankLogic.getAllCustomersArrayList().get(j).getCustumerAccountsList().size(); i++)
+//                    {
+//                        //Adding all the customers' removed account int account ListView
+//                        //obListCreateAccount.addAll(bankLogic.allCustomersArrayList.get(j).getCustumerAccountsList().toString());
+//                        Long personalNumber = bankLogic.getAllCustomersArrayList().get(j).getPersonalNumber();// To get a personal number
+//                        int accountID = bankLogic.getAllCustomersArrayList().get(j).getCustumerAccountsList().get(i).getAccountID();//To get accountID   
+//
+//                        obListCreateAccount.addAll(bankLogic.getAllCustomersArrayList().get(j).getCustumerAccountsList().get(i).toStringClose());
+//                        accountsListView.setItems(obListCreateAccount);
+//                    }
+//
+//                    obListAllCustumers.addAll(bankLogic.removeCustomer(bankLogic.getAllCustomersArrayList().get(j).getPersonalNumber()));
+//                    custumersListView.setItems(obListAllCustumers);
+//
+//                    obListtransaktion.clear();//To make obListtransaktion empty
+//                    break;
+//                }
+//
+//            }
+//
+//        }
+//
+//        // 
+//        obListAllCustumers.clear();
+//        obListAllCustumers.addAll(bankLogic.getCustomers());
+//        custumersListView.setItems(obListAllCustumers);
+//
+//    }
 
     //To print all customer lists to a text file
     @FXML
@@ -575,27 +622,24 @@ public class BorderPaneTestController implements Initializable
             returnMessageToOperator.setText("Välj specifikt konto som ska avslutas");
         } else
         {
-            for (int i = 0; i < bankLogic.getAllCustomersArrayList().size(); i++)
-            {
-                
-                for (int j = 0; j < bankLogic.getAllCustomersArrayList().get(i).getCustumerAccountsList().size(); j++)
+            
+                for (int j = 0; j < BankLogic.getAllAccountsArrayList(Long.parseLong(pNrDisplayLabel.getText())).size(); j++)
                 {
-                    if (selectedAccountString.equals(bankLogic.getAllCustomersArrayList().get(i).getCustumerAccountsList().get(j).toString()))
+                    if (selectedAccountString.equals(BankLogic.getAllAccountsArrayList(Long.parseLong(pNrDisplayLabel.getText())).get(j).toString2()))
                     {
-                        Long personalNumber = bankLogic.getAllCustomersArrayList().get(i).getPersonalNumber();// To get a personal number
-                        int accountID = bankLogic.getAllCustomersArrayList().get(i).getCustumerAccountsList().get(j).getAccountID();//To get accountID   
-
+                        Long personalNumber  = Long.parseLong(pNrDisplayLabel.getText());// To get a personal number
+                        int accountID = BankLogic.getAllAccountsArrayList(personalNumber).get(j).getAccountID();//To get accountID   
                         //To show the deleted Account on the transaction window, the result would be printed
                         //as a text form too, the printer code is written in BankLogic.closeAccount(personalNumber, accountID)
                         obListCreateAccount.clear();
                         transactionsListView.getItems().clear();
                         obListCreateAccount.add("Följande konto avslutas");
-                        obListCreateAccount.addAll(bankLogic.closeAccount(personalNumber, accountID));
+                        obListCreateAccount.add(bankLogic.closeAccount(personalNumber, accountID));
                         accountsListView.setItems(obListCreateAccount);
                         //obListCreateAccount.clear();
                     }
                 }
-            }
+            
         }
     }
 
@@ -746,6 +790,7 @@ public class BorderPaneTestController implements Initializable
 
                         obListCreateAccount.add(getAccountInformation);
                         accountsListView.setItems(obListCreateAccount);
+                        getOnMouseClickedCustListView();
                     }
 
                 }
@@ -793,6 +838,7 @@ public class BorderPaneTestController implements Initializable
 
                         obListCreateAccount.add(getAccountInformation);
                         accountsListView.setItems(obListCreateAccount);
+                        getOnMouseClickedCustListView();
 
                     }
 

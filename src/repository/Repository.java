@@ -32,7 +32,7 @@ public class Repository
     Connection connection;
    Statement statement;
    List <Customer> repositCustList;
-   List <Account> getAccountArrayList;
+   ArrayList <Account> getAccountArrayList;
    private ArrayList <Account> repositAccountList;
     
     // URL 
@@ -200,7 +200,7 @@ public String getAccount(long pNr)
 
 //For the customer's specific account
 
-public List<Account> getAllAccountArrayList(long pNr)
+public ArrayList<Account> getAllAccountArrayList(long pNr)
 {
     //repositAccountList = new ArrayList<>();
    getAccountArrayList = new ArrayList<>();
@@ -267,13 +267,13 @@ public int addCreditAccount(long pNr)
      String insertSqlAddCreditAcc = null;
     try
         {
-            ResultSet result = statement.executeQuery("SELECT count(accounts_accountID) FROM accounts");
+            ResultSet result = statement.executeQuery("SELECT max(accounts_accountID) FROM accounts");
             while (result.next())
                     // hittar högsta kontonummer
-                    accountCounter = result.getInt("count(accounts_accountID)")+ 1001 ;
+                    accountCounter = result.getInt("max(accounts_accountID)")+ 1 ;
             
             insertSqlAddCreditAcc = " insert into accounts (accounts_accountID, account_type, customers_personalNumber)"
-                    + " values (" + (accountCounter + 1) + ", 'Credit', " +(double)pNr+ " )";
+                    + " values (" + (accountCounter) + ", 'Credit', " +(double)pNr+ " )";
 
 
             
@@ -295,14 +295,14 @@ public int addSavingsAccount(long pNr)
     
     try
         {
-            ResultSet result = statement.executeQuery("SELECT count(accounts_accountID) FROM accounts");
+            ResultSet result = statement.executeQuery("SELECT max(accounts_accountID) FROM accounts");
             while (result.next())
                     // hittar högsta kontonummer
-                    accountCounter = result.getInt("count(accounts_accountID)") + 1001 ;
+                    accountCounter = result.getInt("max(accounts_accountID)") + 1 ;
             System.out.println("pnr " + pNr);
             
             insertSqlAddSavingAcc = " insert into accounts (accounts_accountID, account_type, customers_personalNumber)"
-                    + " values (" + (accountCounter + 1) + ", 'Savings', " +(double)pNr+ " )";
+                    + " values (" + (accountCounter) + ", 'Savings', " +(double)pNr+ " )";
 
 
             
@@ -389,6 +389,30 @@ public List<Transaktions> getAccoutAllTransaktions(int accountID)
     return repositCustTransList;
 }
 
+public boolean closeAccount(long pNr, int accountId) throws SQLException{
+    
+    boolean closed = false;
+    System.out.println(pNr +  " "+  accountId);
+    try{
+        PreparedStatement closeAccount  = connection.prepareStatement("DELETE FROM Accounts WHERE accounts_accountID LIKE ? AND customers_personalNumber LIKE ?");
+        
+        closeAccount.setInt(1, accountId);
+        closeAccount.setLong(2, pNr);
+        closeAccount.executeUpdate();
+        
+    
+        closed = true;
+    
+    }catch(Exception e){
+        
+        e.getMessage();
+        System.out.println("Lyckades inte ta bort kontot!");
+        closed = false;
+    }
+    
+    return closed;
+}
+
 public boolean deposit(int accountID, double amount)
     {
         double currentBalance = 0;
@@ -417,7 +441,32 @@ public boolean deposit(int accountID, double amount)
         return depositMade;
     }
 
-
+public boolean removeCustomer(Long pNr){
+    boolean deleted = false;    
+    try {
+            
+            String deleteCust = "DELETE FROM customers WHERE personalNumber LIKE ?";
+            String deleteCustAcc = "DELETE  FROM accounts WHERE customers_personalNumber LIKE ?";
+            PreparedStatement deleteCustAccStm = connection.prepareCall(deleteCustAcc);
+            deleteCustAccStm.setLong(1, pNr);
+            deleteCustAccStm.executeUpdate();
+            
+            
+            PreparedStatement deleteCustStm = connection.prepareStatement(deleteCust);
+            deleteCustStm.setLong(1, pNr);
+            int delCheck = deleteCustStm.executeUpdate();
+            
+            if (delCheck > 0){
+                deleted = true;
+            }
+            
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(Repository.class.getName()).log(Level.SEVERE, null, ex);
+            deleted = false;
+        }
+    return deleted;
+}
 
 
 
