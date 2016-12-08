@@ -141,19 +141,8 @@ public class Repository
                 double balance_after = result.getDouble("balance_after_tranaction");
                 inOut = result.getString("inout_text");
                 System.out.println("inout_text " + inOut);
-
-//                if (amount < 0)
-//                {
-//                    inOut = "out";
-//                }
-//                if (amount > 0)
-//                {
-//                    inOut = "in";
-//                }
                
                 Transaktions t = new Transaktions(date, accounts_accountID, amount, Math.round(balance_after * 100.0) / 100.0, inOut);
-//            (String date,int accountId,double amount, double balanceAfterTransaction, String inOut)
-                //transaction_Id, date, amount, account_accounts_accountID, balance_after_tranaction
 
                 repositTransList.add(t);
 
@@ -195,12 +184,7 @@ public class Repository
 
                 }
             }
-//            ResultSet result = statement.executeQuery("SELECT * FROM accounts WHERE customers_personalNumber like " + pNr);
-//            while (result.next())
-//             {
-//                getAccountReturnString = result.getString(1) + "   " + result.getString(2) + "   " + result.getString(3) + 
-//                        "   " + result.getDouble(4) + "   " + result.getString(5) ;
-//             }    
+ 
 
         } catch (SQLException ex)
         {
@@ -253,11 +237,9 @@ public class Repository
 
         try
         {
-//            ResultSet result = statement.executeQuery("SELECT * from customers "); Pontus kommentera ut
-//            while (result.next())
-//            {
+
                 statement.executeUpdate("INSERT INTO customers (customerName, personalNumber) VALUES ('" + name + "', " + pNr + ")");
-//            }
+
         } catch (SQLException ex)
         {
             added = false;
@@ -329,78 +311,6 @@ public class Repository
 
     }
 
-//public List<Transaktions> getAccoutAllTransaktions(int accountID)
-//{
-//    List <Transaktions> repositCustTransList = new ArrayList<>();
-//    try
-//    {
-//        //step 3. execute sql query
-//        
-//        ResultSet result = statement.executeQuery("SELECT * FROM banksystem.tranactions WHERE accountID = " + accountID );
-//        while(result.next())
-//        {
-//            // transaction_Id, date, accountID, personalNumber, account_type, amount
-//            // String date,int accountId,double amount, double balanceAfterTransaction, String inOut
-//            
-//            //System.out.println(result.getInt("transaction_Id") + result.getDate("date"));
-//            int transID = result.getInt("transaction_Id");
-//            String transDate = dateFormat.format(result.getDate("date"));
-//            int transAccID = result.getInt("accountID");
-//            String transPNr = result.getString("personalNumber");
-//            String transAccType = result.getString("account_type");
-//            double transAmount = result.getDouble("amount");
-//            Transaktions t =  new Transaktions(transDate,transAccID,transAmount );
-//            
-//            repositCustTransList.add(t);
-//                    
-//        }
-//    } catch (SQLException ex)
-//    {
-//        Logger.getLogger(Repository.class.getName()).log(Level.SEVERE, null, ex);
-//    }
-//    return repositCustTransList;
-//}
-//    public List<Transaktions> getAccoutAllTransaktions(int accountID)
-//    {
-//        List<Transaktions> repositCustTransList = new ArrayList<>();
-//        try
-//        {
-//            //step 3. execute sql query
-//
-//            ResultSet result = statement.executeQuery("SELECT * FROM transactions WHERE account_accounts_accountID = " + accountID);
-//            while (result.next())
-//            {
-//                // transaction_Id, date, accountID, personalNumber, account_type, amount
-//                // String date,int accountId,double amount, double balanceAfterTransaction, String inOut
-//
-//                //System.out.println(result.getInt("transaction_Id") + result.getDate("date"));
-//                int transID = result.getInt("transaction_Id");
-//                String transDate = dateFormat.format(result.getDate("date"));
-//                int transAccID = result.getInt("account_accounts_accountID");
-////                String transPNr = result.getString("personalNumber");
-////                String transAccType = result.getString("account_type");
-//                double transAmount = result.getDouble("amount");
-//                double balance_after_tranaction = result.getDouble("balance_after_tranaction");
-//                
-////                if (transAmount < 0)
-////                {
-////                    inOut = "out";
-////                }
-////                if (transAmount > 0)
-////                {
-////                    inOut = "in";
-////                }
-//                Transaktions t = new Transaktions(transDate, transAccID, transAmount, Math.round(balance_after_tranaction * 100.0)/ 100.0, test());
-//
-//                repositCustTransList.add(t);
-//
-//            }
-//        } catch (SQLException ex)
-//        {
-//            Logger.getLogger(Repository.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-//        return repositCustTransList;
-//    }
     public boolean closeAccount(long pNr, int accountId) throws SQLException
     {
 
