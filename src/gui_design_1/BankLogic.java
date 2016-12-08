@@ -61,13 +61,7 @@ public class BankLogic
      */
     public List<String> getCustomers()
     {
-//        List<String> stringListCustomer = new ArrayList<>();
-//        for (int i = 0; i < getAllCustomersArrayList().size(); i++)
-//        {
-//            stringListCustomer.add(getAllCustomersArrayList().get(i).toString2());
-//        }
 
-//        return stringListCustomer;
         return bankLogicRepository.getCustomers();
     }
 
@@ -140,53 +134,10 @@ public class BankLogic
      */
     public boolean changeCustomerName(String name, long pNr)
     {
-        boolean changeCustomerName = true;
-//        for (int i = 0; i < allCustomersArrayList.size(); i++)
-//        {
-//
-//            if (allCustomersArrayList.get(i).getPersonalNumber() == pNr)
-//            {
-//                //allCustomersArrayList.remove(allCustomersArrayList.get(i));
-//                allCustomersArrayList.get(i).setCustomerName(name);
-//                changeCustomerName = true;
-//                break;
-//            }
-//
-//        }
-        
+        boolean changeCustomerName = true;    
 
         return bankLogicRepository.changeCustomerName(name, pNr);
     }
-
-    /**
-     * Deleting the allCustomersArrayList with pNr and the result will be
-     * returned The return list will have the information about the last
-     * balance, interest
-     *
-     * @param pNr
-     * @return removedCustomerList
-     */
-//    public List<String> removeCustomer(long pNr)
-//    {
-//
-//        for (int i = 0; i < allCustomersArrayList.size(); i++)
-//        {
-//
-//            if (allCustomersArrayList.get(i).getPersonalNumber() == pNr)
-//            {
-//
-//                removedCustomerList.add(allCustomersArrayList.get(i).toString1());
-//
-//                //After removing allCustomersArrayList, the allCustomersArrayList will be removed
-//                allCustomersArrayList.remove(allCustomersArrayList.get(i));
-//
-//                break;
-//            }
-//
-//        }
-//
-//        return removedCustomerList;
-//    }
     
     public List<String> removeCustomer(long pNr)
     {
@@ -201,10 +152,6 @@ public class BankLogic
                 }
                 if (bankLogicRepository.removeCustomer(pNr)){ // Kalla på repository metoden och kolla så den är true(tagit bort kund)
                     
-//                removedCustomerList.add(getAllCustomersArrayList().get(i).toString1());
-                //After removing allCustomersArrayList, the allCustomersArrayList will be removed
-                
-//                getAllCustomersArrayList().remove(getAllCustomersArrayList().get(i));
                 break;
                 }
             }
@@ -221,40 +168,14 @@ public class BankLogic
      */
     public int addSavingsAccount(long pNr)
     {
-//        for (int i = 0; i < allCustomersArrayList.size(); i++)
-//        {
-//            if (allCustomersArrayList.get(i).getPersonalNumber() == pNr)
-//            {
-//                allCustomersArrayList.get(i).getCustumerAccountsList().add(new SavingsAccount("Saving Account"));
-//                return allCustomersArrayList.get(i).getCustumerAccountsList().get(allCustomersArrayList
-//                        .get(i).getCustumerAccountsList().size() - 1).getAccountID();
-//
-//            }
-//
-//        }
-//
-//        return -1;
+
         return bankLogicRepository.addSavingsAccount(pNr);
     }
 
     public String getAccount(long pNr, int accountId)
     {
         String getAccountReturnString = null;
-//        for (int i = 0; i < allCustomersArrayList.size(); i++)
-//        {
-//            if (allCustomersArrayList.get(i).getPersonalNumber() == pNr)
-//            {
-//                for (int j = 0; j < allCustomersArrayList.get(i).getCustumerAccountsList().size(); j++)
-//                {
-//                    if (allCustomersArrayList.get(i).getCustumerAccountsList().get(j).getAccountID() == accountId)
-//                    {
-//                        getAccountReturnString = allCustomersArrayList.get(i).getCustumerAccountsList().get(j).toString();
-//                    }
-//
-//                }
-//            }
-//        }
-//        return getAccountReturnString;
+
 return bankLogicRepository.getAccount(pNr);
     }
     public boolean deposit(int acoountID, double amount)
@@ -263,26 +184,6 @@ return bankLogicRepository.getAccount(pNr);
         boolean depositMade = true;
         bankLogicRepository.deposit(acoountID, amount);
         
-//        for (int i = 0; i < allCustomersArrayList.size(); i++)
-//        {
-//            if (allCustomersArrayList.get(i).getPersonalNumber() == pNr)
-//            {
-//                for (int j = 0; j < allCustomersArrayList.get(i).getCustumerAccountsList().size(); j++)
-//                {
-//                    //if condition edited, checked the account type- for Savings
-//                    if (allCustomersArrayList.get(i).getCustumerAccountsList().get(j).getAccountID() == accountId)
-//                    {
-//                        allCustomersArrayList.get(i).getCustumerAccountsList().get(j).deposit(amount);
-//                        System.out.println("Balance becomes in side BankLigic class in deposit method " + i + " " + allCustomersArrayList.get(i).getCustumerAccountsList().get(j).getBalance()
-//                        );
-//                        //transaktionsArrayList.add(new Transaktions(accountId, allCustomersArrayList.get(i).custumerAccountsList.get(i).getAccountType(), amount, allCustomersArrayList.get(i).custumerAccountsList.get(i).getBalance()));
-//                        depositMade = true;
-//                    }
-//
-//                }
-//            }
-//
-//        }
         return depositMade;
     }
 
@@ -299,73 +200,17 @@ return bankLogicRepository.getAccount(pNr);
             //public boolean withdraw(long pNr, int accountId, double amount)  //old
     {
         boolean withdrawMade = true;
-        bankLogicRepository.withdraw(accountId, amount);
+        try {
+            bankLogicRepository.withdraw(accountId, amount);
+        } catch (SQLException ex) {
+            Logger.getLogger(BankLogic.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
-//        for (int i = 0; i < allCustomersArrayList.size(); i++)
-//        {
-//            if (allCustomersArrayList.get(i).getPersonalNumber() == pNr)
-//            {
-//                for (int j = 0; j < allCustomersArrayList.get(i).getCustumerAccountsList().size(); j++)
-//                {
-//                    if (allCustomersArrayList.get(i).getCustumerAccountsList().get(j).getAccountID() == accountId)
-//                    {
-//                        //withdrawRate (7%) of withdraw amount plus withdraw amount should be less than -5000
-//                        //-4672 * 7% - 4672 = -5000
-//                        if (allCustomersArrayList.get(i).getCustumerAccountsList().get(j).getBalance() <= -5000 &&
-//                                allCustomersArrayList.get(i).getCustumerAccountsList().get(j).getAccountType().equals("Credit Account")||
-//                                allCustomersArrayList.get(i).getCustumerAccountsList().get(j).getBalance() <= 0 &&
-//                                allCustomersArrayList.get(i).getCustumerAccountsList().get(j).getAccountType().equals("Saving Account")
-//                                ||allCustomersArrayList.get(i).getCustumerAccountsList().get(j).getBalance() < amount &&
-//                                allCustomersArrayList.get(i).getCustumerAccountsList().get(j).getAccountType().equals("Saving Account")
-//                                ||allCustomersArrayList.get(i).getCustumerAccountsList().get(j).getBalance() - amount <= 0 &&
-//                                allCustomersArrayList.get(i).getCustumerAccountsList().get(j).getAccountType().equals("Saving Account"))
-//                        {
-//                            withdrawMade = false;
-//                        } else
-//                        {
-//                            allCustomersArrayList.get(i).getCustumerAccountsList().get(j).withdraw(amount);
-//                            System.out.println("Balance becomes in side BankLigic class in withdraw method "
-//                                    + allCustomersArrayList.get(i).getCustumerAccountsList().get(j).getBalance());
-//                            withdrawMade = true;
-//                        }
-//                    }
-//                }
-//            }System.out.println("Output " + withdrawMade);
-//        }
+
         return withdrawMade;
     }
 
-    /**
-     * To close the specific account for the customer which returns the customer's 
-     * account information, the remaining money, interest rate
-     * @param pNr
-     * @param accountId
-     * @return 
-     */
-//    public String closeAccount(long pNr, int accountId)
-//    {
-//        String closedAccount = null;
-//        for (int i = 0; i < allCustomersArrayList.size(); i++)
-//        {
-//            if (allCustomersArrayList.get(i).getPersonalNumber() == pNr)
-//            {
-//                for (int j = 0; j < allCustomersArrayList.get(i).getCustumerAccountsList().size(); j++)
-//                {
-//                    if (allCustomersArrayList.get(i).getCustumerAccountsList().get(j).getAccountID() == accountId)
-//                    {
-//                        closedAccount = allCustomersArrayList.get(i).getCustumerAccountsList().get(j).toStringClose();
-//
-//                      
-//                        allCustomersArrayList.get(i).getCustumerAccountsList().remove(allCustomersArrayList.get(i).getCustumerAccountsList().get(j));
-//                        System.out.print("Personal number " + pNr + ", ");
-//
-//                    }
-//                }
-//            }
-//
-//        }
-//        return closedAccount;
-//    }
+
     
     public String closeAccount(long pNr, int accountId) throws SQLException
     {
@@ -398,18 +243,7 @@ return bankLogicRepository.getAccount(pNr);
      */
     public int addCreditAccount(long pNr)
     {
-//        for (int i = 0; i < bankLogicRepository.getAllCustomers().size(); i++)
-//        {
-//            if (bankLogicRepository.getAllCustomers().get(i).getPersonalNumber() == pNr)
-//            {
-//                bankLogicRepository.getAllCustomers().get(i).getCustumerAccountsList().add(new CreditAccount("Credit Account"));
-//                return bankLogicRepository.getAllCustomers().get(i).getCustumerAccountsList().get(bankLogicRepository.getAllCustomers()
-//                        .get(i).getCustumerAccountsList().size() - 1).getAccountID();
-//            }
-//
-//        }
-//
-//        return -1;
+
         return bankLogicRepository.addCreditAccount(pNr);
         
     }
@@ -447,20 +281,7 @@ return bankLogicRepository.getAccount(pNr);
     //To get the specific customer's accounts
     public List<Account> getAllAccount(long pNr)
     {
-//        List<String> getAccountReturnString = new ArrayList<>();
-//        for (int i = 0; i < allCustomersArrayList.size(); i++)
-//        {
-//            if (allCustomersArrayList.get(i).getPersonalNumber() == pNr)
-//            {
-//                for (int j = 0; j < allCustomersArrayList.get(i).getCustumerAccountsList().size(); j++)
-//                {
-//
-//                    getAccountReturnString.add(allCustomersArrayList.get(i).getCustumerAccountsList().get(j).toString());
-//
-//                }
-//            }
-//        }
-//        return getAccountReturnString;
+
    return bankLogicRepository.getAllAccountArrayList(pNr);
     }
 }

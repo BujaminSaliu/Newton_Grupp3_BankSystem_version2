@@ -399,7 +399,7 @@ public class Repository
 
             while (result1.next())
             {
-                int freeOrNot = result1.getInt("firstFreeWithDrawDone"); 
+                int freeOrNot = result1.getInt("firstFreeWithDrawDone"); // Check the value in column "firstFreeWithDrawDone" from the database 
                 currentBalance = result1.getDouble("balance");
                 if (result1.getString("account_type").equals("Savings"))
                 {
@@ -448,7 +448,7 @@ public class Repository
                 
             }
             
-            statement.executeUpdate("UPDATE accounts SET firstFreeWithDrawDone = 1 " + " WHERE accounts_accountID = " + accountID); // UTKOMMENTERAD TILLS VIDARE
+            statement.executeUpdate("UPDATE accounts SET firstFreeWithDrawDone = 1 " + " WHERE accounts_accountID = " + accountID); // Updates the "firstFreeWithDrawDone" after the first withdraw is done.
             
 
             ResultSet resultTrans = statement.executeQuery("SELECT max(transaction_Id) FROM transactions ");
