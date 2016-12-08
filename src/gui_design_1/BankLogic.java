@@ -82,6 +82,7 @@ public class BankLogic
     public boolean addCustomer(String name, long pNr)
     {
         boolean check = true;
+        if(!getAllCustomersArrayList().isEmpty()){  /// Pontus la till
         for (int i = 0; i < getAllCustomersArrayList().size(); i++)
         {
             if (bankLogicRepository.getAllCustomers().get(i).getPersonalNumber() == pNr)
@@ -90,7 +91,7 @@ public class BankLogic
                 break;
             }
         }
-
+        } // pontus la till
         //if the allCustomersArrayList doesn't exist in the database, he/she will be added here
         if (check == true)
         {
@@ -139,7 +140,7 @@ public class BankLogic
      */
     public boolean changeCustomerName(String name, long pNr)
     {
-        boolean changeCustomerName = false;
+        boolean changeCustomerName = true;
 //        for (int i = 0; i < allCustomersArrayList.size(); i++)
 //        {
 //
@@ -154,7 +155,7 @@ public class BankLogic
 //        }
         
 
-        return changeCustomerName;
+        return bankLogicRepository.changeCustomerName(name, pNr);
     }
 
     /**
@@ -290,44 +291,47 @@ return bankLogicRepository.getAccount(pNr);
      * if not(for example if there is no enough money in the savings account) the return is false
      * @param pNr
      * @param accountId
+     * @param withdrawDepositStatus
      * @param amount
      * @return withdrawMade
      */
-    public boolean withdraw(long pNr, int accountId, double amount)
+    public boolean withdraw(int accountId, double amount)
+            //public boolean withdraw(long pNr, int accountId, double amount)  //old
     {
-        boolean withdrawMade = false;
+        boolean withdrawMade = true;
+        bankLogicRepository.withdraw(accountId, amount);
 
-        for (int i = 0; i < allCustomersArrayList.size(); i++)
-        {
-            if (allCustomersArrayList.get(i).getPersonalNumber() == pNr)
-            {
-                for (int j = 0; j < allCustomersArrayList.get(i).getCustumerAccountsList().size(); j++)
-                {
-                    if (allCustomersArrayList.get(i).getCustumerAccountsList().get(j).getAccountID() == accountId)
-                    {
-                        //withdrawRate (7%) of withdraw amount plus withdraw amount should be less than -5000
-                        //-4672 * 7% - 4672 = -5000
-                        if (allCustomersArrayList.get(i).getCustumerAccountsList().get(j).getBalance() <= -5000 &&
-                                allCustomersArrayList.get(i).getCustumerAccountsList().get(j).getAccountType().equals("Credit Account")||
-                                allCustomersArrayList.get(i).getCustumerAccountsList().get(j).getBalance() <= 0 &&
-                                allCustomersArrayList.get(i).getCustumerAccountsList().get(j).getAccountType().equals("Saving Account")
-                                ||allCustomersArrayList.get(i).getCustumerAccountsList().get(j).getBalance() < amount &&
-                                allCustomersArrayList.get(i).getCustumerAccountsList().get(j).getAccountType().equals("Saving Account")
-                                ||allCustomersArrayList.get(i).getCustumerAccountsList().get(j).getBalance() - amount <= 0 &&
-                                allCustomersArrayList.get(i).getCustumerAccountsList().get(j).getAccountType().equals("Saving Account"))
-                        {
-                            withdrawMade = false;
-                        } else
-                        {
-                            allCustomersArrayList.get(i).getCustumerAccountsList().get(j).withdraw(amount);
-                            System.out.println("Balance becomes in side BankLigic class in withdraw method "
-                                    + allCustomersArrayList.get(i).getCustumerAccountsList().get(j).getBalance());
-                            withdrawMade = true;
-                        }
-                    }
-                }
-            }System.out.println("Output " + withdrawMade);
-        }
+//        for (int i = 0; i < allCustomersArrayList.size(); i++)
+//        {
+//            if (allCustomersArrayList.get(i).getPersonalNumber() == pNr)
+//            {
+//                for (int j = 0; j < allCustomersArrayList.get(i).getCustumerAccountsList().size(); j++)
+//                {
+//                    if (allCustomersArrayList.get(i).getCustumerAccountsList().get(j).getAccountID() == accountId)
+//                    {
+//                        //withdrawRate (7%) of withdraw amount plus withdraw amount should be less than -5000
+//                        //-4672 * 7% - 4672 = -5000
+//                        if (allCustomersArrayList.get(i).getCustumerAccountsList().get(j).getBalance() <= -5000 &&
+//                                allCustomersArrayList.get(i).getCustumerAccountsList().get(j).getAccountType().equals("Credit Account")||
+//                                allCustomersArrayList.get(i).getCustumerAccountsList().get(j).getBalance() <= 0 &&
+//                                allCustomersArrayList.get(i).getCustumerAccountsList().get(j).getAccountType().equals("Saving Account")
+//                                ||allCustomersArrayList.get(i).getCustumerAccountsList().get(j).getBalance() < amount &&
+//                                allCustomersArrayList.get(i).getCustumerAccountsList().get(j).getAccountType().equals("Saving Account")
+//                                ||allCustomersArrayList.get(i).getCustumerAccountsList().get(j).getBalance() - amount <= 0 &&
+//                                allCustomersArrayList.get(i).getCustumerAccountsList().get(j).getAccountType().equals("Saving Account"))
+//                        {
+//                            withdrawMade = false;
+//                        } else
+//                        {
+//                            allCustomersArrayList.get(i).getCustumerAccountsList().get(j).withdraw(amount);
+//                            System.out.println("Balance becomes in side BankLigic class in withdraw method "
+//                                    + allCustomersArrayList.get(i).getCustumerAccountsList().get(j).getBalance());
+//                            withdrawMade = true;
+//                        }
+//                    }
+//                }
+//            }System.out.println("Output " + withdrawMade);
+//        }
         return withdrawMade;
     }
 

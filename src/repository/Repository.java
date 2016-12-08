@@ -5,8 +5,8 @@
  */
 package repository;
 
-
 import gui_design_1.Account;
+import gui_design_1.BankLogic;
 import gui_design_1.CreditAccount;
 import gui_design_1.Customer;
 import gui_design_1.SavingsAccount;
@@ -19,9 +19,13 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.sql.*;
-import java.text.SimpleDateFormat;
+import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.text.SimpleDateFormat;
+import static java.time.LocalDate.now;
+import java.util.Date;
+import static java.time.LocalDate.now;
 
 /**
  *
@@ -29,33 +33,40 @@ import java.util.List;
  */
 public class Repository
 {
+
     Connection connection;
-   Statement statement;
-   List <Customer> repositCustList;
-   ArrayList <Account> getAccountArrayList;
-   private ArrayList <Account> repositAccountList;
-    
+    Statement statement;
+    List<Customer> repositCustList;
+    ArrayList<Account> getAccountArrayList;
+    private ArrayList<Account> repositAccountList;
+    DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+    DateFormat dateFormat2 = new SimpleDateFormat("yyyy-MM-dd");
+    Date now = new Date();
+    private int counter = 0;
+    public List<Transaktions> repositTransList;
+    String date1 = dateFormat2.format(now);
+    private final double WITHDRAWRATESAVINGSACCOUNT = 2;
+    String inOut = "null";
+
     // URL 
     String url = "jdbc:mysql://127.0.0.1:3306/banksystem?user=root&password=root";
-    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd   HH:mm:ss");
-    
 
     public Repository()
     {
+
         try
         {
             connection = DriverManager.getConnection(url);
-            statement =  connection.createStatement();
-            
-        } 
-        catch (SQLException ex)
+            statement = connection.createStatement();
+
+        } catch (SQLException ex)
         {
             System.out.println(ex.getMessage());
             System.out.println("Fel i Connection till Databas");
             //Logger.getLogger(DBConnection.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     /**
      * Returns all allCustomersArrayList of the bank(Personal number and name)
      *
@@ -68,89 +79,93 @@ public class Repository
         {
 
             ResultSet result = statement.executeQuery("SELECT * FROM customers");
-            while(result.next()){
-                  String s1= result.getString("customerName");
-            String s2 = result.getString("personalNumber");
-            Customer c =  new Customer(s1, Long.parseLong(s2));
-            
-            stringListCustomer.add(c.toString2());
-            
-     
+            while (result.next())
+            {
+                String s1 = result.getString("customerName");
+                String s2 = result.getString("personalNumber");
+                Customer c = new Customer(s1, Long.parseLong(s2));
+
+                stringListCustomer.add(c.toString2());
+
             }
 
-            
         } catch (SQLException ex)
         {
             Logger.getLogger(Repository.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         return stringListCustomer;
     }
-    
+
     //returns list of customer, ersätter allcustomerarraylist
-public List<Customer> getAllCustomers( )
-{
-    repositCustList = new ArrayList<>();
-    try
+    public List<Customer> getAllCustomers()
     {
-        //step 3. execute sql query
-        
-        ResultSet result = statement.executeQuery("SELECT * FROM customers");
-        while(result.next()){
-            String s1= result.getString("customerName");
-            String s2 = result.getString("personalNumber");
-            Customer c =  new Customer(s1, Long.parseLong(s2));
-            
-            repositCustList.add(c);
-          
-        }
-    } catch (SQLException ex)
-    {
-        Logger.getLogger(Repository.class.getName()).log(Level.SEVERE, null, ex);
-    }
-    return repositCustList;
-    
-}
+        repositCustList = new ArrayList<>();
+        try
+        {
+            //step 3. execute sql query
 
-public List<Transaktions> getAllTransactions(int accountID)
-{
-    List <Transaktions> repositTransList = new ArrayList<>();
-    try
+            ResultSet result = statement.executeQuery("SELECT * FROM customers");
+            while (result.next())
+            {
+                String s1 = result.getString("customerName");
+                String s2 = result.getString("personalNumber");
+                Customer c = new Customer(s1, Long.parseLong(s2));
+
+                repositCustList.add(c);
+
+            }
+        } catch (SQLException ex)
+        {
+            Logger.getLogger(Repository.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return repositCustList;
+
+    }
+
+    public List<Transaktions> getAllTransactions(int accountID)
     {
-        //step 3. execute sql query
-        
-        ResultSet result = statement.executeQuery("SELECT * FROM transactions WHERE accounts_accountID = " + accountID);
-        while(result.next()){
-            System.out.println(result.getInt("transaction_Id") + result.getInt("accounts_accountID"));
-            int transID = result.getInt("transaction_Id");
-            String date = result.getString("date");
-            double amount = result.getDouble("amount");
-            int accounts_accountID = result.getInt("account_accounts_accountID");
-            double balance_after = result.getDouble("balance_after_tranaction");
-            String inOut = "toFill";
-            
-            if (amount < 0)
-                inOut = "out";
-            if (amount > 0)
-                inOut = "in";           
-            
-            
-            Transaktions t =  new Transaktions(date, accounts_accountID, amount, balance_after, inOut);
+        repositTransList = new ArrayList<>();
+        try
+        {
+            //step 3. execute sql query
+
+            ResultSet result = statement.executeQuery("SELECT * FROM transactions WHERE account_accounts_accountID = " + accountID);
+            while (result.next())
+            {
+                System.out.println(result.getInt("account_accounts_accountID") + result.getInt("account_accounts_accountID"));
+                int transID = result.getInt("account_accounts_accountID");
+                String date = result.getString("date");
+                double amount = result.getDouble("amount");
+                int accounts_accountID = result.getInt("account_accounts_accountID");
+                double balance_after = result.getDouble("balance_after_tranaction");
+                inOut = result.getString("inout_text");
+                System.out.println("inout_text " + inOut);
+
+//                if (amount < 0)
+//                {
+//                    inOut = "out";
+//                }
+//                if (amount > 0)
+//                {
+//                    inOut = "in";
+//                }
+               
+                Transaktions t = new Transaktions(date, accounts_accountID, amount, Math.round(balance_after * 100.0) / 100.0, inOut);
 //            (String date,int accountId,double amount, double balanceAfterTransaction, String inOut)
-            //transaction_Id, date, amount, account_accounts_accountID, balance_after_tranaction
-            
-            repositTransList.add(t);
-                    
+                //transaction_Id, date, amount, account_accounts_accountID, balance_after_tranaction
+
+                repositTransList.add(t);
+
+            }
+        } catch (SQLException ex)
+        {
+            Logger.getLogger(Repository.class.getName()).log(Level.SEVERE, null, ex);
         }
-    } catch (SQLException ex)
-    {
-        Logger.getLogger(Repository.class.getName()).log(Level.SEVERE, null, ex);
+        return repositTransList;
     }
-    return repositTransList;
-}
 
-
-public String getAccount(long pNr)
+    public String getAccount(long pNr)
     {
         String getAccountReturnString = null;
         int accountCounter = 0;
@@ -158,28 +173,27 @@ public String getAccount(long pNr)
         {
             ResultSet result1 = statement.executeQuery("SELECT max(accounts_accountID) FROM accounts");
             while (result1.next())
-                    // hittar högsta kontonummer
-            {  
-                accountCounter = result1.getInt("max(accounts_accountID)")+ 1001 ;
-        }
+            // hittar högsta kontonummer
+            {
+                accountCounter = result1.getInt("max(accounts_accountID)") + 1001;
+            }
             ResultSet result = statement.executeQuery("SELECT * FROM accounts WHERE customers_personalNumber like " + pNr);
-            while(result.next()){
-            
-            
-            if(result.getString("account_type").equals("Credit"))
+            while (result.next())
             {
-                CreditAccount ca = new CreditAccount("Credit");
-                ca.setAccountID(accountCounter);
-                getAccountReturnString = ca.toString2();
-                
-            }
-            else
-            {
-                SavingsAccount sa = new SavingsAccount("Savings");
-                sa.setAccountID(accountCounter);
-                getAccountReturnString= sa.toString2();
 
-            }
+                if (result.getString("account_type").equals("Credit"))
+                {
+                    CreditAccount ca = new CreditAccount("Credit");
+                    ca.setAccountID(accountCounter);
+                    getAccountReturnString = ca.toString2();
+
+                } else
+                {
+                    SavingsAccount sa = new SavingsAccount("Savings");
+                    sa.setAccountID(accountCounter);
+                    getAccountReturnString = sa.toString2();
+
+                }
             }
 //            ResultSet result = statement.executeQuery("SELECT * FROM accounts WHERE customers_personalNumber like " + pNr);
 //            while (result.next())
@@ -187,137 +201,133 @@ public String getAccount(long pNr)
 //                getAccountReturnString = result.getString(1) + "   " + result.getString(2) + "   " + result.getString(3) + 
 //                        "   " + result.getDouble(4) + "   " + result.getString(5) ;
 //             }    
-             
-              
+
         } catch (SQLException ex)
         {
             Logger.getLogger(Repository.class.getName()).log(Level.SEVERE, null, ex);
         }
-           
-        
+
         return getAccountReturnString;
     }
 
 //For the customer's specific account
+    public ArrayList<Account> getAllAccountArrayList(long pNr)
+    {
+        //repositAccountList = new ArrayList<>();
+        getAccountArrayList = new ArrayList<>();
 
-public ArrayList<Account> getAllAccountArrayList(long pNr)
-{
-    //repositAccountList = new ArrayList<>();
-   getAccountArrayList = new ArrayList<>();
-
-   try
+        try
         {
-            
+
             ResultSet result = statement.executeQuery("SELECT * FROM accounts WHERE customers_personalNumber like " + pNr);
-            while(result.next()){
-            
-            
-            if(result.getString("account_type").equals("Credit"))
+            while (result.next())
             {
-                CreditAccount ca = new CreditAccount("Credit");
-                ca.setBalance(result.getDouble("balance"));
-                ca.setAccountID(result.getInt("accounts_accountID"));
-                getAccountArrayList.add(ca);
-                
+
+                if (result.getString("account_type").equals("Credit"))
+                {
+                    CreditAccount ca = new CreditAccount("Credit");
+                    ca.setBalance(result.getDouble("balance"));
+                    ca.setAccountID(result.getInt("accounts_accountID"));
+                    getAccountArrayList.add(ca);
+
+                } else
+                {
+                    SavingsAccount sa = new SavingsAccount("Savings");
+                    sa.setBalance(result.getDouble("balance"));
+                    sa.setAccountID(result.getInt("accounts_accountID"));
+                    getAccountArrayList.add(sa);
+                }
+
             }
-            else
-            {
-                SavingsAccount sa = new SavingsAccount("Savings");
-                sa.setBalance(result.getDouble("balance"));
-                sa.setAccountID(result.getInt("accounts_accountID"));
-                getAccountArrayList.add(sa);
-            }
-        
-        }
-        }
-        
-        catch (SQLException ex)
+        } catch (SQLException ex)
         {
             Logger.getLogger(Repository.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         return getAccountArrayList;
-}
+    }
 
+    public boolean addCustomer(String name, long pNr) throws Exception
+    {
+        boolean added = true;
 
-
-public boolean addCustomer(String name, long pNr) throws Exception
-{
-    boolean added = true; 
-       
-   
         try
-        { 
-             ResultSet result = statement.executeQuery("SELECT * from customers ");
-             while (result.next())
-             {
-            statement.executeUpdate("INSERT INTO customers (customerName, personalNumber) VALUES ('"  + name + "', " + pNr + ")");
-             }
+        {
+//            ResultSet result = statement.executeQuery("SELECT * from customers "); Pontus kommentera ut
+//            while (result.next())
+//            {
+                statement.executeUpdate("INSERT INTO customers (customerName, personalNumber) VALUES ('" + name + "', " + pNr + ")");
+//            }
         } catch (SQLException ex)
         {
             added = false;
             return added;
         }
         return added;
-}
+    }
 
-public int addCreditAccount(long pNr)
-{
-    int accountCounter = 0;
-     String insertSqlAddCreditAcc = null;
-    try
+    public int addCreditAccount(long pNr)
+    {
+        int accountCounter = 0;
+        String insertSqlAddCreditAcc = null;
+        try
         {
             ResultSet result = statement.executeQuery("SELECT max(accounts_accountID) FROM accounts");
             while (result.next())
-                    // hittar högsta kontonummer
-                    accountCounter = result.getInt("max(accounts_accountID)")+ 1 ;
-            
+            // hittar högsta kontonummer
+            {
+                accountCounter = result.getInt("max(accounts_accountID)") + 1;
+            }
+            if (accountCounter < 1001)
+            {
+                accountCounter = 1001;
+            }
+
             insertSqlAddCreditAcc = " insert into accounts (accounts_accountID, account_type, customers_personalNumber)"
-                    + " values (" + (accountCounter) + ", 'Credit', " +(double)pNr+ " )";
+                    + " values (" + (accountCounter) + ", 'Credit', " + (double) pNr + " )";
 
-
-            
             statement.executeUpdate(insertSqlAddCreditAcc);
-            
+
         } catch (SQLException ex)
         {
             Logger.getLogger(Repository.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-        return accountCounter + 1;        
-        
-}
 
-public int addSavingsAccount(long pNr)
-{
-    int accountCounter = 0;
-     String insertSqlAddSavingAcc = null;
-    
-    try
+        return accountCounter + 1;
+
+    }
+
+    public int addSavingsAccount(long pNr)
+    {
+        int accountCounter = 0;
+        String insertSqlAddSavingAcc = null;
+
+        try
         {
             ResultSet result = statement.executeQuery("SELECT max(accounts_accountID) FROM accounts");
             while (result.next())
-                    // hittar högsta kontonummer
-                    accountCounter = result.getInt("max(accounts_accountID)") + 1 ;
-            System.out.println("pnr " + pNr);
-            
+            // hittar högsta kontonummer
+            {
+                accountCounter = result.getInt("max(accounts_accountID)") + 1;
+            }
+            if (accountCounter < 1001)
+            {
+                accountCounter = 1001;
+            }
+
             insertSqlAddSavingAcc = " insert into accounts (accounts_accountID, account_type, customers_personalNumber)"
-                    + " values (" + (accountCounter) + ", 'Savings', " +(double)pNr+ " )";
+                    + " values (" + (accountCounter) + ", 'Savings', " + (double) pNr + " )";
 
-
-            
             statement.executeUpdate(insertSqlAddSavingAcc);
-            
+
         } catch (SQLException ex)
         {
             Logger.getLogger(Repository.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-        return accountCounter + 1;        
-        
-}
 
+        return accountCounter + 1;
 
+    }
 
 //public List<Transaktions> getAccoutAllTransaktions(int accountID)
 //{
@@ -350,133 +360,278 @@ public int addSavingsAccount(long pNr)
 //    }
 //    return repositCustTransList;
 //}
-
-public List<Transaktions> getAccoutAllTransaktions(int accountID)
-{
-    List <Transaktions> repositCustTransList = new ArrayList<>();
-    try
+//    public List<Transaktions> getAccoutAllTransaktions(int accountID)
+//    {
+//        List<Transaktions> repositCustTransList = new ArrayList<>();
+//        try
+//        {
+//            //step 3. execute sql query
+//
+//            ResultSet result = statement.executeQuery("SELECT * FROM transactions WHERE account_accounts_accountID = " + accountID);
+//            while (result.next())
+//            {
+//                // transaction_Id, date, accountID, personalNumber, account_type, amount
+//                // String date,int accountId,double amount, double balanceAfterTransaction, String inOut
+//
+//                //System.out.println(result.getInt("transaction_Id") + result.getDate("date"));
+//                int transID = result.getInt("transaction_Id");
+//                String transDate = dateFormat.format(result.getDate("date"));
+//                int transAccID = result.getInt("account_accounts_accountID");
+////                String transPNr = result.getString("personalNumber");
+////                String transAccType = result.getString("account_type");
+//                double transAmount = result.getDouble("amount");
+//                double balance_after_tranaction = result.getDouble("balance_after_tranaction");
+//                
+////                if (transAmount < 0)
+////                {
+////                    inOut = "out";
+////                }
+////                if (transAmount > 0)
+////                {
+////                    inOut = "in";
+////                }
+//                Transaktions t = new Transaktions(transDate, transAccID, transAmount, Math.round(balance_after_tranaction * 100.0)/ 100.0, test());
+//
+//                repositCustTransList.add(t);
+//
+//            }
+//        } catch (SQLException ex)
+//        {
+//            Logger.getLogger(Repository.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+//        return repositCustTransList;
+//    }
+    public boolean closeAccount(long pNr, int accountId) throws SQLException
     {
-        //step 3. execute sql query
-        
-        ResultSet result = statement.executeQuery("SELECT * FROM tranactions WHERE accountID = " + accountID );
-        while(result.next())
+
+        boolean closed = false;
+        System.out.println(pNr + " " + accountId);
+        try
         {
-            // transaction_Id, date, accountID, personalNumber, account_type, amount
-            // String date,int accountId,double amount, double balanceAfterTransaction, String inOut
-            
-            //System.out.println(result.getInt("transaction_Id") + result.getDate("date"));
-            int transID = result.getInt("transaction_Id");
-            String transDate = dateFormat.format(result.getDate("date"));
-            int transAccID = result.getInt("accounts_accountID");
-            String transPNr = result.getString("personalNumber");
-            String transAccType = result.getString("account_type");
-            double transAmount = result.getDouble("amount");
-            double balance_after_tranaction = result.getDouble("balance_after_tranaction");
-            String inOut = "null";
-            if (transAmount < 0)
-                inOut = "out";
-            if (transAmount > 0)
-                inOut = "in";
-            Transaktions t =  new Transaktions(transDate, transAccID, transAmount, balance_after_tranaction, inOut);
-            
-            repositCustTransList.add(t);
-                    
+            PreparedStatement closeAccount = connection.prepareStatement("DELETE FROM Accounts WHERE accounts_accountID LIKE ? AND customers_personalNumber LIKE ?");
+            closeAccount.setInt(1, accountId);
+            closeAccount.setLong(2, pNr);
+            closeAccount.executeUpdate();
+
+            closed = true;
+
+        } catch (Exception e)
+        {
+
+            e.getMessage();
+            System.out.println("Lyckades inte ta bort kontot!");
+            closed = false;
         }
-    } catch (SQLException ex)
-    {
-        Logger.getLogger(Repository.class.getName()).log(Level.SEVERE, null, ex);
-    }
-    return repositCustTransList;
-}
 
-public boolean closeAccount(long pNr, int accountId) throws SQLException{
-    
-    boolean closed = false;
-    System.out.println(pNr +  " "+  accountId);
-    try{
-        PreparedStatement closeAccount  = connection.prepareStatement("DELETE FROM Accounts WHERE accounts_accountID LIKE ? AND customers_personalNumber LIKE ?");
-        
-        closeAccount.setInt(1, accountId);
-        closeAccount.setLong(2, pNr);
-        closeAccount.executeUpdate();
-        
-    
-        closed = true;
-    
-    }catch(Exception e){
-        
-        e.getMessage();
-        System.out.println("Lyckades inte ta bort kontot!");
-        closed = false;
+        return closed;
     }
-    
-    return closed;
-}
 
-public boolean deposit(int accountID, double amount)
+    public boolean deposit(int accountID, double amount)
     {
         double currentBalance = 0;
         double newBalance = 0;
         boolean depositMade = false;
-        // System.out.println("accountID " +accountID);
+        boolean check = false;
+        int transactionCounter = 0;
+
         try
         {
-            
-            
-           ResultSet result1 = statement.executeQuery("SELECT * FROM accounts WHERE accounts_accountID = " + accountID );
-          while (result1.next())
-                  {
-                      currentBalance = result1.getDouble("balance");
-                      newBalance = currentBalance + amount;
-                  } 
 
-                statement.executeUpdate("UPDATE accounts SET balance = " + newBalance + " WHERE accounts_accountID = " + accountID );
+            ResultSet result1 = statement.executeQuery("SELECT * FROM accounts WHERE accounts_accountID = " + accountID);
+
+            while (result1.next())
+            {
+                currentBalance = result1.getDouble("balance");
+                newBalance = currentBalance + amount;
+                check = true;
+            }
+
+            System.out.println("DETTA är datestring " + dateFormat2.format(now));
+            statement.executeUpdate("UPDATE accounts SET balance = " + newBalance + " WHERE accounts_accountID = " + accountID);
+
+            //ResultSet resultTrans = statement.executeQuery("SELECT max(transaction_Id) FROM transactions WHERE account_accounts_accountID = " + accountID);
+            ResultSet resultTrans = statement.executeQuery("SELECT max(transaction_Id) FROM transactions ");
+            if (check)
+            {
+                while (resultTrans.next())
+                {
+                    transactionCounter = resultTrans.getInt("max(transaction_Id)") + 1;
+                    dateFormat2.format(now);
+
+                }
+
+                statement.executeUpdate("insert into transactions (transaction_Id,date,amount,account_accounts_accountID, balance_after_tranaction, inout_text) values ("
+                        + transactionCounter + ",'" + date1 + "'," + amount + "," + accountID + "," + newBalance + ",'in')");
+
+            }
 
         } catch (SQLException ex)
         {
             Logger.getLogger(Repository.class.getName()).log(Level.SEVERE, null, ex);
         }
-    
 
         return depositMade;
     }
 
-public boolean removeCustomer(Long pNr){
-    boolean deleted = false;    
-    try {
-            
+    public boolean withdraw(int accountID, double amount)
+    {
+        double currentBalance = 0;
+        double newBalance = 0;
+        boolean depositMade = false;
+        boolean checkSaving = false;
+        boolean checkCredit = false;
+        int transactionCounter = 0;
+
+        try
+        {
+
+            ResultSet result1 = statement.executeQuery("SELECT * FROM accounts WHERE accounts_accountID = " + accountID);
+
+            while (result1.next())
+            {
+                currentBalance = result1.getDouble("balance");
+                if (result1.getString("account_type").equals("Savings"))
+                {
+
+                    if (counter == 0)
+                    {
+
+                        newBalance = currentBalance - amount;
+                        checkSaving = true;
+                        counter++;
+                    } else if (counter > 0)
+                    {
+                        //To protect the saving account above 0, withdrawal interest rate 2 %
+                        if ((amount + (amount * WITHDRAWRATESAVINGSACCOUNT / 100)) > currentBalance)
+                        {
+                            newBalance = currentBalance;
+                            checkSaving = false;
+
+                        } else
+                        {
+                            newBalance = currentBalance - amount - (amount * WITHDRAWRATESAVINGSACCOUNT / 100);
+                            checkSaving = true;
+                        }
+
+                    }
+                } //credit account
+                else
+                {
+                    int creditLimit = -5000;
+                    newBalance = currentBalance - amount;
+
+                    //if the sum is between -5000 and 0
+                    if (newBalance >= creditLimit)
+                    {
+
+                        checkCredit = true;
+                    } //if the sum is above 0
+                    else
+                    {
+                        checkCredit = false;
+                        System.out.println("Kreditgräns -5000");
+                    }
+
+                }
+            }
+
+            ResultSet resultTrans = statement.executeQuery("SELECT max(transaction_Id) FROM transactions ");
+
+            //Updating the transaction in the transaktion and accounts tables in the database for the savingsaccount
+            if (checkSaving)
+            {
+                while (resultTrans.next())
+                {
+                    transactionCounter = resultTrans.getInt("max(transaction_Id)") + 1;
+                    dateFormat2.format(now);
+
+                }
+
+                inOut = "out";
+                statement.executeUpdate("UPDATE accounts SET balance = " + newBalance + " WHERE accounts_accountID = " + accountID);
+                statement.executeUpdate("insert into transactions (transaction_Id,date,amount,account_accounts_accountID, balance_after_tranaction, inout_text) values ("
+                        + transactionCounter + ",'" + date1 + "'," + amount + "," + accountID + "," + newBalance + " ,'out')");
+
+            }
+
+            //Updating the transaction in the the transaktion and accounts tables in the database for the credit account
+            if (checkCredit)
+            {
+                while (resultTrans.next())
+                {
+                    transactionCounter = resultTrans.getInt("max(transaction_Id)") + 1;
+
+                }
+                // String date1 = dateFormat2.format(now);
+                statement.executeUpdate("UPDATE accounts SET balance = " + newBalance + " WHERE accounts_accountID = " + accountID);
+                statement.executeUpdate("insert into transactions (transaction_Id,date,amount,account_accounts_accountID, balance_after_tranaction) values ("
+                        + transactionCounter + ",'" + date1 + "'," + amount + "," + accountID + "," + newBalance + ")");
+                getAllTransactions(accountID).add(new Transaktions(date1, accountID, -Math.round(amount * 100.0) / 100.0, newBalance, "Out"));
+
+            }
+
+        } catch (SQLException ex)
+        {
+            Logger.getLogger(Repository.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return depositMade;
+    }
+
+    public boolean removeCustomer(Long pNr)
+    {
+        boolean deleted = false;
+        try
+        {
+
             String deleteCust = "DELETE FROM customers WHERE personalNumber LIKE ?";
             String deleteCustAcc = "DELETE  FROM accounts WHERE customers_personalNumber LIKE ?";
             PreparedStatement deleteCustAccStm = connection.prepareCall(deleteCustAcc);
             deleteCustAccStm.setLong(1, pNr);
             deleteCustAccStm.executeUpdate();
-            
-            
+
             PreparedStatement deleteCustStm = connection.prepareStatement(deleteCust);
             deleteCustStm.setLong(1, pNr);
             int delCheck = deleteCustStm.executeUpdate();
-            
-            if (delCheck > 0){
+
+            if (delCheck > 0)
+            {
                 deleted = true;
             }
-            
-            
-        } catch (SQLException ex) {
+
+        } catch (SQLException ex)
+        {
             Logger.getLogger(Repository.class.getName()).log(Level.SEVERE, null, ex);
             deleted = false;
         }
-    return deleted;
+        return deleted;
+    }
+
+    public static void main(String[] args)
+    {
+        Repository repo = new Repository();
+        for (Customer c : repo.getAllCustomers())
+        {
+            System.out.println();
+        }
+    }
+
+    public boolean changeCustomerName(String name, long pNr)
+    {
+        Boolean changedName = false;
+        System.out.println("test");
+        try
+            {
+                String updateCustomer = "UPDATE customers SET customerName ='" + name + "' WHERE personalNumber =" + pNr;
+                statement.executeUpdate(updateCustomer);
+                changedName = true;
+
+            }catch (SQLException ex)
+                        {
+                            Logger.getLogger(Repository.class.getName()).log(Level.SEVERE, null, ex);
+                            changedName = false;
+                        }
+                        return changedName;
+
+                    }
 }
-
-
-
-
-public static void main( String [] args ){
-    Repository repo = new Repository();
-    for(Customer c : repo.getAllCustomers())
-        System.out.println();
-}
-
-    
-}
-

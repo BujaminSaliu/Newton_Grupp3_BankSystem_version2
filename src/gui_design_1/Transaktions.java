@@ -89,7 +89,10 @@ public class Transaktions
         return inOut;
     }
 
-
+   public void setInOut(String inOut)
+    {
+        this.inOut = inOut;
+    }
     public String toString2()
     {
         
