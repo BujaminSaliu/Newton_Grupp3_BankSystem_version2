@@ -75,7 +75,14 @@ public class BorderPaneTestController implements Initializable
     @FXML
     private void kontoUtdrag(ActionEvent event) throws Exception
     {
-        // gets the toString-text of customer from customer list view
+if (selectedAccountString == null || selectedCustomerString != null)
+            {
+                returnMessageToOperator.setText("Välj specifikt kund och ett konto");
+            }   
+else 
+{
+    
+// gets the toString-text of customer from customer list view
         selectedAccountString = (String) accountsListView.getSelectionModel().getSelectedItem();
         Long pNr = Long.parseLong(pNrDisplayLabel.getText());
         int accountID;
@@ -107,6 +114,7 @@ public class BorderPaneTestController implements Initializable
                 }
             }
         }
+    }
     }
     
     @FXML
