@@ -133,7 +133,7 @@ public class Repository
             ResultSet result = statement.executeQuery("SELECT * FROM transactions WHERE account_accounts_accountID = " + accountID);
             while (result.next())
             {
-                System.out.println(result.getInt("account_accounts_accountID") + result.getInt("account_accounts_accountID"));
+                System.out.println(result.getInt("account_accounts_accountID"));
                 int transID = result.getInt("account_accounts_accountID");
                 String date = result.getString("date");
                 double amount = result.getDouble("amount");

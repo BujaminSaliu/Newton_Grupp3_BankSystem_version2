@@ -544,7 +544,19 @@ public class BorderPaneTestController implements Initializable
         selectedCustomerString = (String) custumersListView.getSelectionModel().getSelectedItem();
         selectedAccountString = (String) accountsListView.getSelectionModel().getSelectedItem();
         long pNr = 0;
-        double amount = Double.parseDouble(depositWithDrawAmountField.getText());
+        double amount = 0;
+        if (selectedAccountString == null || selectedCustomerString == null){
+        returnMessageToOperator.setText("Please select Account");
+        
+        }else if(depositWithDrawAmountField.getText().isEmpty()){
+        returnMessageToOperator.setText("Please enter a value");
+        }else{
+try{
+            amount = Double.parseDouble(depositWithDrawAmountField.getText());
+        
+}catch(Exception e){
+    returnMessageToOperator.setText("Please enter a valid number");
+    }    
 
         int accountID1 = 1;
         for (int i = 0; i < bankLogic.getAllCustomersArrayList().size(); i++)
@@ -562,7 +574,13 @@ public class BorderPaneTestController implements Initializable
 //                nameDisplayLabel.setText(bankLogic.getAllCustomersArrayList().get(i).getCustomerName());
 //                pNrDisplayLabel.setText(Long.toString(bankLogic.getAllCustomersArrayList().get(i).getPersonalNumber()));
                 accountID1 = bankLogic.getAllAccount(pNr).get(i).getAccountID();
-                if (bankLogic.withdraw(accountID1, amount) == true)
+                if (amount <= 0) {
+                                returnMessageToOperator.setText("Value to low or invalid");
+
+                            } else if (amount > 1000000) {
+                                returnMessageToOperator.setText("Value to high");
+                            }
+                            else if (bankLogic.withdraw(accountID1, amount) == true)
                 {
                     getOnMouseClickedCustListView();
                     getOnMouseClickedAccoutListView();
@@ -580,6 +598,7 @@ public class BorderPaneTestController implements Initializable
 
         }
         transactionsListView.setItems(obListtransaktion);
+        }
                     //System.out.println(repo.getAllTransactions(accountID1).get(repo.getAllTransactions(accountID1).size()-1).toString2());
                 
 //        selectedCustomerString = (String) custumersListView.getSelectionModel().getSelectedItem();
@@ -698,8 +717,18 @@ public class BorderPaneTestController implements Initializable
         selectedCustomerString = (String) custumersListView.getSelectionModel().getSelectedItem();
         selectedAccountString = (String) accountsListView.getSelectionModel().getSelectedItem();
         long pNr = 0;
-        double amount = Double.parseDouble(depositWithDrawAmountField.getText());
-
+        double amount=0;
+        if (selectedAccountString == null || selectedCustomerString == null){
+        returnMessageToOperator.setText("Please select Account");
+        
+        }else if(depositWithDrawAmountField.getText().isEmpty()){
+        returnMessageToOperator.setText("Please enter a value");
+        }else{
+        try{
+            amount = Double.parseDouble(depositWithDrawAmountField.getText());
+        }catch(Exception e){
+        returnMessageToOperator.setText("Please enter a valid value");
+        }
         int accountID1 = 1;
         for (int i = 0; i < bankLogic.getAllCustomersArrayList().size(); i++)
         {
@@ -717,7 +746,7 @@ public class BorderPaneTestController implements Initializable
 //                pNrDisplayLabel.setText(Long.toString(bankLogic.getAllCustomersArrayList().get(i).getPersonalNumber()));
                 accountID1 = bankLogic.getAllAccount(pNr).get(i).getAccountID();
                             if (amount <= 0) {
-                                returnMessageToOperator.setText("Value to low");
+                                returnMessageToOperator.setText("Value to low or invalid");
 
                             } else if (amount > 1000000) {
                                 returnMessageToOperator.setText("Value to high");
@@ -738,6 +767,7 @@ public class BorderPaneTestController implements Initializable
 
         }
         transactionsListView.setItems(obListtransaktion);
+        }
                     //System.out.println(repo.getAllTransactions(accountID1).get(repo.getAllTransactions(accountID1).size()-1).toString2());
                
 
