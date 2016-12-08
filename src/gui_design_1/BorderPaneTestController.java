@@ -73,6 +73,43 @@ public class BorderPaneTestController implements Initializable
     Repository repo = new Repository();
 
     @FXML
+    private void kontoUtdrag(ActionEvent event) throws Exception
+    {
+        // gets the toString-text of customer from customer list view
+        selectedAccountString = (String) accountsListView.getSelectionModel().getSelectedItem();
+        Long pNr = Long.parseLong(pNrDisplayLabel.getText());
+        int accountID;
+        //returnMessageToOperator.setText(" ");
+        for (int i = 0; i < bankLogic.getAllAccount(pNr).size(); i++)
+        {
+            if (bankLogic.getAllAccount(pNr).get(i).toString2().equals(selectedAccountString))
+            {
+                accountID = bankLogic.getAllAccount(pNr).get(i).getAccountID();
+                obListtransaktion.clear();
+                try
+                {
+                    FileWriter out = new FileWriter("KontUtdrag1.txt");
+                    BufferedWriter bw = new BufferedWriter(out);
+                    PrintWriter pw = new PrintWriter(bw);
+                    DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                    Date date = new Date();
+                    pw.println("Listan skapad:" + "\t" + dateFormat.format(date));
+                    for (int j = 0; j < bankLogic.getAllTransactionsArrayList(accountID).size(); j++)
+                    {
+                        System.out.println("test ");
+                        bw.write(bankLogic.getAllTransactionsArrayList(accountID).get(j).toString2());
+                        bw.newLine();
+                    }
+                    bw.close();
+                } catch (IOException ex)
+                {
+                    returnMessageToOperator.setText("Filen korrupt eller skrivskyddad! ");
+                }
+            }
+        }
+    }
+    
+    @FXML
     public final void getOnMouseClickedCustListView()
     {
         transactionsListView.getItems().clear();

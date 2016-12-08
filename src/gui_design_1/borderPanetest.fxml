@@ -169,6 +169,7 @@
                                              </font>
                                           </Label>
                                           <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="28.0" opacity="0.11" stroke="BLACK" strokeType="INSIDE" width="88.0" AnchorPane.leftAnchor="0.0" />
+                                          <Button layoutX="14.0" layoutY="38.0" mnemonicParsing="false" onAction="#kontoUtdrag" text="Kontoutdrag till fil" AnchorPane.bottomAnchor="150.0" AnchorPane.leftAnchor="12.0" AnchorPane.rightAnchor="341.0" AnchorPane.topAnchor="38.0" />
                                        </children>
                                        <effect>
                                           <InnerShadow height="9.14" radius="4.07" width="9.14" />
