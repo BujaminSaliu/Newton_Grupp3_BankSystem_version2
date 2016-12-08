@@ -564,8 +564,8 @@ public class Repository
                 }
                 // String date1 = dateFormat2.format(now);
                 statement.executeUpdate("UPDATE accounts SET balance = " + newBalance + " WHERE accounts_accountID = " + accountID);
-                statement.executeUpdate("insert into transactions (transaction_Id,date,amount,account_accounts_accountID, balance_after_tranaction) values ("
-                        + transactionCounter + ",'" + date1 + "'," + amount + "," + accountID + "," + newBalance + ")");
+                statement.executeUpdate("insert into transactions (transaction_Id,date,amount,account_accounts_accountID, balance_after_tranaction, inout_text) values ("
+                        + transactionCounter + ",'" + date1 + "'," + amount + "," + accountID + "," + newBalance + " ,'out')");
                 getAllTransactions(accountID).add(new Transaktions(date1, accountID, -Math.round(amount * 100.0) / 100.0, newBalance, "Out"));
 
             }
