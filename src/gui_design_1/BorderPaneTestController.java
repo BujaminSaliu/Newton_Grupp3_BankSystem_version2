@@ -716,7 +716,12 @@ public class BorderPaneTestController implements Initializable
 //                nameDisplayLabel.setText(bankLogic.getAllCustomersArrayList().get(i).getCustomerName());
 //                pNrDisplayLabel.setText(Long.toString(bankLogic.getAllCustomersArrayList().get(i).getPersonalNumber()));
                 accountID1 = bankLogic.getAllAccount(pNr).get(i).getAccountID();
-                if (bankLogic.deposit(accountID1, amount) == true)
+                            if (amount <= 0) {
+                                returnMessageToOperator.setText("Value to low");
+
+                            } else if (amount > 1000000) {
+                                returnMessageToOperator.setText("Value to high");
+                            }else if (bankLogic.deposit(accountID1, amount) == true)
                 {
                     getOnMouseClickedCustListView();
                     getOnMouseClickedAccoutListView();
