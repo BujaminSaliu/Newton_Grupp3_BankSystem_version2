@@ -42,7 +42,6 @@ public class Repository
     DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
     DateFormat dateFormat2 = new SimpleDateFormat("yyyy-MM-dd");
     Date now = new Date();
-    private int counter = 0;
     public List<Transaktions> repositTransList;
     String date1 = dateFormat2.format(now);
     private final double WITHDRAWRATESAVINGSACCOUNT = 2;
@@ -383,8 +382,9 @@ public class Repository
         return depositMade;
     }
 
-    public boolean withdraw(int accountID, double amount)
+    public boolean withdraw(int accountID, double amount) throws SQLException
     {
+        
         double currentBalance = 0;
         double newBalance = 0;
         boolean depositMade = false;
@@ -399,17 +399,19 @@ public class Repository
 
             while (result1.next())
             {
+                int freeOrNot = result1.getInt("firstFreeWithDrawDone"); 
                 currentBalance = result1.getDouble("balance");
                 if (result1.getString("account_type").equals("Savings"))
                 {
 
-                    if (counter == 0)
+                    if (freeOrNot == 0)
                     {
-
+                        
                         newBalance = currentBalance - amount;
                         checkSaving = true;
-                        counter++;
-                    } else if (counter > 0)
+                        
+                        
+                    } else if (freeOrNot > 0)
                     {
                         //To protect the saving account above 0, withdrawal interest rate 2 %
                         if ((amount + (amount * WITHDRAWRATESAVINGSACCOUNT / 100)) > currentBalance)
@@ -443,7 +445,11 @@ public class Repository
                     }
 
                 }
+                
             }
+            
+            statement.executeUpdate("UPDATE accounts SET firstFreeWithDrawDone = 1 " + " WHERE accounts_accountID = " + accountID); // UTKOMMENTERAD TILLS VIDARE
+            
 
             ResultSet resultTrans = statement.executeQuery("SELECT max(transaction_Id) FROM transactions ");
 
@@ -484,6 +490,8 @@ public class Repository
         {
             Logger.getLogger(Repository.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
+        
 
         return depositMade;
     }
