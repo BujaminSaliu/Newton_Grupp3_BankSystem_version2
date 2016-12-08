@@ -51,8 +51,6 @@ public class BankLogic
         // return allCustomersArrayList;
         return bankLogicRepository.getAllTransactions(accountID);
     }
-    
-    
 
     /**
      * Returns all allCustomersArrayList of the bank(Personal number and name)

@@ -180,7 +180,7 @@ else
 
     }
 
-    @FXML
+     @FXML
     private void addCustomerButton(ActionEvent event) throws Exception
     {
 
@@ -190,7 +190,7 @@ else
         } else if (pNrTextField.getText().length() > 12 || pNrTextField.getText().length() < 12)
         {
             returnMessageToOperator.setText("Du måste fylla i 12 siffror!");
-        } else if (nameTextField.getText().matches(".*[0-9*@!#¤%&/()=?`+].*"))
+        } else if (!nameTextField.getText().matches("^[A-zåäöÅÄÖ-]+$"))
         {
             returnMessageToOperator.setText("Namn får endast bestå av bokstäver!");
         } else
@@ -216,9 +216,11 @@ else
 
             nameTextField.clear();
             pNrTextField.clear();
+            returnMessageToOperator.setText("");
 
         }
     }
+
 
     @FXML
     private void findCustumerButton(ActionEvent event) throws Exception
@@ -253,13 +255,14 @@ else
     private void changeCustumerNameButton(ActionEvent event) throws Exception
     {
         String name = nameChange.getText();
+        
         Long personalNumber;
         try
         {
             if (nameChange.getText().isEmpty())
             {
                 returnMessageToOperator.setText("Välj kund och ange nytt namn");
-            } else if (nameChange.getText().matches(".*[0-9*@!#¤%&/()=?`+].*"))
+            } else if (!nameChange.getText().matches("^[A-zåäöÅÄÖ-]+$"))
             {
                 returnMessageToOperator.setText("Namn får endast bestå av bokstäver!");
             } else
@@ -275,6 +278,7 @@ else
                             returnMessageToOperator.setText("Kundens namn ändrades till: " + name);
                             nameChange.clear();
                             nameDisplayLabel.setText(name);
+                            returnMessageToOperator.setText("");
                             
 
                 }
@@ -285,6 +289,7 @@ else
         }
 
     }
+
 
     @FXML
     private void removeCustomersButton(ActionEvent event) throws Exception
