@@ -62,7 +62,7 @@ public class Repository
         {
             System.out.println(ex.getMessage());
             System.out.println("Fel i Connection till Databas");
-            //Logger.getLogger(DBConnection.class.getName()).log(Level.SEVERE, null, ex);
+            
         }
     }
 
@@ -132,14 +132,14 @@ public class Repository
             ResultSet result = statement.executeQuery("SELECT * FROM transactions WHERE account_accounts_accountID = " + accountID);
             while (result.next())
             {
-                System.out.println(result.getInt("account_accounts_accountID"));
+                
                 int transID = result.getInt("account_accounts_accountID");
                 String date = result.getString("date");
                 double amount = result.getDouble("amount");
                 int accounts_accountID = result.getInt("account_accounts_accountID");
                 double balance_after = result.getDouble("balance_after_tranaction");
                 inOut = result.getString("inout_text");
-                System.out.println("inout_text " + inOut);
+                
                
                 Transaktions t = new Transaktions(date, accounts_accountID, amount, Math.round(balance_after * 100.0) / 100.0, inOut);
 
@@ -314,7 +314,7 @@ public class Repository
     {
 
         boolean closed = false;
-        System.out.println(pNr + " " + accountId);
+        
         try
         {
             PreparedStatement closeAccount = connection.prepareStatement("DELETE FROM Accounts WHERE accounts_accountID LIKE ? AND customers_personalNumber LIKE ?");
@@ -328,7 +328,7 @@ public class Repository
         {
 
             e.getMessage();
-            System.out.println("Lyckades inte ta bort kontot!");
+            
             closed = false;
         }
 
@@ -355,7 +355,7 @@ public class Repository
                 check = true;
             }
 
-            System.out.println("DETTA är datestring " + dateFormat2.format(now));
+            
             statement.executeUpdate("UPDATE accounts SET balance = " + newBalance + " WHERE accounts_accountID = " + accountID);
 
             //ResultSet resultTrans = statement.executeQuery("SELECT max(transaction_Id) FROM transactions WHERE account_accounts_accountID = " + accountID);
@@ -463,10 +463,10 @@ public class Repository
 
                 }
 
-                inOut = "out";
+                inOut = "ut";
                 statement.executeUpdate("UPDATE accounts SET balance = " + newBalance + " WHERE accounts_accountID = " + accountID);
                 statement.executeUpdate("insert into transactions (transaction_Id,date,amount,account_accounts_accountID, balance_after_tranaction, inout_text) values ("
-                        + transactionCounter + ",'" + date1 + "'," + amount + "," + accountID + "," + newBalance + " ,'out')");
+                        + transactionCounter + ",'" + date1 + "'," + amount + "," + accountID + "," + newBalance + " ,'ut')");
 
             }
 
@@ -482,7 +482,7 @@ public class Repository
                 statement.executeUpdate("UPDATE accounts SET balance = " + newBalance + " WHERE accounts_accountID = " + accountID);
                 statement.executeUpdate("insert into transactions (transaction_Id,date,amount,account_accounts_accountID, balance_after_tranaction, inout_text) values ("
                         + transactionCounter + ",'" + date1 + "'," + amount + "," + accountID + "," + newBalance + " ,'out')");
-                getAllTransactions(accountID).add(new Transaktions(date1, accountID, -Math.round(amount * 100.0) / 100.0, newBalance, "Out"));
+                getAllTransactions(accountID).add(new Transaktions(date1, accountID, -Math.round(amount * 100.0) / 100.0, newBalance, "ut"));
 
             }
 
@@ -525,19 +525,9 @@ public class Repository
         return deleted;
     }
 
-    public static void main(String[] args)
-    {
-        Repository repo = new Repository();
-        for (Customer c : repo.getAllCustomers())
-        {
-            System.out.println();
-        }
-    }
-
     public boolean changeCustomerName(String name, long pNr)
     {
         Boolean changedName = false;
-        System.out.println("test");
         try
             {
                 String updateCustomer = "UPDATE customers SET customerName ='" + name + "' WHERE personalNumber =" + pNr;
