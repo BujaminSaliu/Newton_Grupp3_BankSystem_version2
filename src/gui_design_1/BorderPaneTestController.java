@@ -173,8 +173,10 @@ public class BorderPaneTestController implements Initializable {
         } else if (!nameTextField.getText().matches("^[A-zåäöÅÄÖ-]+$")) {
             returnMessageToOperator.setText("Namn får endast bestå av bokstäver!");
         } 
+        //ta bort eventuella bindesträck så att både ååååmmdd-xxxx och ååååmmddxxxx fungerar
         String personNummer = pNrTextField.getText();
         personNummer = personNummer.replaceAll("-", "").trim();
+        //anropa personnummerkollen i klassen KorrektPersonNummer
         if (!KorrektPersonNummer.nummerValidering1(personNummer)) {
             returnMessageToOperator.setText(KorrektPersonNummer.nummerValidering2(pNrTextField.getText()));
         }else if (!KorrektPersonNummer.datumValidering1(personNummer)) {	
@@ -182,6 +184,7 @@ public class BorderPaneTestController implements Initializable {
         } else if(!KorrektPersonNummer.checkNumber1(personNummer)){
             returnMessageToOperator.setText("Personnummer stämmer inte med kontrollsiffran");
         } else {
+            //lägga till kund
             try {
                 boolean add = bankLogic.addCustomer(nameTextField.getText(), Long.parseLong(pNrTextField.getText()));
 
