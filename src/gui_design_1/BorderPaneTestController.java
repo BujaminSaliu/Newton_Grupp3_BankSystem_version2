@@ -366,7 +366,7 @@ public class BorderPaneTestController implements Initializable {
                     
                      if (bankLogic.getAllAccount(pNr).get(i).getAccountType().matches("Savings") ) {
                        if (repo.withdraw(accountID1, amount) == false) {
-                        returnMessageToOperator.setText("Du har inte tillräckligt pengar!");
+                        returnMessageToOperator.setText("Du har inte tillräckligt med pengar!");
                         break;
                        }
                                               
