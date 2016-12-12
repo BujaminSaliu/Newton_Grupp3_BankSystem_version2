@@ -73,7 +73,7 @@ public class BorderPaneTestController implements Initializable {
 
     @FXML
     private void kontoUtdrag(ActionEvent event) throws Exception {
-        if (selectedAccountString == null || selectedCustomerString != null) {
+        if (selectedAccountString == null || selectedCustomerString == null) {
             returnMessageToOperator.setText("Välj specifik kund och ett konto.");
         } else {
 
@@ -85,9 +85,10 @@ public class BorderPaneTestController implements Initializable {
             for (int i = 0; i < bankLogic.getAllAccount(pNr).size(); i++) {
                 if (bankLogic.getAllAccount(pNr).get(i).toString2().equals(selectedAccountString)) {
                     accountID = bankLogic.getAllAccount(pNr).get(i).getAccountID();
-                    obListtransaktion.clear();
+                    returnMessageToOperator.setText("Listan har skrivits till en textfil.");
+                    
                     try {
-                        FileWriter out = new FileWriter("KontUtdrag1.txt");
+                        FileWriter out = new FileWriter("KontoUtdrag.txt");
                         BufferedWriter bw = new BufferedWriter(out);
                         PrintWriter pw = new PrintWriter(bw);
                         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
