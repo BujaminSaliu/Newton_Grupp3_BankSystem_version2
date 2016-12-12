@@ -344,12 +344,7 @@ public class BorderPaneTestController implements Initializable {
         } else {
             try {
                 amount = Double.parseDouble(depositWithDrawAmountField.getText());
-
-            } catch (Exception e) {
-                returnMessageToOperator.setText("Vänligen ange ett giltigt nummer.");
-            }
-
-            int accountID1 = 1;
+                int accountID1 = 1;
             for (int i = 0; i < bankLogic.getAllCustomersArrayList().size(); i++) {
                 if (selectedCustomerString.equals(bankLogic.getAllCustomersArrayList().get(i).toString2())) {
                     pNr = bankLogic.getAllCustomersArrayList().get(i).getPersonalNumber();
@@ -358,13 +353,31 @@ public class BorderPaneTestController implements Initializable {
             for (int i = 0; i < bankLogic.getAllAccount(pNr).size(); i++) {
                 if (bankLogic.getAllAccount(pNr).get(i).toString2().equals(selectedAccountString)) {
 
+                     
                     accountID1 = bankLogic.getAllAccount(pNr).get(i).getAccountID();
+                    
+                    if (bankLogic.getAllAccount(pNr).get(i).getAccountType().matches("Credit") ) {
+                       if (repo.withdraw(accountID1, amount) == false) {
+                        returnMessageToOperator.setText("Överskriden kreditgräns!");
+                        break;
+                       }
+                                              
+                    }
+                    
+                     if (bankLogic.getAllAccount(pNr).get(i).getAccountType().matches("Savings") ) {
+                       if (repo.withdraw(accountID1, amount) == false) {
+                        returnMessageToOperator.setText("Du har inte tillräckligt pengar!");
+                        break;
+                       }
+                                              
+                    }
                     if (amount <= 0) {
                         returnMessageToOperator.setText("Värdet är för lågt eller felaktigt.");
 
                     } else if (amount > 1000000) {
                         returnMessageToOperator.setText("Värdet för högt!");
-                    } else if (bankLogic.withdraw(accountID1, amount) == true) {
+                    } 
+                    else if (bankLogic.withdraw(accountID1, amount) == true) {
                         getOnMouseClickedCustListView();
                         getOnMouseClickedAccoutListView();
 
@@ -375,10 +388,16 @@ public class BorderPaneTestController implements Initializable {
                         }
 
                     }
-
+                    
                 }
 
             }
+
+            } catch (Exception e) {
+                returnMessageToOperator.setText("Vänligen ange ett giltigt nummer.");
+            }
+
+            
             transactionsListView.setItems(obListtransaktion);
         }
 

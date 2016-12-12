@@ -406,9 +406,16 @@ public class Repository
 
                     if (freeOrNot == 0)
                     {
-                        
+                        if(currentBalance == 0)
+                        {
+                            newBalance = currentBalance;
+                             depositMade = false;
+                        }
+                        else
+                        {
                         newBalance = currentBalance - amount;
                         checkSaving = true;
+                        }
                         
                         
                     } else if (freeOrNot > 0)
@@ -441,7 +448,8 @@ public class Repository
                     else
                     {
                         checkCredit = false;
-                        System.out.println("Kreditgräns -5000");
+                        depositMade = false;
+//                        System.out.println("Kreditgräns -5000");
                     }
 
                 }
@@ -485,6 +493,8 @@ public class Repository
                 getAllTransactions(accountID).add(new Transaktions(date1, accountID, -Math.round(amount * 100.0) / 100.0, newBalance, "ut"));
 
             }
+            else
+                depositMade = false;
 
         } catch (SQLException ex)
         {
