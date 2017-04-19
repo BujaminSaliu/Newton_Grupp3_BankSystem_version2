@@ -358,27 +358,17 @@ public class BorderPaneTestController implements Initializable {
                     accountID1 = bankLogic.getAllAccount(pNr).get(i).getAccountID();
                     
                     if (bankLogic.getAllAccount(pNr).get(i).getAccountType().matches("Credit") ) {
-                       if (repo.withdraw(accountID1, amount) == false) {
-                        returnMessageToOperator.setText("Överskriden kreditgräns!");
-                        break;
-                       }
-                                              
-                    }
-                    
-                     if (bankLogic.getAllAccount(pNr).get(i).getAccountType().matches("Savings") ) {
-                       if (repo.withdraw(accountID1, amount) == false) {
-                        returnMessageToOperator.setText("Du har inte tillräckligt med pengar!");
-                        break;
-                       }
-                                              
-                    }
-                    if (amount <= 0) {
+                        
+                   if (amount <= 0) {
                         returnMessageToOperator.setText("Värdet är för lågt eller felaktigt.");
 
                     } else if (amount > 1000000) {
                         returnMessageToOperator.setText("Värdet för högt!");
                     } 
-                    else if (bankLogic.withdraw(accountID1, amount) == true) {
+                    else {
+                        
+                    
+                        if (bankLogic.withdraw(accountID1, amount)) {
                         getOnMouseClickedCustListView();
                         getOnMouseClickedAccoutListView();
 
@@ -389,7 +379,52 @@ public class BorderPaneTestController implements Initializable {
                         }
 
                     }
+                        //to show the message if there is no enough money in the account
+                        else{
+                            returnMessageToOperator.setText("Överskriden kreditgräns!");
+                            break;
+                        }
+                    }
+                        
+                        
+                      /* if (repo.withdraw(accountID1, amount) == false) {
+                        returnMessageToOperator.setText("Överskriden kreditgräns!");
+                        break;
+                       }*/
+                                              
+                    }
                     
+                    //Saving account
+                     if (bankLogic.getAllAccount(pNr).get(i).getAccountType().matches("Savings") ) {
+                                             
+                    
+                    if (amount <= 0) {
+                        returnMessageToOperator.setText("Värdet är för lågt eller felaktigt.");
+
+                    } else if (amount > 1000000) {
+                        returnMessageToOperator.setText("Värdet för högt!");
+                    } 
+                    else {
+                        
+                    
+                        if (bankLogic.withdraw(accountID1, amount) == true) {
+                        getOnMouseClickedCustListView();
+                        getOnMouseClickedAccoutListView();
+
+                        //To show the specific account's transaction in the transaction ListView
+                        for (int k = 0; k < repo.getAllTransactions(accountID1).size(); k++) {
+                            obListtransaktion.add(repo.getAllTransactions(accountID1).get(k).toString2());
+
+                        }
+
+                    }
+                        //to show the message if there is no enough money in the account
+                        else{
+                            returnMessageToOperator.setText("Du har inte tillräckligt med pengar!");
+                            break;
+                        }
+                    }
+                  }  
                 }
 
             }
