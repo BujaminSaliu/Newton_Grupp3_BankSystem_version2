@@ -384,7 +384,7 @@ public class Repository
 
     public boolean withdraw(int accountID, double amount) throws SQLException
     {
-        
+
         double currentBalance = 0;
         double newBalance = 0;
         boolean depositMade = false;
@@ -396,7 +396,7 @@ public class Repository
         {
 
             ResultSet result1 = statement.executeQuery("SELECT * FROM accounts WHERE accounts_accountID = " + accountID);
-
+            
             while (result1.next())
             {
                 int freeOrNot = result1.getInt("firstFreeWithDrawDone"); // Check the value in column "firstFreeWithDrawDone" from the database 
