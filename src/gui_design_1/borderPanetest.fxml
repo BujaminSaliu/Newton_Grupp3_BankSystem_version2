@@ -83,13 +83,13 @@
                         </AnchorPane>
                       <AnchorPane maxHeight="-Infinity" minHeight="28.0" minWidth="0.0" prefHeight="150.0" prefWidth="160.0">
                            <children>
-                              <Button fx:id="addCustomerButton" layoutX="58.0" layoutY="110.0" mnemonicParsing="false" onAction="#addCustomerButton" prefHeight="31.0" prefWidth="147.0" text="Lägg till kund" AnchorPane.leftAnchor="58.0" AnchorPane.topAnchor="110.0" />
-                              <TextField fx:id="pNrTextField" layoutX="58.0" layoutY="74.0" pickOnBounds="false" prefHeight="28.0" prefWidth="147.0" promptText="Personnummer" AnchorPane.leftAnchor="59.0" AnchorPane.topAnchor="74.0">
+                              <Button fx:id="addCustomerButton" layoutX="72.0" layoutY="110.0" mnemonicParsing="false" onAction="#addCustomerButton" prefHeight="31.0" prefWidth="147.0" text="Lägg till kund" AnchorPane.leftAnchor="72.0" AnchorPane.topAnchor="110.0" />
+                              <TextField fx:id="pNrTextField" layoutX="58.0" layoutY="74.0" pickOnBounds="false" prefHeight="31.0" prefWidth="177.0" promptText="Personnummer" AnchorPane.leftAnchor="59.0" AnchorPane.topAnchor="74.0">
                                  <effect>
                                     <InnerShadow height="9.14" radius="1.7850000000000001" width="0.0" />
                                  </effect>
                               </TextField>
-                              <TextField fx:id="nameTextField" layoutX="59.0" layoutY="40.0" prefHeight="25.0" prefWidth="147.0" promptText="Namn" AnchorPane.leftAnchor="59.0" AnchorPane.topAnchor="40.0">
+                              <TextField fx:id="nameTextField" layoutX="59.0" layoutY="40.0" prefHeight="31.0" prefWidth="177.0" promptText="Förnamn och efternamn" AnchorPane.leftAnchor="59.0" AnchorPane.topAnchor="40.0">
                                  <effect>
                                     <InnerShadow height="18.03" radius="4.0075" width="0.0" />
                                  </effect>
